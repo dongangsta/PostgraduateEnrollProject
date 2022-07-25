@@ -33,4 +33,10 @@ public class College implements Serializable {
         return Objects.hash(collegeId, collegeName, collegeArea, collegeIntro, collegeNet);
     }
 
+    public College(String collegeName, String collegeArea, String collegeIntro, String collegeNet) {
+        this.collegeName = collegeName;
+        this.collegeArea = collegeArea;
+        this.collegeIntro = collegeIntro;
+        this.collegeNet = collegeNet;
+    }
 }

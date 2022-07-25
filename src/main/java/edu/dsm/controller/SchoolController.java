@@ -27,8 +27,7 @@ public class SchoolController {
      */
     @GetMapping(value = "SchoolMaintain")
     public String SchoolsMaintain(Model model){
-        List<School> schoolList = schoolService.getAll();
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList",schoolService.getAll());
         return "admin_maintain_school";
     }
 
@@ -40,8 +39,7 @@ public class SchoolController {
      */
     @GetMapping("toUserShowSchool")        // 进入用户首页
     public String toUserShowSchool(Model model) {
-        List<School> schoolList = schoolService.getAll();
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList",schoolService.getAll());
         return "user_show_school";
     }
 
@@ -81,6 +79,7 @@ public class SchoolController {
             int cnt  = schoolService.addSchool(school);
             System.out.println(cnt);
         }else {
+            System.setProperty("java.awt.headless", "false");
             JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
         }
         return null;
@@ -96,8 +95,7 @@ public class SchoolController {
     @PostMapping(value = "deleteBatchSchools")    //  删除院系招生信息
     public String deleteBatchSchools(Model model,Integer [] ids ){
         int cnt  = schoolService.deleteBatchSchools(ids);
-        List<School> schoolList = schoolService.getAll();
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList",schoolService.getAll());
         return "admin_maintain_school";
     }
 
@@ -109,8 +107,7 @@ public class SchoolController {
      */
     @GetMapping("toUserShowTwoSchool")
     public String toUserShowTwoSchool(Model model) {
-        List<School> schoolList = schoolService.getAll();
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList",schoolService.getAll());
         return "user_show_two_school";
     }
 
@@ -124,8 +121,7 @@ public class SchoolController {
      */
     @PostMapping (value ="compareTwoSchools")        // 对比查询
     public String compareTwoSchools(Model model,String school1,String school2) {
-        List<School> schoolList = schoolService.selectTwoSchools(school1,school2);
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("schoolList",schoolService.selectTwoSchools(school1,school2));
         return "user_show_two_school";
     }
 

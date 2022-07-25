@@ -31,8 +31,7 @@ public class CollegeController {
      */
     @GetMapping(value = "CollegeMaintain")     //  进入用户权限管理页面
     public String collegeMaintain(Model model){
-        List<College> collegeList = collegeService.getAll();
-        model.addAttribute("collegeList",collegeList);
+        model.addAttribute("collegeList",collegeService.getAll());
         return "admin_maintain_college";
     }
 
@@ -45,10 +44,8 @@ public class CollegeController {
      */
     @GetMapping("toShowCollege")        // 进入院校主页
     public String toShowCollege(Model model, String collegeName) {
-        College college = collegeService.selectByName(collegeName);
-        List<School> schoolList = schoolService.selectBySchoolName(collegeName);
-        model.addAttribute("college",college);
-        model.addAttribute("schoolList",schoolList);
+        model.addAttribute("college",collegeService.selectByName(collegeName));
+        model.addAttribute("schoolList",schoolService.selectBySchoolName(collegeName));
         return "user_show_college";
     }
 
@@ -86,42 +83,41 @@ public class CollegeController {
     @ResponseBody
     @RequestMapping(value = "addCollege",method = RequestMethod.GET)   //  添加院校
     public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
-        College college = new College(1,collegeName,collegeArea,collegeIntro,collegeNet);
-        if (!ObjectUtils.isEmpty(college.getCollegeName())){
+        College college = new College(collegeName,collegeArea,collegeIntro,collegeNet);
+        if (!ObjectUtils.isEmpty(college)){
             int cnt  = collegeService.addCollege(college);
             System.out.println(cnt);
         }else {
+            System.setProperty("java.awt.headless", "false");
             JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
         }
         return null;
     }
 
     /**
-     * Show college upadate string.
+     * 进入对应的院校信息修改页面
      *
-     * @param collegeId the college id
-     * @param model     the model
+     * @param collegeId 院校Id
+     * @param model     model
      * @return the string
      */
     @GetMapping(value = "showCollegeMod")
     public String showCollegeUpadate(Integer collegeId,Model model){
-        College college = collegeService.selectById(collegeId);
-        model.addAttribute("college",college);
+        model.addAttribute("college",collegeService.selectById(collegeId));
         return "admin_mod_college";
     }
 
     /**
-     * Delete batch colleges string.
+     * 删除院系招生信息
      *
      * @param model the model
      * @param ids   the ids
      * @return the string
      */
-    @PostMapping(value = "deleteBatchColleges")    //  删除院系招生信息
+    @PostMapping(value = "deleteBatchColleges")
     public String deleteBatchColleges(Model model,Integer [] ids ){
         int cnt  = collegeService.deleteBatchColleges(ids);
-        List<College> collegeList = collegeService.getAll();
-        model.addAttribute("collegeList",collegeList);
+        model.addAttribute("collegeList",collegeService.getAll());
         return "admin_maintain_college";
     }
 }
