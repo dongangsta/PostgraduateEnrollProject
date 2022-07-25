@@ -1,13 +1,12 @@
 package edu.dsm.controller;
 
 import edu.dsm.entity.po.Article;
-import edu.dsm.entity.vo.ArticleForShow;
 import edu.dsm.entity.po.User;
+import edu.dsm.entity.vo.ArticleForShow;
 import edu.dsm.service.ArticleService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.GreenTextUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +19,9 @@ import java.util.List;
 
 @Controller
 public class ArticleController {
-    @Autowired
+    @Resource
     private ArticleService articleService;
-    @Autowired
+    @Resource
     private UserService userService;
     @Resource
     GreenTextUtils greenTextUtils;
@@ -30,7 +29,7 @@ public class ArticleController {
     @GetMapping(value = "ArticleMaintain")
     public String showNews(Model model){
         List<Article> articleList= articleService.getAll();
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             User author = userService.getOneById(article.getAuthorId());
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),author.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
@@ -49,7 +48,7 @@ public class ArticleController {
     @ResponseBody
     public List<ArticleForShow> artilcesData(Model model) {
         List<Article> articleList = articleService.getAll();
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
 
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),userService.getOneById(article.getAuthorId()).getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
@@ -79,7 +78,7 @@ public class ArticleController {
     @ResponseBody
     public List<ArticleForShow> articleData(Model model,String collegeName){
         List<Article> articleList = articleService.selectByCollegeName(collegeName);
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),"dong1",article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
             showList.add(articleForShow);
@@ -118,9 +117,6 @@ public class ArticleController {
                 }
             }
         }
-
-
-
         return null;
     }
 
@@ -128,7 +124,7 @@ public class ArticleController {
     public String deleteBatchArticles(Model model,Integer [] ids ){
         int cnt  = articleService.deleteBatchArticles(ids);
         List<Article> articleList= articleService.getAll();
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),"dong1",article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
             showList.add(articleForShow);
@@ -148,7 +144,7 @@ public class ArticleController {
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
         List<Article> articleList= articleService.selectByUserId(user.getUserId());
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),user.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
             showList.add(articleForShow);
@@ -167,7 +163,7 @@ public class ArticleController {
         String hisName = CookieUtil.getCookieHisName(request);
         User him = userService.getByUserName(hisName);
         List<Article> articleList= articleService.selectByUserId(him.getUserId());
-        List<ArticleForShow> showList = new ArrayList<ArticleForShow>();
+        List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),him.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
             showList.add(articleForShow);

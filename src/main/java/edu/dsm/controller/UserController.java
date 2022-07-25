@@ -6,11 +6,11 @@ import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.Md5;
 import edu.dsm.util.Recommend;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
+    @Resource
     private UserService userService;
 
     @GetMapping("/")        // 进入首页
@@ -32,9 +32,9 @@ public class UserController {
         User user = userService.getByUserName(userName);
         Md5 md5 = new Md5();
         userPassword = md5.string2MD5(userPassword);
-        if (user==null||user.getUserPassword().equals(userPassword) != true){
+        if (user==null|| !user.getUserPassword().equals(userPassword)){
             System.out.println("账号密码不正确");
-            return "fail";}
+            }
         Cookie cookie1 = new Cookie("userName", userName.trim());
         cookie1.setMaxAge(120 * 60);// 设置为120min
         cookie1.setPath("/");

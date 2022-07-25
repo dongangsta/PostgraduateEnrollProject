@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -19,11 +20,11 @@ import java.util.List;
 
 @Controller
 public class MyLikeController {
-    @Autowired
+    @Resource
     private MyLikeService myLikeService;
-    @Autowired
+    @Resource
     private CollegeService collegeService;
-    @Autowired
+    @Resource
     private UserService userService;
     @GetMapping("likeCollege")        // 添加意向院校
     public String likeCollege(Model model, String collegeName, HttpServletRequest request) {

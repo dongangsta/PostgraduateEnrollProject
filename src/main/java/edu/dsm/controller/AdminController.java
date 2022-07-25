@@ -3,18 +3,18 @@ package edu.dsm.controller;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import edu.dsm.util.Md5;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.annotation.Resource;
 import javax.swing.*;
 import java.util.List;
 
 @Controller
 public class AdminController {
-    @Autowired
+    @Resource
     private UserService userService;
 
     @GetMapping("admin")        // 进入后台管理登陆页

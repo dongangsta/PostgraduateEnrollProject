@@ -2,17 +2,17 @@ package edu.dsm.controller;
 
 import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class SchoolController {
-    @Autowired
+    @Resource
     private SchoolService schoolService;
 
     @GetMapping(value = "SchoolMaintain")
@@ -36,7 +36,7 @@ public class SchoolController {
 
     @ResponseBody
     @RequestMapping(value = "addSchool",method = RequestMethod.POST)   //  添加院系招生信息
-    public String addUser(Model model,String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
+    public String addUser(String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
         School school = new School(10086,province,schoolName,collegeName,specialtyName,
                 averageScore,score21,score20,score19,mathSubject,englishSubject,majorSubject);
         if(school!=null){

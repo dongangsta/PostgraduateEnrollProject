@@ -2,23 +2,20 @@ package edu.dsm.controller;
 
 import edu.dsm.entity.po.College;
 import edu.dsm.entity.po.School;
-import edu.dsm.service.ArticleService;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
 public class CollegeController {
-    @Autowired
+    @Resource
     private CollegeService collegeService;
-    @Autowired
-    private ArticleService articleService;
-    @Autowired
+    @Resource
     private SchoolService schoolService;
 
     @GetMapping(value = "CollegeMaintain")     //  进入用户权限管理页面
@@ -51,7 +48,7 @@ public class CollegeController {
 
     @ResponseBody
     @RequestMapping(value = "addCollege",method = RequestMethod.GET)   //  添加院校
-    public String addCollege(Model model,String collegeName,String collegeArea,String collegeIntro,String collegeNet){
+    public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
         College college = new College(1,collegeName,collegeArea,collegeIntro,collegeNet);
         if(college!=null){
             int cnt  = collegeService.addCollege(college);

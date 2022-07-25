@@ -7,22 +7,22 @@ import edu.dsm.service.CollegeService;
 import edu.dsm.service.MessageService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MessageController {
-    @Autowired
+    @Resource
     CollegeService collegeService;
-    @Autowired
+    @Resource
     MessageService messageService;
-    @Autowired
+    @Resource
     UserService userService;
 
     @GetMapping("toShowMyMessage")        // 查看留言板
