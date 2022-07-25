@@ -27,7 +27,7 @@ public class AdminController {
         User user = userService.getAdminByUserName(userName);
         Md5 md5 = new Md5();
         String adminPassword = md5.string2MD5(password);
-        if (user==null||user.getUserPassword().equals(adminPassword) != true) {
+        if (user == null || !user.getUserPassword().equals(adminPassword)) {
             System.setProperty("java.awt.headless", "false");
             JOptionPane.showMessageDialog(null,"您输入的用户名不存在或密码错误!","访问数据库失败",JOptionPane.PLAIN_MESSAGE);
             return "admin_login";    //再次返回到登录页面
@@ -53,8 +53,10 @@ public class AdminController {
     public String turnToAdmin(int userId) {
         User user = userService.getOneById(userId);
         if (user != null){
-            if (user.getAdminOrNot()!=1) {int cnt = userService.turnToAdmin(userId);}
-            else  {int cnt = userService.turnToUser(userId);}
+            if (user.getAdminOrNot()!=1) {int cnt = userService.turnToAdmin(userId);
+                System.out.println(cnt+"个用户已成为管理员");}
+            else  {int cnt = userService.turnToUser(userId);
+                System.out.println(cnt+"个用户已成为普通用户");}
         }
         return "redirect:UserPowerMaintain";
     }
