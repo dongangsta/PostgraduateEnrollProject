@@ -51,11 +51,10 @@ public class MessageController {
     /**
      * To add message string.
      *
-     * @param model the model
      * @return the string
      */
     @GetMapping("toAddMessage") //  进入留言页面
-    public String toAddMessage(Model model){
+    public String toAddMessage(){
         return "user_add_message";
     }
 
