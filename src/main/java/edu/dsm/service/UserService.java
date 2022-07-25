@@ -1,7 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.UserDao;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

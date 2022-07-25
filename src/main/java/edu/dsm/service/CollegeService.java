@@ -1,7 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.CollegeDao;
-import edu.dsm.entity.College;
+import edu.dsm.entity.po.College;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

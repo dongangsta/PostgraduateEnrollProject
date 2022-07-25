@@ -32,9 +32,4 @@ public class Md5 {
 
         }
 
-    public static void main(String[] args) {
-        String str = "aaaaaaaa";
-        Md5 md5 = new Md5();
-        System.out.println(md5.string2MD5(str));
-    }
 }

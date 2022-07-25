@@ -1,8 +1,8 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.Article;
-import edu.dsm.entity.ArticleForShow;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.Article;
+import edu.dsm.entity.vo.ArticleForShow;
+import edu.dsm.entity.po.User;
 import edu.dsm.service.ArticleService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;

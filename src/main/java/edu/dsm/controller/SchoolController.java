@@ -1,6 +1,6 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.School;
+import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

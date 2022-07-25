@@ -6,7 +6,7 @@
            flushInterval="6000000"
            size="1024"
            readOnly="false"></cache>
-    <resultMap id="BaseSchoolMap" type="edu.dsm.entity.School">
+    <resultMap id="BaseSchoolMap" type="edu.dsm.entity.po.School">
         <result column="schoolId" jdbcType="INTEGER" property="schoolId" />
         <result column="province" jdbcType="VARCHAR" property="province" />
         <result column="schoolName" jdbcType="VARCHAR" property="schoolName" />
@@ -55,7 +55,7 @@
         </foreach>
     </delete>
 
-    <insert id="addSchool" parameterType="edu.dsm.entity.School" >
+    <insert id="addSchool" parameterType="edu.dsm.entity.po.School" >
         INSERT INTO school
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="province != null and province != ''"> province,</if>
@@ -86,7 +86,7 @@
         </trim>
     </insert>
 
-    <update id="updateSchool" parameterType="edu.dsm.entity.School" >
+    <update id="updateSchool" parameterType="edu.dsm.entity.po.School" >
         UPDATE school
         <set>
             <if test="province != null and province != ''"> province = #{province},</if>

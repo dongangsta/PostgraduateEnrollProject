@@ -1,7 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.MyLikeDao;
-import edu.dsm.entity.MyLike;
+import edu.dsm.entity.po.MyLike;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

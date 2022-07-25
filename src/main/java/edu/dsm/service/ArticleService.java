@@ -1,10 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.ArticleDao;
-import edu.dsm.dao.SchoolDao;
-import edu.dsm.entity.Article;
-import edu.dsm.entity.School;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

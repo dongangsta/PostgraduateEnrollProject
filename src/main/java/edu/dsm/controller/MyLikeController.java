@@ -1,8 +1,8 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.College;
-import edu.dsm.entity.MyLike;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.College;
+import edu.dsm.entity.po.MyLike;
+import edu.dsm.entity.po.User;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.MyLikeService;
 import edu.dsm.service.UserService;

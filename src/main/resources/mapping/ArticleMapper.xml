@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.ArticleDao">
-    <resultMap id="BaseArticleMap" type="edu.dsm.entity.Article">
+    <resultMap id="BaseArticleMap" type="edu.dsm.entity.po.Article">
         <result column="articleId" jdbcType="INTEGER" property="articleId" />
         <result column="authorId" jdbcType="INTEGER" property="authorId" />
         <result column="title" jdbcType="VARCHAR" property="title" />
@@ -20,7 +20,7 @@
         order by articleDate desc
     </select>
 
-    <select id="selectByArticleId" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+    <select id="selectByArticleId" parameterType="edu.dsm.entity.po.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.po.Article">
         select * from article WHERE articleId = #{articleId}
     </select>
 
@@ -32,10 +32,10 @@
         </foreach>
     </delete>
 
-    <select id="selectByCollegeName" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+    <select id="selectByCollegeName" parameterType="edu.dsm.entity.po.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.po.Article">
         select * from article WHERE collegeName = #{collegeName}
     </select>
-    <select id="selectByUserId" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+    <select id="selectByUserId" parameterType="edu.dsm.entity.po.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.po.Article">
         select * from article WHERE authorId = #{userId}
     </select>
     <insert id="addArticle">

@@ -1,7 +1,6 @@
 package edu.dsm.dao;
 
-import edu.dsm.entity.School;
-import edu.dsm.util.PageUtil;
+import edu.dsm.entity.po.School;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public interface SchoolDao {
     public int updateSchool(School school);
     public int deleteOne(Integer id);
     public int deleteBatchSchools(Integer [] ids);
-    public List<School> selectSchoolByPage(PageUtil pageUtil);
     public List<School> selectBySchoolName(String schoolName);
     public List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,
                                       Integer highestScore,String mathSubject, String englishSubject);

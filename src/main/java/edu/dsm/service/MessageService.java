@@ -1,7 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.MessageDao;
-import edu.dsm.entity.Message;
+import edu.dsm.entity.po.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

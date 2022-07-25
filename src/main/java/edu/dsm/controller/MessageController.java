@@ -1,6 +1,8 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.*;
+import edu.dsm.entity.po.Message;
+import edu.dsm.entity.po.User;
+import edu.dsm.entity.vo.MessageForShow;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.MessageService;
 import edu.dsm.service.UserService;

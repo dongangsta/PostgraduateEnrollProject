@@ -1,7 +1,7 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.College;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.College;
+import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.Md5;
@@ -81,10 +81,9 @@ public class UserController {
     @RequestMapping(value = "addUser",method = RequestMethod.GET)   //  添加用户
     public String addUser(Model model,String userName,String userPassword,String email,String phone,String area,Integer adminOrNot){
         User user = new User(10086,userName,userPassword,email,phone,area,adminOrNot);
-        if(user!=null){
+        if(userName != null){
             int cnt  = userService.addUser(user);
             System.out.println(cnt);
-           // System.out.println(cnt+"个用户已添加"+"用户名"+user.getUserName());
         }
         return null;
     }

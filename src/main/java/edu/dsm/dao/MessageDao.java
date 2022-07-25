@@ -1,6 +1,6 @@
 package edu.dsm.dao;
 
-import edu.dsm.entity.Message;
+import edu.dsm.entity.po.Message;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

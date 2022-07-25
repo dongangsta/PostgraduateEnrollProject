@@ -1,6 +1,6 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import edu.dsm.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package edu.dsm.controller;
 
-import edu.dsm.entity.College;
-import edu.dsm.entity.School;
+import edu.dsm.entity.po.College;
+import edu.dsm.entity.po.School;
 import edu.dsm.service.ArticleService;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.SchoolService;

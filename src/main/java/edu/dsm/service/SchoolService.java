@@ -1,8 +1,7 @@
 package edu.dsm.service;
 
 import edu.dsm.dao.SchoolDao;
-import edu.dsm.entity.School;
-import edu.dsm.util.PageUtil;
+import edu.dsm.entity.po.School;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ public class SchoolService {
     public int updateSchool(School school){ return schoolDao.updateSchool(school); }
     public int removeOne(Integer sid){return schoolDao.deleteOne(sid);}
     public int deleteBatchSchools(Integer [] schoolIds){return schoolDao.deleteBatchSchools(schoolIds);}
-    public List<School>  getSpotByPage(PageUtil pageUtil){return schoolDao.selectSchoolByPage(pageUtil);}
     public List<School> selectBySchoolName(String schoolName){return schoolDao.selectBySchoolName(schoolName);}
     public List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,
                                       Integer highestScore,String mathSubject, String englishSubject){return

@@ -1,6 +1,6 @@
 package edu.dsm.dao;
 
-import edu.dsm.entity.MyLike;
+import edu.dsm.entity.po.MyLike;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

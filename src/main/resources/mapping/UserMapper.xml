@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.UserDao">
-    <resultMap id="BaseUserMap" type="edu.dsm.entity.User">
+    <resultMap id="BaseUserMap" type="edu.dsm.entity.po.User">
         <result column="userId" jdbcType="INTEGER" property="userId" />
         <result column="userName" jdbcType="VARCHAR" property="userName" />
         <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
@@ -13,14 +13,14 @@
     </resultMap>
 
     <!--通过名称查询用户（登录用）-->
-    <select id="selectByUserName" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+    <select id="selectByUserName" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userName = #{userName}
     </select>
-    <select id="selectById" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+    <select id="selectById" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userId = #{userId}
     </select>
 
-    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userName = #{userName} AND adminOrNot = 1
     </select>
 
@@ -29,7 +29,7 @@
     </select>
 
     <!--  修改对象相应记录  -->
-    <update id="turnToAdmin" parameterType="edu.dsm.entity.User" >
+    <update id="turnToAdmin" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
                 adminOrNot = 1,
@@ -39,7 +39,7 @@
         </where>
     </update>
 
-    <update id="updatePredict" parameterType="edu.dsm.entity.User" >
+    <update id="updatePredict" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
             predict = #{predict},
@@ -50,7 +50,7 @@
     </update>
 
 
-    <update id="turnToUser" parameterType="edu.dsm.entity.User" >
+    <update id="turnToUser" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
             adminOrNot = 0,
@@ -60,7 +60,7 @@
         </where>
     </update>
 
-    <insert id="addUser" parameterType="edu.dsm.entity.User" >
+    <insert id="addUser" parameterType="edu.dsm.entity.po.User" >
         INSERT INTO user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userName != null and userName != ''"> userName,</if>
@@ -88,7 +88,7 @@
         </foreach>
     </delete>
 
-    <update id="rePassword" parameterType="edu.dsm.entity.User" >
+    <update id="rePassword" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
             userPassword = '11111111',
@@ -98,7 +98,7 @@
         </where>
     </update>
 
-    <update id="updateUser" parameterType="edu.dsm.entity.User" >
+    <update id="updateUser" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
             <if test="userName != null and userName != ''"> userName = #{userName},</if>

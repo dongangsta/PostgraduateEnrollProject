@@ -1,6 +1,6 @@
 package edu.dsm.dao;
 
-import edu.dsm.entity.College;
+import edu.dsm.entity.po.College;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

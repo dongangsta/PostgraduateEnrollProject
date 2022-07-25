@@ -6,7 +6,7 @@
            flushInterval="6000000"
            size="1024"
            readOnly="false"></cache>
-    <resultMap id="BaseCollegeMap" type="edu.dsm.entity.College">
+    <resultMap id="BaseCollegeMap" type="edu.dsm.entity.po.College">
         <result column="collegeId" jdbcType="INTEGER" property="collegeId" />
         <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
         <result column="collegeArea" jdbcType="VARCHAR" property="collegeArea" />
@@ -23,17 +23,17 @@
         <include refid="selectCollegeSql"/>
     </select>
 
-    <select id="selectByName" parameterType="edu.dsm.entity.College"  resultMap="BaseCollegeMap" resultType="edu.dsm.entity.College">
+    <select id="selectByName" parameterType="edu.dsm.entity.po.College" resultMap="BaseCollegeMap" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeName = #{collegeName}
     </select>
 
-    <select id="selectById" parameterType="edu.dsm.entity.College"  resultMap="BaseCollegeMap" resultType="edu.dsm.entity.College">
+    <select id="selectById" parameterType="edu.dsm.entity.po.College" resultMap="BaseCollegeMap" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeId = #{collegeId}
     </select>
 
-    <insert id="addCollege" parameterType="edu.dsm.entity.College" >
+    <insert id="addCollege" parameterType="edu.dsm.entity.po.College" >
         INSERT INTO college
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="collegeName != null and collegeName != ''"> collegeName,</if>

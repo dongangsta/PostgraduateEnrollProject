@@ -1,9 +1,9 @@
 package edu.dsm.util;
 
-import edu.dsm.entity.College;
-import edu.dsm.entity.CollegeForRecommend;
-import edu.dsm.entity.MyLike;
-import edu.dsm.entity.User;
+import edu.dsm.entity.po.College;
+import edu.dsm.entity.vo.CollegeForRecommend;
+import edu.dsm.entity.po.MyLike;
+import edu.dsm.entity.po.User;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.MyLikeService;
 import edu.dsm.service.SchoolService;
