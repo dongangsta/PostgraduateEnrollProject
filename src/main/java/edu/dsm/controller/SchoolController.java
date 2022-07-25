@@ -2,11 +2,13 @@ package edu.dsm.controller;
 
 import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +78,11 @@ public class SchoolController {
     public String addUser(String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
         School school = new School(10086,province,schoolName,collegeName,specialtyName,
                 averageScore,score21,score20,score19,mathSubject,englishSubject,majorSubject);
-        if(school!=null){
+        if(!ObjectUtils.isEmpty(school.getSchoolName())){
             int cnt  = schoolService.addSchool(school);
             System.out.println(cnt);
+        }else {
+            JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
         }
         return null;
     }
@@ -99,12 +103,12 @@ public class SchoolController {
     }
 
     /**
-     * To user show two school string.
+     * 进入院校对比查询页
      *
      * @param model the model
      * @return the string
      */
-    @GetMapping("toUserShowTwoSchool")        // 进入用户首页
+    @GetMapping("toUserShowTwoSchool")
     public String toUserShowTwoSchool(Model model) {
         List<School> schoolList = schoolService.getAll();
         model.addAttribute("schoolList",schoolList);
@@ -124,12 +128,8 @@ public class SchoolController {
         List<School> schoolList = new ArrayList<>();
         List<School> schoolList1 = schoolService.selectBySchoolName(school1);
         List<School> schoolList2 = schoolService.selectBySchoolName(school2);
-        for (School school:schoolList1){
-            schoolList.add(school);
-        }
-        for (School school:schoolList2){
-            schoolList.add(school);
-        }
+        schoolList.addAll(schoolList1);
+        schoolList.addAll(schoolList2);
         model.addAttribute("schoolList",schoolList);
         return "user_show_two_school";
     }
