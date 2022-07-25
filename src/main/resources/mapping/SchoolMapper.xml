@@ -103,4 +103,9 @@
         <if test="lowestScore != null and lowestScore != ''">  and averageScore >=  #{lowestScore} </if>
         <if test="highestScore != null and highestScore != ''">  and #{highestScore} >=  averageScore </if>
     </select>
+
+    <select id="selectTwoSchools" resultType="edu.dsm.entity.po.School" >
+    <include refid="selectSchoolSql"/>
+    WHERE schoolName = #{schoolName1} or schoolName = #{schoolName2}
+    </select>
 </mapper>

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -125,11 +124,7 @@ public class SchoolController {
      */
     @PostMapping (value ="compareTwoSchools")        // 对比查询
     public String compareTwoSchools(Model model,String school1,String school2) {
-        List<School> schoolList = new ArrayList<>();
-        List<School> schoolList1 = schoolService.selectBySchoolName(school1);
-        List<School> schoolList2 = schoolService.selectBySchoolName(school2);
-        schoolList.addAll(schoolList1);
-        schoolList.addAll(schoolList2);
+        List<School> schoolList = schoolService.selectTwoSchools(school1,school2);
         model.addAttribute("schoolList",schoolList);
         return "user_show_two_school";
     }

@@ -88,4 +88,7 @@ public class SchoolService {
     public List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,
                                       Integer highestScore,String mathSubject, String englishSubject){return
             schoolDao.selectSchools(province,specialtyName,schoolName,lowestScore,highestScore,mathSubject,englishSubject);}
+    public List<School> selectTwoSchools(String schoolName1,String schoolName2){
+        return schoolDao.selectTwoSchools(schoolName1,schoolName2);
+    }
 }
