@@ -7,17 +7,17 @@ import java.security.MessageDigest;
  */
 public class Md5 {
     /**
-     * String 2 md 5 string.
+     * 将string转换成MD5加密
      *
-     * @param inStr the in str
+     * @param inStr input
      * @return the string
      */
-    public String string2MD5(String inStr){
+    public static String string2MD5(String inStr){
             MessageDigest md5;
             try{
                 md5 = MessageDigest.getInstance("MD5");
             }catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e);
                 e.printStackTrace();
                 return "";
             }
@@ -27,13 +27,13 @@ public class Md5 {
             for (int i = 0; i < charArray.length; i++)
                 byteArray[i] = (byte) charArray[i];
             byte[] md5Bytes = md5.digest(byteArray);
-            StringBuffer hexValue = new StringBuffer();
-            for (int i = 0; i < md5Bytes.length; i++){
-                int val = ((int) md5Bytes[i]) & 0xff;
-                if (val < 16)
-                    hexValue.append("0");
-                hexValue.append(Integer.toHexString(val));
-            }
+            StringBuilder hexValue = new StringBuilder();
+        for (byte md5Byte : md5Bytes) {
+            int val = ((int) md5Byte) & 0xff;
+            if (val < 16)
+                hexValue.append("0");
+            hexValue.append(Integer.toHexString(val));
+        }
             return hexValue.toString();
         }
 

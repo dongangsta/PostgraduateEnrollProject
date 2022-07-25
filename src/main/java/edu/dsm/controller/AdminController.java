@@ -40,8 +40,7 @@ public class AdminController {
     @PostMapping("adminLogin")
     public String adminLogin(String userName, String password) {
         User user = userService.getAdminByUserName(userName);
-        Md5 md5 = new Md5();
-        String adminPassword = md5.string2MD5(password);
+        String adminPassword = Md5.string2MD5(password);
         if (user == null || !user.getUserPassword().equals(adminPassword)) {
             System.setProperty("java.awt.headless", "false");
             JOptionPane.showMessageDialog(null,"您输入的用户名不存在或密码错误!","访问数据库失败",JOptionPane.PLAIN_MESSAGE);

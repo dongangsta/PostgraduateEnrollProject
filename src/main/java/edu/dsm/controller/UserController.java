@@ -46,8 +46,7 @@ public class UserController {
     @RequestMapping("loginJudge")   //
     public String login(@RequestParam("userName") String userName, @RequestParam("userPassword") String userPassword, HttpServletResponse response) {
         User user = userService.getByUserName(userName);
-        Md5 md5 = new Md5();
-        userPassword = md5.string2MD5(userPassword);
+        userPassword = Md5.string2MD5(userPassword);
         if (user==null|| !user.getUserPassword().equals(userPassword)){
             System.out.println("账号密码不正确");
             }
@@ -212,7 +211,6 @@ public class UserController {
         System.setProperty("java.awt.headless", "false");
         if(user!=null){
             int cnt  = userService.updateUser(user);
-            System.out.println(cnt);
             JOptionPane.showMessageDialog(null,"信息修改成功!","信息修改成功",JOptionPane.PLAIN_MESSAGE);
             User u = userService.getByUserName(user.getUserName());
             model.addAttribute("user",u);
@@ -236,9 +234,8 @@ public class UserController {
      */
     @PostMapping("register")
     public String register(String userName,String userPassword,String email,String phone,String area) {
-        Md5 md5 = new Md5();
-        User user = new User(1,userName,md5.string2MD5(userPassword),email,phone,area,0);
-        int resultCount = userService.addUser(user);
+        User user = new User(1,userName,Md5.string2MD5(userPassword),email,phone,area,0);
+        int cnt = userService.addUser(user);
         return "user_login";
     }
 
