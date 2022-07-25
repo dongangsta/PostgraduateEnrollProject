@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.UserDao">
+    <resultMap id="BaseUserMap" type="edu.dsm.entity.User">
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="adminOrNot" jdbcType="INTEGER" property="adminOrNot" />
+        <result column="predict" jdbcType="INTEGER" property="predict" />
+    </resultMap>
+
+    <!--通过名称查询用户（登录用）-->
+    <select id="selectByUserName" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+        select * from user WHERE userName = #{userName}
+    </select>
+    <select id="selectById" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+        select * from user WHERE userId = #{userId}
+    </select>
+
+    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.User">
+        select * from user WHERE userName = #{userName} AND adminOrNot = 1
+    </select>
+
+    <select id="selectAll"   resultMap="BaseUserMap" >
+        select * from user
+    </select>
+
+    <!--  修改对象相应记录  -->
+    <update id="turnToAdmin" parameterType="edu.dsm.entity.User" >
+        UPDATE user
+        <set>
+                adminOrNot = 1,
+        </set>
+        <where>
+            userId = #{userId}
+        </where>
+    </update>
+
+    <update id="updatePredict" parameterType="edu.dsm.entity.User" >
+        UPDATE user
+        <set>
+            predict = #{predict},
+        </set>
+        <where>
+            userId = #{userId}
+        </where>
+    </update>
+
+
+    <update id="turnToUser" parameterType="edu.dsm.entity.User" >
+        UPDATE user
+        <set>
+            adminOrNot = 0,
+        </set>
+        <where>
+            userId = #{userId}
+        </where>
+    </update>
+
+    <insert id="addUser" parameterType="edu.dsm.entity.User" >
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''"> userName,</if>
+            <if test="userPassword != null and userPassword != ''"> userPassword, </if>
+            <if test="email != null and email != ''"> email, </if>
+            <if test="area != null and area != ''"> area, </if>
+            <if test="phone != null and phone != ''"> phone, </if>
+            <if test="adminOrNot != null and adminOrNot != ''"> adminOrNot </if>
+        </trim>
+
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''"> #{userName},</if>
+            <if test="userPassword != null and userPassword != ''"> #{userPassword}, </if>
+            <if test="email != null and email != ''"> #{email}, </if>
+            <if test="area != null and area != ''"> #{area}, </if>
+            <if test="phone != null and phone != ''"> #{phone}, </if>
+            <if test="adminOrNot != null and adminOrNot != ''"> #{adminOrNot} </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteBatchUsers" >
+        DELETE FROM user WHERE userId in
+        <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <update id="rePassword" parameterType="edu.dsm.entity.User" >
+        UPDATE user
+        <set>
+            userPassword = '11111111',
+        </set>
+        <where>
+            userId = #{userId}
+        </where>
+    </update>
+
+    <update id="updateUser" parameterType="edu.dsm.entity.User" >
+        UPDATE user
+        <set>
+            <if test="userName != null and userName != ''"> userName = #{userName},</if>
+            <if test="userPassword != null and userPassword != ''"> userPassword = #{userPassword}, </if>
+            <if test="email != null and email != ''"> email = #{email}, </if>
+            <if test="area != null and area != ''"> area = #{area}, </if>
+            <if test="phone != null and phone != ''">  phone = #{phone}, </if>
+            <if test="adminOrNot != null and adminOrNot != ''"> adminOrNot = #{adminOrNot} </if>
+        </set>
+        <where>
+            userId = #{userId}
+        </where>
+    </update>
+</mapper>

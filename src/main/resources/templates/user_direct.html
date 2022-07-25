@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>首页</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: url("images/login3.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      .jumbotron {
+        opacity: 0.7;
+        top: 0px;
+      }
+
+      /* 轮播图 */
+
+      #hy {
+        float: right;
+      }
+
+    </style>
+  </head>
+  <body>
+  <div class="dhl">
+    <ul class="layui-nav layui-bg-black" lay-filter="">
+<!--      <li id="index" class="layui-nav-item layui-this">-->
+<!--        <a href="">平台首页 </a>-->
+<!--      </li>-->
+      <li id="city" class="layui-nav-item">
+        <a onclick="change2()" return false;>招生信息查询</a>
+      </li>
+      <li id="compare" class="layui-nav-item">
+        <a onclick="change6()" return false;>院校对比查询</a>
+      </li>
+      <li id="spot" class="layui-nav-item">
+        <a onclick="change3()" return false;>最新考情文章</a>
+      </li>
+      <li id="news" class="layui-nav-item">
+        <a onclick="change4()" return false;>科学院校推荐</a>
+      </li>
+
+      <li id="hy" class="layui-nav-item">
+        <a onclick="change5()" return false;>[[${user.userName}]],欢迎你！</a>
+      </li>
+    </ul>
+  </div>
+  <iframe
+          id="mainFrame"
+          name="mainFrame"
+          src="toUserShowSchool"
+          frameborder="0"
+          style="padding: 0px; width: 100%; height: 800px"
+  ></iframe>
+
+  <script>
+    layui.use("element", function () {
+      var element = layui.element;
+    });
+
+    var index = document.querySelector("#index");
+    var city = document.querySelector("#city");
+    // var city = document.querySelector("#city");
+    var iframe = document.querySelector("iframe");
+    // function change1() {
+    //   iframe.src = "city.html";
+    // }
+    function change2() {
+      iframe.src = "toUserShowSchool";
+    }
+    function change3() {
+      iframe.src = "toShowArticle?userId=" + [[${user.userId}]];
+    }
+    function change4() {
+      iframe.src = "toRecommend";
+    }
+    function change5() {
+      iframe.src = "userCenter";
+    }
+    function change6() {
+        iframe.src = "toUserShowTwoSchool";
+    }
+    function quit(){
+      $.ajax({
+        url: "quit",
+        type: "GET",
+        error: function (){
+          alert("退出失败");
+        },
+        success: function (){
+          alert("退出成功");
+          window.location.href="login";
+        }
+      })
+    }
+  </script>
+  </body>
+</html>

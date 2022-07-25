@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的意向院校</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script src="js/bootstrap/bootstrap-table.js"></script>
+    <script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap/bootstrap-table-editable.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+</head>
+<body>
+<div class="table-responsive">
+    <div class="panel panel-default">
+        <div class="panel-heading">我的意向院校</div>
+        <div class="panel-body"  id="commitInfo" hidden="hidden" ></div>
+    </div>
+
+<!--    <div id="toolbar" class="btn-group">-->
+<!--        <button id="btn_add" type="button" class="btn btn-default">-->
+<!--            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
+<!--        </button>-->
+<!--        <button id="btn_delete" type="button" class="btn btn-default">-->
+<!--            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除-->
+<!--        </button>-->
+<!--    </div>-->
+
+    <table id="tb-spots" data-show-search-button="true" data-class="table table-bordered">
+        <thead>
+        <tr>
+            <th>院校编号</th>
+            <th>院校名称</th>
+            <th>院校地区</th>
+            <th>院校介绍</th>
+            <th>院校官网</th>
+            <th>删除该意向</th>
+        </tr>
+        </thead>
+        <tr th:if="${collegeList.size()<=0}">
+            <td colspan="5" style="align-items: center" >表中无数据</td>
+        <tr th:each="college : ${collegeList}">
+            <td th:text="${college.collegeId }">${college.collegeId }</td>
+            <td th:text="${college.collegeName }">${college.collegeName }</td>
+            <td th:text="${college.collegeArea }">${college.collegeArea}</td>
+            <td th:text="${college.collegeIntro }">${college.collegeIntro }</td>
+            <td th:text="${college.collegeNet }">${college.collegeNet  }</td>
+            <td >
+                <a  target="_blank" th:href="@{deleteMyLike(collegeId=${college.collegeId})}"  href="deleteMyLike?collegeId=1"  >删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        var $table = $("#tb-spots");
+        var index = '';
+        var selectId='';
+        var checkIds = new Array();             //全局数组
+        var checkTempIds = new Array();   //保存本页全选后数据Id的临时数组
+        $("#tb-spots").bootstrapTable({
+            search: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [10, 20, 30],
+            toolbar: "#toolbar",
+            showColumns: true,
+            showRefresh: false,
+            showToggle: false,
+            locale: "zh-CN",
+            singleSelect: false,
+            clickToSelect: false,
+            maintainSelected: true,
+            checkboxHeader: true,
+            uniqueId: "id",
+            striped: true,
+            onClickRow: function (row, $e) {
+                index = $e.data('index');
+                selectId=row.id;
+            },
+            idField: 'collegeId',           //指定主键列
+            columns: [{
+                field: 'collegeId',
+                title: '院校编号',
+            }, {
+                field: 'collegeName',
+                align: 'left',
+                halign: 'center',
+                title: '院校名称',
+                formatter:collegeFormatter
+            }, {
+                field: 'collegeArea',
+                align: 'left',
+                halign: 'center',
+                title: '院校地区',
+            },{
+                field: 'collegeIntro',
+                align: 'left',
+                halign: 'center',
+                title: '院校介绍',
+            }, {
+                field: 'collegeNet',
+                align: 'left',
+                halign: 'center',
+                title: '院校官网',
+                formatter:linkFormatter
+            },{
+                field: 'checkUserIds',
+                align: 'left',
+                halign: 'center',
+                title: '删除该意向',
+            }]
+        })
+        function emailFormatter(value, row, index) {
+            return "<a href='mailto:" + value + "' title='单击打开连接'>" + value + "</a>";
+        }
+        function linkFormatter(value, row, index) {
+            return "<a href='" + value + "' title='单击打开连接' target='_blank' >" + value + "</a>";
+            //    return  iframe.src = "toShowCollege?collegeName=" + value;
+            // return "<iframe src="toShowCollege?collegeName=""+value +"width="200" height="200"></iframe> "
+        }
+        function collegeFormatter(value, row, index) {
+            return "<a href='toShowCollege?collegeName="+ value + "' title='单击打开连接' target='_blank' >" + value + "</a>";
+            //    return  iframe.src = "toShowCollege?collegeName=" + value;
+            // return "<iframe src="toShowCollege?collegeName=""+value +"width="200" height="200"></iframe> "
+        }
+        $("#btn_delete").click(function () {
+            var msg='编号   ';
+            $('input[name="checkUserIds"]:checked').each(function(){
+                //遍历每一个名字为interest的复选框，其中选中的执行函数
+                //将选中的值添加到数组checkIds中
+                console.log($(this).val());
+                checkIds.push($(this).val());
+            });
+            checkIds.forEach(function (value) {
+                msg+= value+";\n";
+            });
+            if(confirm("确定要删除以下记录吗？\n"+msg)){
+                $.ajax({
+                    url: "/deleteBatchUsers",
+                    traditional:true,
+                    type: "post",
+                    data:{ ids:checkIds },
+                    success: function (res) {
+                        window.location.reload();
+                    }
+                })
+            } else{
+                alert("当前没有选择任何记录，请先选择要删除的记录！！！");
+            }
+        })
+        $("#btn_add").click(function () {
+            window.location.href='showAddUser';
+        })
+    })
+</script>
+</body>
+</html>

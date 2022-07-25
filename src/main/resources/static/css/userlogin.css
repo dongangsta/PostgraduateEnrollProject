@@ -1,0 +1,79 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background: url("../images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.login {
+    width: 600px;
+    height: 400px;
+    top: 250px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: relative;
+    margin: auto;
+    box-shadow: 0 0 80px rgb(51, 95, 97);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+ opacity: 0.7;
+    flex-direction: column;
+    border-radius: 20px;
+}
+.login h2 {
+    color: rgb(0, 73, 73);
+    margin-bottom: 30px;
+}
+.login .login_box {
+    position: relative;
+}
+.login .login_box input {
+    outline: none;
+    border: none;
+    width: 300px;
+    padding: 10px 0;
+    margin-bottom: 30px;
+    color: #000;
+    font-size: 16px;
+    border-bottom: 1px solid #000;
+    background-color: transparent;
+}
+.login .login_box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    color: #000;
+    pointer-events: none;
+    transition: all 0.5s;
+}
+.login .login_box input:focus + label,
+.login .login_box input:valid + label {
+    top: -20px;
+    color: teal;
+    font-size: 12px;
+}
+.login a {
+    position: relative;
+    padding: 10px 20px;
+    color: rgb(0, 87, 87);
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.login a:hover,
+.login a:valid {
+    font-size: 30px;
+    transition: all 0.5s;
+    color: teal;
+}

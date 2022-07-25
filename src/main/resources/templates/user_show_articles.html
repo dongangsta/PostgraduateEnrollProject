@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>新闻资讯</title>
+    <meta name="keywords" content="考研院校信息,院校库,招生单位信息"/>
+    <meta name="description" content="院校信息 - 中国研究生招生信息网为您提供权威的研究生招生单位信息。"/>
+    <link rel="stylesheet" type="text/css" href='https://t1.chei.com.cn/common/plugins/autocomplete/jquery.autocomplete.css'/>
+    <link rel="stylesheet" type="text/css" href='https://t1.chei.com.cn/common/css/ueditor.css' />
+
+    <link rel="dns-prefetch" href="//axvert.chsi.com.cn">
+    <link rel="dns-prefetch" href="//t1.chei.com.cn">
+    <link rel="dns-prefetch" href="//t2.chei.com.cn">
+    <link rel="dns-prefetch" href="//t3.chei.com.cn">
+    <link rel="dns-prefetch" href="//t4.chei.com.cn">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="shortcut icon" href="https://t4.chei.com.cn/yz/favicon.ico?20200918" type="image/x-icon" />
+    <link rel="stylesheet" href="https://t1.chei.com.cn/common/ch/iconfont.css">
+    <link rel="stylesheet" href="https://t3.chei.com.cn/yz/assets/css/yz.min.css?20190918">
+    <script src="https://t1.chei.com.cn/common/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://t1.chei.com.cn/common/axvert/js/showchsi_m.js"></script>
+    <!--[if IE 6]>
+    <script src="https://t4.chei.com.cn/yz/js/IE6PNG.js"></script>
+    <script>DD_belatedPNG.fix('#dhBG,#dh_logo,img');</script>
+    <![endif]-->
+    <!-- 1：吊顶区域 -->
+    <style>
+      /**
+       * description: top-nav-wrapper: 吊顶;
+       * author: myx;
+       * date: 2017-08;
+       */
+      .top-nav-wrapper {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background: #f7f9fa;
+        border-bottom: 1px solid #d6d6d6;
+        font-size: 12px;
+      }
+      .top-nav-wrapper a {
+        color: #333;
+      }
+      .top-nav-wrapper a.hot {
+        color: #ee6464;
+      }
+      .top-nav-wrapper a:hover {
+        text-decoration: underline;
+      }
+      .top-nav-wrapper .top-nav {
+        width: 1180px;
+        margin: 0 auto;
+      }
+      .top-nav-wrapper .top-nav-list {
+        float: left;
+        width: 980px;
+        height: 40px;
+      }
+      .top-nav-wrapper .top-nav-list a {
+        margin: 0 10px;
+      }
+      .top-nav-wrapper .top-nav-list a.top-nav-home {
+        display: inline-block;
+        width: 45px;
+        height: 40px;
+        padding-left: 50px;
+        margin-right: 15px;
+        margin-left: 0px;
+        margin-top: -1px;
+        background-image: url('https://t2.chei.com.cn/yz/assets/images/logo-min.png');
+        background-image: -webkit-image-set(url('https://t2.chei.com.cn/yz/assets/images/logo-min.png') 1x, url('https://t4.chei.com.cn/yz/assets/images/logo-min2x.png') 2x);
+        background-repeat: no-repeat;
+        background-position: 0 11px;
+        color: #1787e0;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+      .top-nav-wrapper .top-nav-list a.top-nav-home:hover{
+        text-decoration: none;
+      }
+      .top-nav-wrapper .top-nav-load {
+        float: right;
+        width: 200px;
+        height: 40px;
+        text-align: right;
+      }
+      .top-nav-wrapper .top-nav-load a {
+        margin: 0 5px;
+      }
+      .top-nav-hide {
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        color: #999;
+      }
+      .top-nav-hide:hover {
+        color: #333;
+      }
+      .top-nav-hide:hover .top-nav-pop {
+        display: block;
+      }
+      .top-nav-hide .iconfont {
+        font-size: 12px;
+        margin-right: -5px;
+      }
+      .top-nav-pop{
+        display: none;
+        position: absolute;
+        left: 0px;
+        top: 12px;
+        padding-top: 14px;
+        z-index: 9999;
+      }
+      .top-nav-hide ul {
+        width: 135px;
+        padding: 6px 0;
+        border: 1px solid #e5e5e5;
+        border-bottom: none;
+        background: #fff;
+        box-shadow: 2px 2px 8px #cdcdcd;
+      }
+      .top-nav-hide li {
+        line-height: 35px;
+      }
+      .top-nav-wrapper .top-nav-hide li a {
+        display: block;
+        margin: 0 10px;
+        border-bottom: 1px dashed #e5e5e5;
+      }
+      .top-nav-wrapper .top-nav-hide li.last a {
+        border-bottom: none;
+      }
+      .top-nav-wrapper .top-nav-hide li a:hover {
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0 10px;
+        border-bottom: 1px dashed #f2f2f2;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .top-nav-wrapper .top-nav-hide li.last a:hover {
+        border-bottom: none;
+      }
+      .top-nav-point {
+        font-family: tahoma, arial, 'Microsoft YaHei', "Hiragino Sans GB", SimSun, sans-serif;
+      }
+    </style>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: url("images/login3.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      .jumbotron {
+        opacity: 0.7;
+        top: 0px;
+      }
+      #hy {
+        float: right;
+      }
+      .a {
+        position: relative;
+        text-align: center;
+        margin-top: 50px;
+        margin-left: 25%;
+        height: 1000px;
+        width: 800px;
+        background-color: rgb(255, 255, 255, 0.7);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .row {
+        margin-left: 30px;
+        margin-top: 30px;
+      }
+      .thumbnail {
+        width: 700px;
+        height: 110px;
+        background-color: rgb(255, 255, 255, 0.4);
+        box-shadow: none;
+      }
+      h1 {
+        font-size: 20px;
+        text-align: left;
+      }
+      p {
+        text-align: left;
+      }
+
+      i {
+        margin-left: 10px;
+        font-size: 21px;
+        color: #7a7a7a;
+        float: right;
+        margin-top: -10px;
+      }
+      .bq {
+        color: #1e9fff;
+      }
+    </style>
+  </head>
+  <body onload="myfun()">
+    <div id="a" class="jumbotron">
+      <div class="container">
+        <h2>考情文章速递</h2>
+        <p>最新经验分享&考情资讯</p>
+      </div>
+    </div>
+    <div class="a" id="news">
+
+    </div>
+<!--    <div class="slider-bar">-->
+<!--      <a href="toAddArticle">-->
+<!--        <span class="add layui-icon layui-icon-add-circle-fine"></span></a>-->
+<!--      <span-->
+<!--              style="font-size: 50px"-->
+<!--              class="goBack layui-icon layui-icon-top"-->
+<!--      ></span>-->
+<!--    </div>-->
+    <script>
+      function myfun() {
+        $.ajax({
+          type: "get",
+          url: "articlesData",
+          dataType: 'json',
+          data:"showList",
+          success: function (data) {
+            var html='';
+            for (var i = 0;i < data.length;i++){
+              html+="      <div class=\"row\">\n" +
+                      "        <div class=\"col-sm-6 col-md-4\">\n" +
+                      "          <div class=\"thumbnail\">\n" +
+                      "            <div class=\"caption\">\n" +
+                      "              <h1>" +
+                      data[i].title +
+                      "</h1>\n" +
+                      "              <p class=\"bq\">#" +
+                      data[i].collegeName +
+                      "</p>" +
+                      "              <p class=\"bq\">作者：" +
+                      data[i].userName +
+                      "</p>" +
+                      "              <p class=\"bq\">发布时间：" +
+                      data[i].articleDate +
+                      "</p><br>" +
+                      "              <a href='article?articleId=" +
+                      data[i].articleId +
+                      "' class=\"caption1\">" +
+                      "点击查看原文\n" +
+                      "              </a>" +
+                      "            </div>\n" +
+                      // "            <div class=\"good\">\n" +
+                      // "              <i class=\"layui-icon layui-icon-praise\">" +
+                      // Math.ceil(Math.random()*100) +
+                      // "</i>\n" +
+                      // "              <i class=\"layui-icon layui-icon-reply-fill\">" +
+                      // Math.ceil(Math.random()*20) +
+                      // "</i>\n" +
+                      // "            </div>\n" +
+                      "          </div>\n" +
+                      "        </div>\n" +
+                      "      </div>"
+            }
+            document.getElementById('news').innerHTML = html;
+          }
+        })
+      }
+      $(".caption1").each(function () {
+        var len = $(this).text().length; //当前HTML对象text的长度
+        if (len > 50) {
+          var str = "";
+          str = $(this).text().substring(0, 50) + "......"; //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+          $(this).html(str); //将替换的值赋值给当前对象
+        }
+      });
+    </script>
+  </body>
+</html>

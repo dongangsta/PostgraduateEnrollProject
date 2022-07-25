@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>首页</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: url("images/login3.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      .jumbotron {
+        opacity: 0.7;
+        top: 0px;
+        height: 300px;
+      }
+
+      /* 轮播图 */
+
+      .wrap {
+        top: -100px;
+        width: 70vw;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        right: -15%;
+        /* height: 100vh; */
+      }
+
+      .card {
+        background-size: auto 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 50px;
+        color: #fff;
+        flex: 0.5;
+        height: 53vh;
+        position: relative;
+        margin: 10px;
+        cursor: pointer;
+        transition: flex 0.7s cubic-bezier(0.05, 0.6, 0.4, 0.9);
+      }
+      .card h3 {
+        font-size: 14px;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        margin: 0;
+        transition: opacity 0s ease-in 0s;
+      }
+      .card.active {
+        flex: 5;
+      }
+      .card .active h3 {
+        opacity: 1;
+        transition: opacity 0.3s ease-in 0.4s;
+      }
+      @media (max-width: 500px) {
+        .wrap {
+          width: 100vw;
+        }
+        .card:nth-child(4) {
+          display: none;
+        }
+        .card:nth-child(5) {
+          display: none;
+        }
+      }
+      #hy {
+        float: right;
+      }
+      #hy1 {
+        float: right;
+        right: 18%;
+      }
+
+
+      span {
+        display: none;
+        position: absolute;
+        bottom: 0;
+      }
+      .w {
+        width: 1000px;
+        margin: 10px auto;
+      }
+
+      .main {
+        position: relative;
+        top: -100px;
+        background-color: rgb(255, 255, 255, 0.7);
+        overflow: hidden;
+        border-radius: 20px;
+      }
+      .slider-bar {
+        position: absolute;
+        left: 50%;
+        top: 300px;
+        margin-left: 600px;
+        width: 50px;
+        height: 100px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 30px;
+        opacity: 0.7;
+      }
+      .goBack {
+        top: 37px;
+        text-align: center;
+      }
+      .add {
+        display: block;
+        font-size: 40px;
+        top: 0px;
+        left: 5px;
+      }
+
+      .boke {
+        position: relative;
+
+        top: 30px;
+        right: -12%;
+        width: 850px;
+        height: 450px;
+      }
+      .boke img {
+        width: 100%;
+        height: 70%;
+        /* border-radius: 10px; */
+      }
+      .row {
+        float: left;
+        margin-bottom: 50px;
+      }
+      .thumbnail {
+        background-color: rgb(255, 255, 255);
+        width: 760px;
+        height: 350px;
+      }
+      .row .thumbnail {
+        cursor: pointer;
+        transition: all 0.6s;
+      }
+      .row .thumbnail:hover,
+      .row .thumbnail:valid {
+        transform: scale(1.1);
+        /* color: teal; */
+      }
+
+      .good {
+        float: right;
+      }
+    </style>
+  </head>
+  <body onload="showAll()">
+    <div id="a" class="jumbotron">
+      <div class="container">
+        <h1>考研报考辅助平台</h1>
+        <p>帮你选校</p>
+      </div>
+    </div>
+    <div class="slider-bar">
+      <a href="releaseNote">
+        <span class="add layui-icon layui-icon-add-circle-fine"></span
+        ></a>
+      <span
+              style="font-size: 50px"
+              class="goBack layui-icon layui-icon-top"
+      ></span>
+    </div>
+    <div class="wrap">
+      <div class="card active" style="background-image: url(images/login.jpg)">
+        <h3></h3>
+      </div>
+      <div class="card" style="background-image: url(images/login6.jpg)">
+        <h3></h3>
+      </div>
+      <div class="card" style="background-image: url(images/login7.jpg)">
+        <h3></h3>
+      </div>
+      <div class="card" style="background-image: url(images/login4.jpg)">
+        <h3></h3>
+      </div>
+      <div class="card" style="background-image: url(images/login9.jpg)">
+        <h3></h3>
+      </div>
+    </div>
+    <div class="main w" id="beStrik">
+    </div>
+    <script>
+      function showAll(){
+        $.ajax({
+          type: "get",
+          url: "showAll",
+          dataType: 'json',
+          data:"zheGeShuJuMeiYong",
+          success: function (data) {
+            console.log(data);
+            console.log(typeof (data));
+            for(i = 0;i < data.length;i++){
+              console.log(data[i].intro);
+            }
+            var html='<div class=\"boke\">\n';
+            for (var i = 0;i < data.length;i++){
+              /*onclick=\" window.location.href='+"note/data[i].path"+"' \"*/
+              html+="<div class=\"row\" onclick=\"window.location.href = 'note/"+data[i].path+"' \">\n" +
+                      "<div class=\"col-sm-6 col-md-4\">\n" +
+                      " <div id=\"a\" class=\"thumbnail\">\n" +
+                      "<img style=\"float: left\" src=\"images/note" + i + ".jpg\" alt=\"...\" />\n" +
+                      "<div class=\"caption\">\n"+
+                      "<h1 style=\"font-size: 20px\">"+ data[i].title+"</h1>"+
+                      "<p class=\"caption1\">\n" +data[i].authorname +"</p>"+
+                      "<p class=\"caption1\">\n" +data[i].releaseTime+ "</p>"+
+                      "</div>\n"+
+                      "</div>\n"+
+                      "</div>\n"+
+                      "</div>\n"
+            }
+            html+= "</div>\n"
+            document.getElementById('beStrik').innerHTML=html;
+          }
+        })
+      }
+      $(".caption1").each(function () {
+        var len = $(this).text().length; //当前HTML对象text的长度
+        if (len > 100) {
+          var str = "";
+          str = $(this).text().substring(0, 100) + "......"; //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+          $(this).html(str); //将替换的值赋值给当前对象
+        }
+      });
+
+      //注意：导航 依赖 element 模块，否则无法进行功能性操作
+      layui.use("element", function () {
+        var element = layui.element;
+      });
+
+      var wrap = document.getElementsByClassName("wrap")[0];
+      var cards = wrap.getElementsByClassName("card");
+      console.log(wrap);
+      console.log(cards);
+
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].addEventListener("mouseover", function () {
+          removeActive();
+          this.className = "card active";
+        });
+      }
+
+      function removeActive() {
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].className = "card";
+        }
+      }
+
+      // 返回顶部
+      var sliderbar = document.querySelector(".slider-bar");
+      var wrap = document.querySelector(".wrap");
+      // banner.offestTop 就是被卷去头部的大小 一定要写到滚动的外面
+      var wrapTop = wrap.offsetTop;
+      // 当我们侧边栏固定定位之后应该变化的数值
+      var sliderbarTop = sliderbar.offsetTop - wrapTop;
+      // 获取main 主体元素
+      var main = document.querySelector(".main");
+      var goBack = document.querySelector(".goBack");
+      var mainTop = main.offsetTop;
+      // 2. 页面滚动事件 scroll
+      document.addEventListener("scroll", function () {
+        if (window.pageYOffset >= wrapTop) {
+          sliderbar.style.position = "fixed";
+          sliderbar.style.top = sliderbarTop + "px";
+        } else {
+          sliderbar.style.position = "absolute";
+          sliderbar.style.top = "300px";
+        }
+        // 4. 当我们页面滚动到main盒子，就显示 goback模块
+        if (window.pageYOffset >= mainTop) {
+          goBack.style.display = "block";
+          sliderbar.style.display = "block";
+        } else {
+          goBack.style.display = "none";
+        }
+      });
+
+      goBack.addEventListener("click", function () {
+        // 因为是窗口滚动 所以对象是window
+        animate(window, 0);
+      });
+      // 动画函数
+      function animate(obj, target, callback) {
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+          // 步长值写到定时器的里面
+          // 把我们步长值改为整数 不要出现小数的问题
+          // var step = Math.ceil((target - obj.offsetLeft) / 10);
+          var step = (target - window.pageYOffset) / 10;
+          step = step > 0 ? Math.ceil(step) : Math.floor(step);
+          if (window.pageYOffset == target) {
+            clearInterval(obj.timer);
+            // 回调函数写到定时器结束里面
+            if (callback) {
+              callback();
+            }
+            callback && callback();
+          }
+          window.scroll(0, window.pageYOffset + step);
+        }, 15);
+      }
+    </script>
+  </body>
+</html>

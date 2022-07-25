@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.MessageDao">
+    <resultMap id="BaseMessageMap" type="edu.dsm.entity.Message">
+        <result column="messageId" jdbcType="INTEGER" property="messageId" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="readerId" jdbcType="INTEGER" property="readerId" />
+        <result column="message" jdbcType="VARCHAR" property="message" />
+        <result column="messageDate" jdbcType="TIMESTAMP" property="messageDate" />
+    </resultMap>
+
+    <select id="selectByUserId" parameterType="edu.dsm.entity.Message" resultMap="BaseMessageMap" resultType="edu.dsm.entity.Message">
+        select * from message WHERE userId = #{userId}
+    </select>
+    <insert id="addMessage">
+        insert into message (userId,readerId,message,messageDate) values (#{userId},#{readerId},#{message},now());
+    </insert>
+</mapper>

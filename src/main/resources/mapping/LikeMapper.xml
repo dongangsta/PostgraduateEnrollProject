@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.MyLikeDao">
+    <resultMap id="BaseLikeMap" type="edu.dsm.entity.MyLike">
+        <result column="likeId" jdbcType="INTEGER" property="likeId" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="collegeId" jdbcType="INTEGER" property="collegeId" />
+    </resultMap>
+
+    <!--抽取重复的语句代码片段-->
+    <sql id="selectLikeSql">
+        select * from like
+    </sql>
+
+    <insert id="likeCollege">
+        insert into mylike (userId,collegeId) select #{userId},#{collegeId}
+            WHERE
+	    NOT EXISTS (
+		    SELECT
+			    *
+		    FROM
+			    mylike
+		    WHERE
+			    userId = #{userId} AND collegeId = #{collegeId}
+	);
+    </insert>
+
+    <select id="selectMyLike" resultMap="BaseLikeMap">
+        select * from mylike where userId = #{userId}
+    </select>
+
+    <delete id="deleteMyLike" >
+        DELETE FROM mylike WHERE likeId = #{collegeId}
+    </delete>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.CollegeDao">
+    <cache type="edu.dsm.util.RedisCache"
+           eviction="LRU"
+           flushInterval="6000000"
+           size="1024"
+           readOnly="false"></cache>
+    <resultMap id="BaseCollegeMap" type="edu.dsm.entity.College">
+        <result column="collegeId" jdbcType="INTEGER" property="collegeId" />
+        <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
+        <result column="collegeArea" jdbcType="VARCHAR" property="collegeArea" />
+        <result column="collegeIntro" jdbcType="INTEGER" property="collegeIntro" />
+        <result column="collegeNet" jdbcType="INTEGER" property="collegeNet" />
+    </resultMap>
+
+    <!--抽取重复的语句代码片段-->
+    <sql id="selectCollegeSql">
+        select * from college
+    </sql>
+
+    <select id="selectAll"   resultMap="BaseCollegeMap" >
+        <include refid="selectCollegeSql"/>
+    </select>
+
+    <select id="selectByName" parameterType="edu.dsm.entity.College"  resultMap="BaseCollegeMap" resultType="edu.dsm.entity.College">
+        <include refid="selectCollegeSql"/>
+        WHERE collegeName = #{collegeName}
+    </select>
+
+    <select id="selectById" parameterType="edu.dsm.entity.College"  resultMap="BaseCollegeMap" resultType="edu.dsm.entity.College">
+        <include refid="selectCollegeSql"/>
+        WHERE collegeId = #{collegeId}
+    </select>
+
+    <insert id="addCollege" parameterType="edu.dsm.entity.College" >
+        INSERT INTO college
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="collegeName != null and collegeName != ''"> collegeName,</if>
+            <if test="collegeArea != null and collegeArea != ''"> collegeArea, </if>
+            <if test="collegeIntro != null and collegeIntro != ''"> collegeIntro, </if>
+            <if test="collegeNet != null and collegeNet != ''"> collegeNet </if>
+        </trim>
+
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="collegeName != null and collegeName != ''"> #{collegeName},</if>
+            <if test="collegeArea != null and collegeArea != ''"> #{collegeArea}, </if>
+            <if test="collegeIntro != null and collegeIntro != ''"> #{collegeIntro}, </if>
+            <if test="collegeNet != null and collegeNet != ''"> #{collegeNet} </if>
+        </trim>
+    </insert>
+
+    <!-- 通过主键数组删除相应记录集合  -->
+    <delete id="deleteBatchColleges" >
+        DELETE FROM college WHERE collegeId in
+        <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
+            #{arr}
+        </foreach>
+    </delete>
+</mapper>

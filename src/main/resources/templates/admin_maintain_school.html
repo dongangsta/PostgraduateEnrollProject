@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学校信息管理</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <script type="text/javascript" src="tableExport.js"></script>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script src="js/bootstrap/bootstrap-table.js"></script>
+    <script src="js/bootstrap/bootstrap-paginator.js"></script>
+    <script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap/bootstrap-table-editable.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- bootstrap表格导出初始化-->
+    <script type="text/javascript" src="js/bootstrap-table-export/bootstrap-table-export.js"></script>
+    <!-- bootstrap表格导出执行-->
+    <script type="text/javascript" src="js/bootstrap-table-export/tableExport.min.js"></script>
+</head>
+<body>
+<div class="table-responsive">
+    <div class="panel panel-default">
+        <div class="panel-heading">招生信息管理</div>
+        <div class="panel-body"  id="commitInfo" hidden="hidden" ></div>
+    </div>
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+        </button>
+        <button id="btn_delete" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+        </button>
+        <button id="btn_excel" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>导出文件
+        </button>
+
+    </div>
+
+    <table id="tb-spots" data-show-search-button="true" data-class="table table-bordered">
+        <thead>
+        <tr>
+            <th>学校编号</th>
+            <th>省份</th>
+            <th>学校名称</th>
+            <th>学院名称</th>
+            <th>专业名称</th>
+            <th>平均分数线</th>
+            <th>21年分数线</th>
+            <th>20年分数线</th>
+            <th>19年分数线</th>
+            <th>数学科目</th>
+            <th>英语科目</th>
+            <th>专业课科目</th>
+            <th>修改</th>
+            <th>选择</th>
+        </tr>
+        </thead>
+        <tr th:if="${schoolList.size()<=0}">
+            <td colspan="5" style="align-items: center" >表中无数据</td>
+        <tr th:each="school : ${schoolList}">
+            <td th:text="${school.schoolId }">${school.schoolId }</td>
+            <td th:text="${school.province }">${school.province }</td>
+            <td th:text="${school.schoolName }">${school.schoolName }</td>
+            <td th:text="${school.collegeName }">${school.collegeName }</td>
+            <td th:text="${school.specialtyName }">${school.specialtyName }</td>
+            <td th:text="${school.averageScore }">${school.averageScore }</td>
+            <td th:text="${school.score21 }">${school.score21 }</td>
+            <td th:text="${school.score20 }">${school.score20 }</td>
+            <td th:text="${school.score19 }">${school.score19 }</td>
+            <td th:text="${school.mathSubject }">${school.mathSubject }</td>
+            <td th:text="${school.englishSubject }">${school.englishSubject }</td>
+            <td th:text="${school.majorSubject }">${school.majorSubject }</td>
+            <td >
+                <a   th:href="@{showSchoolMod(schoolId=${school.schoolId})}"  href="showSchoolMod?schoolId=1" >修改</a>
+            </td>
+            <td >
+                <input type="checkbox"  name="checkSchoolIds"  value="schoolId" th:value="${school.schoolId}"  />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        var $table = $("#tb-spots");
+        var index = '';
+        var selectId='';
+        var checkIds = new Array();             //全局数组
+        var checkTempIds = new Array();         //保存本页全选后数据Id的临时数组
+        $("#tb-spots").bootstrapTable({
+            search: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [10, 15, 20, 100],
+            toolbar: "#toolbar",
+            showColumns: true,
+            showRefresh: true,
+            showToggle: true,
+            locale: "zh-CN",
+            singleSelect: false,
+            clickToSelect: false,
+            maintainSelected: true,
+            checkboxHeader: true,
+            uniqueId: "schoolId",
+            striped: true,
+            sortable: true,
+            onClickRow: function (row, $e) {
+                index = $e.data('index');
+                selectId=row.id;
+            },
+            idField: 'schoolId',           //指定主键列
+            columns: [{
+                field: 'schoolId',
+                title: '学校编号',
+            }, {
+                field: 'province',
+                align: 'left',
+                halign: 'center',
+                title: '省份',
+            }, {
+                field: 'schoolName',
+                align: 'left',
+                halign: 'center',
+                title: '学校名称',
+            },{
+                field: 'collegeName',
+                align: 'left',
+                halign: 'center',
+                title: '学院名称',
+            }, {
+                field: 'specialtyName',
+                align: 'left',
+                halign: 'center',
+                title: '专业名称',
+            }, {
+                field: 'averageScore',
+                align: 'left',
+                halign: 'center',
+                title: '平均分数线',
+            },{
+                field: 'score21',
+                align: 'left',
+                halign: 'center',
+                title: '21年分数线',
+                formatter: scoreFormatter
+            },{
+                field: 'score20',
+                align: 'left',
+                halign: 'center',
+                title: '20年分数线',
+                formatter: scoreFormatter
+            },{
+                field: 'score19',
+                align: 'left',
+                halign: 'center',
+                title: '19年分数线',
+                formatter: scoreFormatter
+            },{
+                field: 'mathSubject',
+                align: 'left',
+                halign: 'center',
+                title: '数学科目',
+            },{
+                field: 'englishSubject',
+                align: 'left',
+                halign: 'center',
+                title: '英语科目',
+            },{
+                field: 'majorSubject',
+                align: 'left',
+                halign: 'center',
+                title: '专业课科目',
+            },{
+                field: 'change',
+                align: 'left',
+                halign: 'center',
+                title: '修改',
+            }, {
+                field: 'checkSpotIds',
+                align: 'left',
+                halign: 'center',
+                title: '选择',
+    }]
+        })
+
+        $("#btn_delete").click(function () {
+            var msg='编号   ';
+            $('input[name="checkSchoolIds"]:checked').each(function(){
+                //遍历每一个名字为interest的复选框，其中选中的执行函数
+                //将选中的值添加到数组checkIds中
+                console.log($(this).val());
+                checkIds.push($(this).val());
+            });
+            checkIds.forEach(function (value) {
+                msg+= value+";\n";
+            });
+            // alert("执行后台删除操作:" + msg);
+            if(confirm("确定要删除以下记录吗？\n"+msg)){
+                $.ajax({
+                    url: "/deleteBatchSchools",
+                    traditional:true,
+                    type: "post",
+                    data:{ ids:checkIds },
+                    success: function (res) {
+                        window.location.reload();
+                    }
+                })
+            } else{
+                alert("当前没有选择任何记录，请先选择要删除的记录！！！");
+            }
+        })
+        $("#btn_add").click(function () {
+            window.location.href='showAddSchool';
+        })
+        $("#btn_excel").click(function () {
+            $('#tb-spots').tableExport({
+                type: 'excel',                  //导出的表格类型
+                escape: 'false',
+                ignoreColumn: '[12,13]',
+                fileName:   '院系招生信息查询结果',         //导出的excel的表格名称
+                worksheetName:'院系招生信息查询结果'         //  导出的excel表格每一个sheet的名称
+        })})
+    })
+    function scoreFormatter(value) {
+        var score = "";
+        if (value  > 200 ) {
+            score = value;
+        }else {
+            score = '暂无';
+        }
+        return '<div >' + score + '</div>';
+    }
+</script>
+</body>
+</html>

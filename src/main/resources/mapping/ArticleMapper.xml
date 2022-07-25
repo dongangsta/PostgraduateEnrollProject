@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.ArticleDao">
+    <resultMap id="BaseArticleMap" type="edu.dsm.entity.Article">
+        <result column="articleId" jdbcType="INTEGER" property="articleId" />
+        <result column="authorId" jdbcType="INTEGER" property="authorId" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="text" jdbcType="VARCHAR" property="text" />
+        <result column="articleDate" jdbcType="TIMESTAMP" property="articleDate" />
+        <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
+    </resultMap>
+
+    <!--抽取重复的语句代码片段-->
+    <sql id="selectArticleSql">
+        select * from article
+    </sql>
+
+    <select id="selectAll"   resultMap="BaseArticleMap" >
+        <include refid="selectArticleSql"/>
+        order by articleDate desc
+    </select>
+
+    <select id="selectByArticleId" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+        select * from article WHERE articleId = #{articleId}
+    </select>
+
+
+    <delete id="deleteBatchArticles" >
+        DELETE FROM article WHERE articleId in
+        <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <select id="selectByCollegeName" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+        select * from article WHERE collegeName = #{collegeName}
+    </select>
+    <select id="selectByUserId" parameterType="edu.dsm.entity.Article" resultMap="BaseArticleMap" resultType="edu.dsm.entity.Article">
+        select * from article WHERE authorId = #{userId}
+    </select>
+    <insert id="addArticle">
+        insert into article (authorId,title,text,articleDate,collegeName) values (#{userId},#{title},#{text},now(),#{collegeName});
+    </insert>
+
+</mapper>

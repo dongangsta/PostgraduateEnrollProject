@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>招生信息页面</title>
+    <!--jquery-->
+    <script type="text/javascript" src="js/jquery/jquery-3.5.1.min.js"></script>
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!--bootstrap-table-->
+    <link rel="stylesheet" type="text/css" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script type="text/javascript" src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <!-- bootstrap-table表格 -->
+    <!--bootstrap-table-export-->
+    <script src="js/bootstrap-table-export/bootstrap-table-export.js"></script>
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/extensions/export/bootstrap-table-export.js"></script>-->
+
+    <!--在客户端保存生成的导出文件-->
+    <script src="js/bootstrap-table-export/FileSaver.min.js"></script>
+    <!--以XLSX（Excel 2007+ XML格式）格式导出表（SheetJS）-->
+    <script src="js/bootstrap-table-export/xlsx.core.min.js"></script>
+    <!--将表导出为PDF文件-->
+    <script src="js/bootstrap-table-export/jspdf.min.js"></script>
+    <script src="js/bootstrap-table-export/jspdf.plugin.autotable.js"></script>
+    <!--以PNG格式导出表格-->
+    <!--对于IE支持包括 html2canvas 之前的 es6-promise-->
+    <script src="js/bootstrap-table-export/es6-promise.auto.min.js"></script>
+    <script src="js/bootstrap-table-export/html2canvas.min.js"></script>
+    <!--无论期望的格式如何，最后都包含 tableexport.jquery.plugin（不是tableexport）-->
+    <script src="js/bootstrap-table-export/tableExport.min.js"></script>
+</head>
+<body>
+<H3 align="center">院校招生信息查询</H3>
+<hr/>
+<div class="container-fluid">
+    <div id ="toolbar">
+        <form class="form-inline" role="form" style="margin-left: 10px" action="selectSchools"  method="post">
+            <div class="form-group">
+                <label class="sr-only" for="province">省份</label>
+                <div class="input-group">
+                    <div class="input-group-addon">省份</div>
+                    <select class="form-control" name="province" id="province" style="width:140px">
+                        <option value="">请选择地区</option>
+                        <option value="北京市">北京市</option>
+                        <option value="天津市">天津市</option>
+                        <option value="河北省">河北省</option>
+                        <option value="山西省">山西省</option>
+                        <option value="内蒙古自治区">内蒙古自治区</option>
+                        <option value="辽宁省">辽宁省</option>
+                        <option value="吉林省">吉林省</option>
+                        <option value="黑龙江省">黑龙江省</option>
+                        <option value="上海市">上海市</option>
+                        <option value="江苏省">江苏省</option>
+                        <option value="浙江省">浙江省</option>
+                        <option value="安徽省">安徽省</option>
+                        <option value="福建省">福建省</option>
+                        <option value="江西省">江西省</option>
+                        <option value="山东省">山东省</option>
+                        <option value="河南省">河南省</option>
+                        <option value="湖北省">湖北省</option>
+                        <option value="湖南省">湖南省</option>
+                        <option value="广东省">广东省</option>
+                        <option value="广西壮族自治区">广西壮族自治区</option>
+                        <option value="海南省">海南省</option>
+                        <option value="重庆市">重庆市</option>
+                        <option value="四川省">四川省</option>
+                        <option value="贵州省">贵州省</option>
+                        <option value="云南省">云南省</option>
+                        <option value="西藏自治区">西藏自治区</option>
+                        <option value="陕西省">陕西省</option>
+                        <option value="甘肃省">甘肃省</option>
+                        <option value="青海省">青海省</option>
+                        <option value="宁夏回族自治区">宁夏回族自治区</option>
+                        <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">专业名称</div>
+                <input type="text" id="specialtyName" name="specialtyName" class="form-control" placeholder="请输入专业名称" style="width:140px">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">学校名称</div>
+                <input type="text" id="schoolName" name="schoolName" class="form-control" placeholder="请输入学校名称" style="width:140px">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">最低分数线</div>
+                <input type="text" id="lowestScore" name="lowestScore" class="form-control" placeholder="请输入最低分数线" style="width:140px">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">最高分数线</div>
+                <input type="text" id="highestScore" name="highestScore" class="form-control" placeholder="请输入最高分数线" style="width:140px">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="mathSubject">数学科目</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">数学科目</div>
+                        <select class="form-control" name="mathSubject" id="mathSubject" style="width:140px">
+                            <option value="">请选择数学科目</option>
+                            <option value="301 数学一">301 数学一</option>
+                            <option value="302 数学二">302 数学二</option>
+                            <option value="303 数学三">303 数学三</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="mathSubject">英语科目</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">英语科目</div>
+                        <select class="form-control" name="englishSubject" id="englishSubject" style="width:140px">
+                            <option value="">请选择英语科目</option>
+                            <option value="201 英语一">201 英语一</option>
+                            <option value="202 英语二">202 英语二</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default" style="background-color: rgb(88, 148, 255);color: #ffffff"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;查询</button>
+        </form>
+    </div>
+    <div>
+
+        <table id="tb-spots" data-show-search-button="true" data-class="table table-bordered">
+            <thead>
+            <tr>
+                <th>学校编号</th>
+                <th>省份</th>
+                <th>学校名称</th>
+                <th>学院名称</th>
+                <th>专业名称</th>
+                <th>平均分数线</th>
+                <th>21年分数线</th>
+                <th>20年分数线</th>
+                <th>19年分数线</th>
+                <th>数学科目</th>
+                <th>英语科目</th>
+                <th>专业课科目</th>
+            </tr>
+            </thead>
+            <tr th:if="${schoolList.size()<=0}">
+                <td colspan="5" style="align-items: center" >表中无数据</td>
+            <tr th:each="school : ${schoolList}">
+                <td th:text="${school.schoolId }">${school.schoolId }</td>
+                <td th:text="${school.province }">${school.province }</td>
+                <td th:text="${school.schoolName }">${school.schoolName }</td>
+                <td th:text="${school.collegeName }">${school.collegeName }</td>
+                <td th:text="${school.specialtyName }">${school.specialtyName }</td>
+                <td th:text="${school.averageScore }">${school.averageScore }</td>
+                <td th:text="${school.score21 }">${school.score21 }</td>
+                <td th:text="${school.score20 }">${school.score20 }</td>
+                <td th:text="${school.score19 }">${school.score19 }</td>
+                <td th:text="${school.mathSubject }">${school.mathSubject }</td>
+                <td th:text="${school.englishSubject }">${school.englishSubject }</td>
+                <td th:text="${school.majorSubject }">${school.majorSubject }</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    // 初始化表格
+    function initTable(exportScope) {
+        $('#tb-spots').bootstrapTable({
+            search: false,
+            striped: true,
+            pagination: true,
+            sortable: true,
+            sortOrder: "asc",
+            sidePagination: "client",
+            pageNumber: 1, //每页的记录行数（*）
+            pageSize: 10, //可供选择的每页的行数（*） 当记录条数大于最小可选择条数时才会出现
+            pageList: [10, 20, 50, 100],
+            toolbar: "#toolbar",
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            strictSearch: true,//是否显示表格搜索,bootstrap-table服务器分页不能使用搜索功能，可以自定义搜索框
+            // search: true,
+            showColumns: true,//是否显示所有的列（选择显示的列）
+            showRefresh: true,//是否显示刷新按钮
+            //最少允许的列数
+            minimumCountColumns: 2,
+            locale: "zh-CN",
+            singleSelect: false,
+            clickToSelect: true,//单击选中列表
+            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            //height: 500,
+            //每一行的唯一标识，一般为主键列
+            uniqueId: "id",
+            //是否显示 切换试图（table/card）按钮
+            showToggle: true,
+            maintainSelected: true,
+            //是否显示详细视图
+            cardView: false,
+            //是否显示父子表
+            detailView: false,
+            //是否导出数据
+            showExport: true,
+            checkboxHeader: true,
+            Icons : 'glyphicon-export icon-share',
+            //选择导出数据的范围，默认basic：只导出当前页的表格数据；all：导出所有数据；selected：导出选中的数据
+            exportDataType: exportScope,
+            //导出文件类型,因为导出png文件时会出现忽略的列也显示；导出PDF文件出现中文乱码的问题，所以根据需要只支持Excel文件类型即可
+            //['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'pdf']
+            exportTypes: ['excel'],
+            // Icons:'glyphicon-export',
+            // export: 'glyphicon-export icon-share',
+            //导出设置
+            exportOptions: {
+                ignoreColumn: [0,11],  //忽略某一列的索引
+                worksheetName: 'sheet1',  //表格工作区名称
+                // tableName: '总台帐报表',
+                //导出文件的名称
+                fileName: 'bootstrapTable表格数据',
+            },
+            //得到查询的参数
+            queryParams : function (params) {
+                debugger;
+                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                var temp = {
+                    province: $('#province').val(),
+                    specialtyName : $('#specialtyName').val(),
+                    // pageSize: params.limit, //页面大小
+                    pageSize: 10, //页面大小
+                    // pageNumber: (params.offset / params.limit) + 1, //页码
+                    pageNumber: 1, //页码
+                    sortOrder: params.order //排序方式（desc，asc）
+                };
+                return temp;
+            },
+            columns: [{
+                field: 'schoolId',
+                title: '学校编号',
+            }, {
+                field: 'province',
+                align: 'left',
+                halign: 'center',
+                title: '省份',
+            }, {
+                field: 'schoolName',
+                align: 'left',
+                halign: 'center',
+                title: '学校名称',
+                formatter: linkFormatter
+            },{
+                field: 'collegeName',
+                align: 'left',
+                halign: 'center',
+                title: '学院名称',
+            }, {
+                field: 'specialtyName',
+                align: 'left',
+                halign: 'center',
+                title: '专业名称',
+            }, {
+                field: 'averageScore',
+                align: 'left',
+                halign: 'center',
+                title: '平均分数线',
+                sortable: true,
+            },{
+                field: 'score21',
+                align: 'left',
+                halign: 'center',
+                title: '21年分数线',
+                sortable: true,
+                formatter: scoreFormatter
+            },{
+                field: 'score20',
+                align: 'left',
+                halign: 'center',
+                title: '20年分数线',
+                sortable: true,
+                formatter: scoreFormatter
+            },{
+                field: 'score19',
+                align: 'left',
+                halign: 'center',
+                title: '19年分数线',
+                sortable: true,
+                formatter: scoreFormatter
+            },{
+                field: 'mathSubject',
+                align: 'left',
+                halign: 'center',
+                title: '数学科目',
+            },{
+                field: 'englishSubject',
+                align: 'left',
+                halign: 'center',
+                title: '英语科目',
+            },{
+                field: 'majorSubject',
+                align: 'left',
+                halign: 'center',
+                title: '专业课科目',
+            }],
+            onLoadSuccess: function () {
+            },
+            onLoadError: function () {
+                alert("数据加载失败！");
+            },
+            //双击行数据的事件
+            onDblClickRow: function (row, $element) {
+                //var id = row.ID;
+                //EditViewById(id, 'view');
+            },
+        });
+    }
+
+    // //连接字段格式化
+    function linkFormatter(value, row, index) {
+        return "<a href='" +"toShowCollege?collegeName="+ value + "' title='单击打开连接' target='_self' >" + value + "</a>";
+        //    return  iframe.src = "toShowCollege?collegeName=" + value;
+        // return "<iframe src="toShowCollege?collegeName=""+value +"width="200" height="200"></iframe> "
+
+    }
+    // //Email字段格式化
+    // function emailFormatter(value, row, index) {
+    //     return "<a href='mailto:" + value + "' title='单击打开连接'>" + value + "</a>";
+    // }
+    // //性别字段格式化
+    // function sexFormatter(value) {
+    //     var sex = "";
+    //     if (value === "0") {
+    //         color = 'Red';
+    //         sex = "女";
+    //     }
+    //     else if (value === "1") {
+    //         color = 'Green';
+    //         sex = "男";
+    //     }
+    //     else {
+    //         color = 'Yellow';
+    //     }
+    //     return '<div  style="color: ' + color + '">' + sex + '</div>';
+    // }
+    function scoreFormatter(value) {
+        var score = "";
+        if (value  > 200 ) {
+            score = value;
+        }else {
+            score = '暂无';
+        }
+        return '<div >' + score + '</div>';
+    }
+    $(function () {
+        //调用函数，初始化表格,导出时默认导出全部
+        initTable('all');
+    });
+
+    function query(){
+        initTable('all');
+    }
+
+    // 自定义按钮导出数据
+    function exportData(){
+        //选择导出的数据类型
+        var dataType = $('#selectExportDataType').val();
+        initTable(dataType);
+        debugger;
+        $('#table').tableExport({
+            type: 'excel',
+            // One of 'head', 'data', 'all'
+            jsonScope: 'all',
+            //忽略某一列的索引
+            ignoreColumn: [0,11],
+            //表格工作区名称
+            worksheetName: 'sheet1',
+            //下载文件名称
+            fileName: '自定义导出数据',
+            //处理导出内容,自定义某一行、某一列、某个单元格的内容
+            onCellHtmlData: function (cell, row, col, data){
+                // console.info(data);
+                return data;
+            },
+        });
+    }
+
+</script>
+</html>

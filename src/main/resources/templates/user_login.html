@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>考研报考辅助平台——用户登录</title>
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"  />
+    <link rel="stylesheet" type="text/css" href="css/userLogin.css" />
+    <style>
+        button{
+            width: 320px;
+            color: #000;;
+        }
+        .test{
+            BACKGROUND-COLOR: transparent;
+            height: 38px;
+            width: 320px;
+            border: 1px solid #C9C9C9;
+        }
+    </style>
+</head>
+<body>
+<div class="login">
+    <h2>考研报考信息系统</h2>`
+    <form>
+        <div class="login_box">
+            <input type="text"  id="userName"  autocomplete="off"  class="layui-input" required="required">
+            <label>用户名</label>
+        </div>
+        <div class="login_box">
+            <input type="password"  id="userPassword"  autocomplete="off"  class="layui-input" required="required">
+            <label>密码</label>
+        </div>
+        <input class="test" type="button" value="登录" onclick="verify()"/><br><br>
+        <input class="test" type="button" value="注册" onclick="window.location.href='register'"></button>
+    </form>
+</div>
+<script type="text/javascript"th:src="@{/js/jquery/jquery-1.11.3.js}"></script>
+<script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" src="js/jparticle.min.js" th:src="@{/js/jparticle.min.js}"></script>
+<script type="text/javascript" src="js/zylVerificationCode.js" th:src="@{/js/zylVerificationCode.js}"></script>
+<script th:inline="javascript">
+    function verify(){
+        var userName = document.getElementById("userName").value;
+        var userPassword = document.getElementById("userPassword").value;
+        console.log(userName);
+        console.log(userPassword);
+        $.ajax({
+            url: "loginJudge",
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            data: {
+                "userName": userName,
+                "userPassword": userPassword
+            },
+            error: function (data){
+                alert("出错了,请重新登录");
+            },success: function (data){
+                console.log(data);
+                if(data == "fail"){
+                    alert("登录失败,请重新登录!");
+                    $("#userName").val("");
+                    $("#userPassword").val("");
+                }
+                else {
+                    window.location.href="toUserIndex";
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>院校信息</title>
+    <meta name="keywords" content="考研院校信息,院校库,招生单位信息"/>
+    <meta name="description" content="院校信息 - 中国研究生招生信息网为您提供权威的研究生招生单位信息。"/>
+    <link rel="stylesheet" type="text/css" href='https://t1.chei.com.cn/common/plugins/autocomplete/jquery.autocomplete.css'/>
+    <link rel="stylesheet" type="text/css" href='https://t1.chei.com.cn/common/css/ueditor.css' />
+
+    <link rel="dns-prefetch" href="//axvert.chsi.com.cn">
+    <link rel="dns-prefetch" href="//t1.chei.com.cn">
+    <link rel="dns-prefetch" href="//t2.chei.com.cn">
+    <link rel="dns-prefetch" href="//t3.chei.com.cn">
+    <link rel="dns-prefetch" href="//t4.chei.com.cn">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="shortcut icon" href="https://t4.chei.com.cn/yz/favicon.ico?20200918" type="image/x-icon" />
+    <link rel="stylesheet" href="https://t1.chei.com.cn/common/ch/iconfont.css">
+    <link rel="stylesheet" href="https://t3.chei.com.cn/yz/assets/css/yz.min.css?20190918">
+    <script src="https://t1.chei.com.cn/common/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://t1.chei.com.cn/common/axvert/js/showchsi_m.js"></script>
+    <!--[if IE 6]>
+    <script src="https://t4.chei.com.cn/yz/js/IE6PNG.js"></script>
+    <script>DD_belatedPNG.fix('#dhBG,#dh_logo,img');</script>
+    <![endif]-->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js" ></script>
+    <script src="https://t1.chei.com.cn/common/zhuge/zhuge-1.0.0.js"></script>
+    <script type="text/javascript">
+        // 停用诸葛埋点
+        window.zhuge = window.zhuge || [];
+        window.zhuge.load = function (b, x) {};
+        window.zhuge.track = function (b, x) {};
+        var zhugeFun = {
+            init: function (flag) {
+                var OpenautoTrack = typeof flag != 'undefined' ? flag : false; //是否开启全埋点
+                window.zhuge.load('adfb574f9c54457db21741353c3b0aa7', { //配置应用的AppKey
+                    autoTrack: OpenautoTrack
+                });
+            },
+            centerListClick: function (tab,title,type) {
+                zhuge.track('个人中心_入口点击', {
+                    '入口类别': tab,
+                    '入口名称': title,
+                    '设备信息': type
+                });
+            }
+        };
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-100524-7"></script>
+    <script>
+        function gaTrackerOutboundLink(ele,eventCategory,eventAction,eventLabel){
+            gtag('event', eventAction, {
+                'event_category': eventCategory,
+                'event_label': eventLabel
+            });
+            return true;
+        };
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-100524-7', {'sample_rate': 5});
+    </script>
+</head>
+
+<body class="ch-sticky" onload="myFun()">
+<img style="display: block;" src='https://t1.chei.com.cn/common/wap/images/share_yz.jpg' width='0' height='0'/>
+<div class="main-wrapper">
+
+    <!-- 1：吊顶区域 -->
+    <style>
+        /**
+         * description: top-nav-wrapper: 吊顶;
+         * author: myx;
+         * date: 2017-08;
+         */
+        .top-nav-wrapper {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background: #f7f9fa;
+            border-bottom: 1px solid #d6d6d6;
+            font-size: 12px;
+        }
+        .top-nav-wrapper a {
+            color: #333;
+        }
+        .top-nav-wrapper a.hot {
+            color: #ee6464;
+        }
+        .top-nav-wrapper a:hover {
+            text-decoration: underline;
+        }
+        .top-nav-wrapper .top-nav {
+            width: 1180px;
+            margin: 0 auto;
+        }
+        .top-nav-wrapper .top-nav-list {
+            float: left;
+            width: 980px;
+            height: 40px;
+        }
+        .top-nav-wrapper .top-nav-list a {
+            margin: 0 10px;
+        }
+        .top-nav-wrapper .top-nav-list a.top-nav-home {
+            display: inline-block;
+            width: 45px;
+            height: 40px;
+            padding-left: 50px;
+            margin-right: 15px;
+            margin-left: 0px;
+            margin-top: -1px;
+            background-image: url('https://t2.chei.com.cn/yz/assets/images/logo-min.png');
+            background-image: -webkit-image-set(url('https://t2.chei.com.cn/yz/assets/images/logo-min.png') 1x, url('https://t4.chei.com.cn/yz/assets/images/logo-min2x.png') 2x);
+            background-repeat: no-repeat;
+            background-position: 0 11px;
+            color: #1787e0;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+        .top-nav-wrapper .top-nav-list a.top-nav-home:hover{
+            text-decoration: none;
+        }
+        .top-nav-wrapper .top-nav-load {
+            float: right;
+            width: 200px;
+            height: 40px;
+            text-align: right;
+        }
+        .top-nav-wrapper .top-nav-load a {
+            margin: 0 5px;
+        }
+        .top-nav-hide {
+            position: relative;
+            margin-left: 10px;
+            cursor: pointer;
+            color: #999;
+        }
+        .top-nav-hide:hover {
+            color: #333;
+        }
+        .top-nav-hide:hover .top-nav-pop {
+            display: block;
+        }
+        .top-nav-hide .iconfont {
+            font-size: 12px;
+            margin-right: -5px;
+        }
+        .top-nav-pop{
+            display: none;
+            position: absolute;
+            left: 0px;
+            top: 12px;
+            padding-top: 14px;
+            z-index: 9999;
+        }
+        .top-nav-hide ul {
+            width: 135px;
+            padding: 6px 0;
+            border: 1px solid #e5e5e5;
+            border-bottom: none;
+            background: #fff;
+            box-shadow: 2px 2px 8px #cdcdcd;
+        }
+        .top-nav-hide li {
+            line-height: 35px;
+        }
+        .top-nav-wrapper .top-nav-hide li a {
+            display: block;
+            margin: 0 10px;
+            border-bottom: 1px dashed #e5e5e5;
+        }
+        .top-nav-wrapper .top-nav-hide li.last a {
+            border-bottom: none;
+        }
+        .top-nav-wrapper .top-nav-hide li a:hover {
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0 10px;
+            border-bottom: 1px dashed #f2f2f2;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .top-nav-wrapper .top-nav-hide li.last a:hover {
+            border-bottom: none;
+        }
+        .top-nav-point {
+            font-family: tahoma, arial, 'Microsoft YaHei', "Hiragino Sans GB", SimSun, sans-serif;
+        }
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: url("images/login3.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .jumbotron {
+            opacity: 0.7;
+            top: 0px;
+        }
+        #hy {
+            float: right;
+        }
+        .a {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+            margin-left: 15%;
+            height: 1000px;
+            width: 800px;
+            background-color: rgb(255, 255, 255, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .row {
+            margin-left: 30px;
+            margin-top: 30px;
+        }
+        .thumbnail {
+            width: 700px;
+            height: 110px;
+            background-color: rgb(255, 255, 255, 0.4);
+            /*box-shadow: none;*/
+            border: 1px solid #ddd;
+        }
+        h1 {
+            font-size: 20px;
+            text-align: left;
+        }
+        p {
+            text-align: left;
+        }
+
+        i {
+            margin-left: 10px;
+            font-size: 21px;
+            color: #7a7a7a;
+            float: right;
+            margin-top: -10px;
+        }
+        .bq {
+            color: #1e9fff;
+        }
+    </style>
+    <!--头部区域-->
+    <div class="header-wrapper zx-yx-header-wrapper">
+        <div class="zx-yx-header">
+            <h1 class="zx-yx-title"><a th:href="@{likeCollege(collegeName=${college.collegeName})}"  href="likeCollege?collegeName=浙江大学">[[${college.collegeName}]]<i class="iconfont">&#xe835;</i></a></h1>
+            <div class="zx-yx-baseinfo">
+                <br><span class="zx-yx-baseinfo-th">所在地区：</span>[[${college.collegeArea}]]<br>
+                <span class="zx-yx-baseinfo-th">院校官网：</span>[[${college.collegeNet}]]<br>
+
+                <a class="ch-btn zx-question" th:href="@{toAddArticle(collegeName=${college.collegeName})}"  href="toAddArticle?collegeName=浙江大学"
+                    target="_self">
+                    <i style="margin-top: -1px" class="iconfont">&#xe642;</i>&ensp;发布文章
+
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <style>
+            .yxk-other-link .yxk-xf {
+                top: 50px;
+                left: 450px;
+            }
+            .yxk-other-link .yxk-dsdw {
+                top: 80px;
+                left: 665px;
+            }
+            .yxk-other-link .yxk-lxbf {
+                top: 229px;
+                left: 760px;
+            }
+            .yxk-other-link .yxk-qt {
+                top: 415px;
+                left: 641px;
+            }
+            .yxk-other-link .yxk-kytj {
+                top: 400px;
+                left: 404px;
+            }
+            .yxk-other-link .yxk-jdxj {
+                top: 211px;
+                left: 330px;
+            }
+        </style>
+
+        <div class="yxk-index-con">
+
+            <div class="yxk-column-title">
+                <h3>院校概况</h3><br>
+            </div>
+            <div class="yxk-content">
+                [[${college.collegeIntro}]]
+            </div>
+
+            <div class="yxk-column-title">
+                <h3>各专业招生信息</h3><br>
+
+            </div>
+            <div class="yxk-content" id="brs">
+                <table class="table table-hover" data-class="table table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>学院名称</th>
+                        <th>专业名称</th>
+                        <th>平均分数线</th>
+                        <th>21年分数线</th>
+                        <th>20年分数线</th>
+                        <th>19年分数线</th>
+                        <th>数学科目</th>
+                        <th>英语科目</th>
+                        <th>专业课科目</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${schoolList.size()<=0}">
+                        <td colspan="5" style="align-items: center" >表中无数据</td>
+                    <tr th:each="school : ${schoolList}">
+                        <td th:text="${school.collegeName }">${school.collegeName }</td>
+                        <td th:text="${school.specialtyName }">${school.specialtyName }</td>
+                        <td th:text="${school.averageScore }">${school.averageScore }</td>
+                        <td th:text="${school.score21 }">${school.score21 }</td>
+                        <td th:text="${school.score20 }">${school.score20 }</td>
+                        <td th:text="${school.score19 }">${school.score19 }</td>
+                        <td th:text="${school.mathSubject }">${school.mathSubject }</td>
+                        <td th:text="${school.englishSubject }">${school.englishSubject }</td>
+                        <td th:text="${school.majorSubject }">${school.majorSubject }</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="chart1" style="width:600px; height: 400px;margin-left: 24%" ></div>
+            </div>
+            <div class="yxk-column-title">
+                <h3>考情咨询/经验分享</h3><br>
+            </div>
+            <div class="a" id="news">
+
+            </div>
+        </div>
+        <!--正文结束↑-->
+        <script>
+
+            function myFun() {
+                var cname = "[[${college.collegeName}]]"
+                $.ajax({
+                    type: "get",
+                    url: "articlesDataOfCollege?collegeName="+cname,
+                    dataType: 'json',
+                    data:"showList",
+                    success: function (data) {
+                        var html='';
+                        for (var i = 0;i < data.length;i++){
+
+                            html+="      <div class=\"row\">\n" +
+                                "        <div class=\"col-sm-6 col-md-4\">\n" +
+                                "          <div class=\"thumbnail\">\n" +
+                                "            <div class=\"caption\">\n" +
+                                "              <h1>" +
+                                data[i].title +
+                                "</h1>\n" +
+                                "              <p class=\"bq\">作者：" +
+                                data[i].userName +
+                                "</p>" +
+                                "              <p class=\"bq\">" +
+                                "发布时间：" +
+                                data[i].articleDate +
+                                "</p>" +
+                                "              <a href='article?articleId=" +
+                                data[i].articleId +
+                                "' class=\"caption1\">" +
+                                "点击查看原文\n" +
+                                "              </a>" +
+                                "            </div>\n" +
+                                "          </div>\n" +
+                                "        </div>\n" +
+                                "      </div>"
+                        }
+                        document.getElementById('news').innerHTML = html;
+                    }
+                })
+            }
+            $(".caption1").each(function () {
+                var len = $(this).text().length; //当前HTML对象text的长度
+                if (len > 50) {
+                    var str = "";
+                    str = $(this).text().substring(0, 50) + "......"; //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+                    $(this).html(str); //将替换的值赋值给当前对象
+                }
+            });
+        </script>
+        <script type="text/javascript" src="//t1.chei.com.cn/common/js/vue/2.5.15/vue.min.js"></script>
+        <script type="text/javascript" src="//t1.chei.com.cn/common/vue-plugins/iview4.4.0/js/iview.min.js"></script>
+        <script type="text/javascript" src="//t3.chei.com.cn/yz/sswbgg/assets/js/vendors.js"></script>
+        <script type="text/javascript" src="//t1.chei.com.cn/yz/sswbgg/assets/js/app.js"></script>
+
+    </div>
+</div>
+
+
+
+
+<!-- 4: 底部区域 -->
+<style>
+    /**
+     * description: footer 共用底部;
+     * author:myx;
+     * date:2017-07;
+     */
+
+    .yxk-content {
+        height: auto;
+    }
+
+
+    .footer-wrapper {
+        line-height: 30px;
+        background: #282828;
+        color: #ababab;
+    }
+
+    .footer-wrapper a {
+        color: #ababab;
+    }
+
+    .footer-wrapper .footer {
+        position: relative;
+        width: 1180px;
+        height: 198px;
+        margin: 0 auto;
+    }
+
+    .footer-wrapper .footer-list {
+        position: absolute;
+        top: 32px;
+        left: 0px;
+    }
+
+    .footer-wrapper .footer-list a {
+        margin-right: 15px;
+    }
+
+    .footer-wrapper .footer-units {
+        position: absolute;
+        top: 75px;
+        left: 0px;
+    }
+
+    .footer-wrapper .footer-media {
+        position: absolute;
+        top: 32px;
+        left: 844px;
+    }
+
+    .footer-wrapper .footer-media a {
+        display: inline-block;
+        margin-right: 30px;
+        vertical-align: top;
+    }
+
+    .footer-wrapper .footer-media a:hover {
+        text-decoration: none;
+    }
+
+    .footer-wrapper .footer-media .iconfont {
+        margin-right: 5px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+
+    .footer-wrapper .footer-msg {
+        position: absolute;
+        top: 75px;
+        left: 844px;
+    }
+</style>
+
+<script src="https://t1.chei.com.cn/common/plugins/layer/layer.js"></script>
+<script src="https://t1.chei.com.cn/common/plugins/placeholder-fix.js"></script>
+<script src="https://t1.chei.com.cn/common/ch/browser/least-ie8.min.js"></script>
+
+
+
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js" ></script>
+
+
+
+<script type="text/javascript">
+
+    var cname = "[[${college.collegeName}]]"
+    // var list = [
+    //     {
+    //     name: '访问量',
+    //     type: 'line',
+    //     data: ""
+    //     }
+    // ]
+
+
+
+    $.ajax({
+        type: "get",
+        url: "getSchools?collegeName="+cname,
+        dataType: 'json',
+        data:"showSchoolList",
+        success: function (data) {
+            console.log(data)
+            var list02 = [
+            ]
+
+            for (var i = 0;i < data.length;i++) {
+                var list = [
+                    {
+                        name: '访问量',
+                        type: 'line',
+                        data: ""
+                    }
+                ]
+                var list01 = []
+                list01.push(data[i].score19)
+                list01.push(data[i].score20)
+                list01.push(data[i].score21)
+
+                list[0].data = list01
+                list[0].name = data[i].collegeName + '-' + data[i].specialtyName
+                console.log(list01)
+                list.forEach(function(element) {
+                    console.log(element);
+                });
+                list02.push(list[0])
+            }
+            
+            console.log("list02" + list02[0].data)
+            var option = {
+                title: {
+                    text: '招生信息折线图'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                legend: {
+                    data: ['访客来源']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    data: ["2019", "2020", "2021"]
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 300,
+                    max: 400,
+                },
+                series: list02
+            };
+            //初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart1'));
+
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+        }
+    })
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

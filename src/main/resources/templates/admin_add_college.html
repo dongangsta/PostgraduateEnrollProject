@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>添加院系招生信息</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"  />
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"  />
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <script type="text/javascript" src="tableExport.js"></script>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script src="js/bootstrap/bootstrap-table.js"></script>
+    <script src="js/bootstrap/bootstrap-paginator.js"></script>
+    <script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap/bootstrap-table-editable.js"></script>
+</head>
+<body>
+<fieldset class="layui-field-title" style="margin-top: 20px;">
+    <legend>添加院校信息</legend>
+</fieldset>
+<div style="position: absolute;left: 50px" >
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">学校名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="collegeName" name="collegeName" lay-verify="required" placeholder="输入学校名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在地区</label>
+            <div class="layui-input-inline">
+                <select id="collegeArea" name="collegeArea" lay-verify="required" lay-search>
+                    <option value="">请选择地区</option>
+                    <option value="北京市">北京市</option>
+                    <option value="天津市">天津市</option>
+                    <option value="河北省">河北省</option>
+                    <option value="山西省">山西省</option>
+                    <option value="内蒙古自治区">内蒙古自治区</option>
+                    <option value="辽宁省">辽宁省</option>
+                    <option value="吉林省">吉林省</option>
+                    <option value="黑龙江省">黑龙江省</option>
+                    <option value="上海市">上海市</option>
+                    <option value="江苏省">江苏省</option>
+                    <option value="浙江省">浙江省</option>
+                    <option value="安徽省">安徽省</option>
+                    <option value="福建省">福建省</option>
+                    <option value="江西省">江西省</option>
+                    <option value="山东省">山东省</option>
+                    <option value="河南省">河南省</option>
+                    <option value="湖北省">湖北省</option>
+                    <option value="湖南省">湖南省</option>
+                    <option value="广东省">广东省</option>
+                    <option value="广西壮族自治区">广西壮族自治区</option>
+                    <option value="海南省">海南省</option>
+                    <option value="重庆市">重庆市</option>
+                    <option value="四川省">四川省</option>
+                    <option value="贵州省">贵州省</option>
+                    <option value="云南省">云南省</option>
+                    <option value="西藏自治区">西藏自治区</option>
+                    <option value="陕西省">陕西省</option>
+                    <option value="甘肃省">甘肃省</option>
+                    <option value="青海省">青海省</option>
+                    <option value="宁夏回族自治区">宁夏回族自治区</option>
+                    <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学院介绍</label>
+            <div class="layui-input-inline">
+                <input type="text" id="collegeIntro" name="collegeIntro" lay-verify="required" placeholder="输入学院介绍" autocomplete="off" class="layui-textarea">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学院官网</label>
+            <div class="layui-input-inline">
+                <input type="text" id="collegeNet" name="collegeNet" lay-verify="required" placeholder="输入学院官网" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="btn btn-primary" type="button" onclick="save()">保存</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use('form', function(){  //此段代码必不可少
+        var form = layui.form;
+        form.render('select');
+    });
+    function save() {
+        var collegeName = document.getElementById("collegeName").value;
+        var collegeArea = document.getElementById("collegeArea").value;
+        var collegeIntro = document.getElementById("collegeIntro").value;
+        var collegeNet = document.getElementById("collegeNet").value;
+        $.ajax({
+            url: "addCollege?collegeName="+collegeName+"&collegeArea="+collegeArea+"&collegeIntro="+collegeIntro+"&collegeNet="+collegeNet,
+            type: "get",
+            success:function(){
+                window.location.href = '/CollegeMaintain';
+            }
+        })
+    }
+</script>
+</body>
+</html>

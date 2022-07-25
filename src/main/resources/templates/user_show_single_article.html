@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <title>查看用户文章</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: url("images/login3.jpg");
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .a {
+      position: relative;
+      text-align: center;
+      margin-top: 100px;
+      margin-left: 270px;
+      /* height: 1000px; */
+      width: 1000px;
+      background-color: rgb(255, 255, 255, 0.7);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    h1 {
+      margin-top: 50px;
+      font-size: 40px;
+    }
+    p {
+      font-size: 15px;
+      margin-top: 50px;
+      margin-left: 100px;
+      margin-right: 100px;
+      line-height: 30px;
+      text-indent: 38px;
+      text-align: left;
+    }
+    img {
+      width: 800px;
+      margin-top: 50px;
+    }
+    .pinglun {
+      margin-top: 50px;
+      margin-right: 50px;
+    }
+    textarea {
+      margin-top: 50px;
+      /* margin-bottom: 50px; */
+      width: 700px;
+      height: 70px;
+      background-color: #fff;
+    }
+    .layui-btn {
+      margin-bottom: 62px;
+      height: 70px;
+      width: 70px;
+    }
+    ul li {
+      text-align: left;
+      min-height: 70px;
+      overflow: hidden;
+      background-color: #fff;
+      width: 500px;
+    }
+    li {
+      /* border-radius: 5px; */
+      margin-left: 50px;
+      margin-bottom: 50px;
+    }
+    ul li a {
+      float: right;
+    }
+    .pl {
+      display: inline;
+    }
+    .plq {
+      margin-top: 100px;
+      margin-left: 30px;
+      text-align: left;
+    }
+  </style>
+  <body onload="blog()">
+    <div class="a">
+      <div id="news">
+      </div>
+      <div>
+        <div class="pl">
+          <h3 class="plq">评论区</h3>
+          <textarea name="" id="" cols="30" rows="10"></textarea>
+          <button class="layui-btn" lay-submit="" lay-filter="demo1">
+            发布
+          </button>
+        </div>
+        <div>
+          <hr />
+          <ul></ul>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      function blog() {
+        var id = [[${articleId}]]
+
+        $.ajax({
+          type: "get",
+          url: "articleData?articleId="+id,
+          dataType: 'json',
+          data: "jk",
+          success: function (data) {
+            var html='';
+            html += "        <h2>" +
+                    data.title +
+                    "</h2><br>" +
+                    "        <h3>学校名称：" +
+                    data.collegeName +
+                    "</h3><br>" +
+                    "        <h3>作者：<a   th:href=\"@{toHisCenter(userName=${" +
+                    data.userName +
+                    "})}\"  href=\"toHisCenter?userName=" +data.userName+
+                    "\" >" +
+                    data.userName+
+                    "</a>" +
+                    "</h3><br>" +
+                    "        <h4>发布时间：" +
+                    data.articleDate +
+                    "</h4><br><br>" +
+                    "      <div>\n" +
+                    data.text +
+                    "      </div>\n" +
+                    "      <hr />"
+            document.getElementById('news').innerHTML = html;
+          }
+        })
+      }
+
+      var btn1 = document.querySelector(".layui-btn");
+      var text = document.querySelector("textarea");
+      var ul = document.querySelector("ul");
+      // 2. 注册事件
+      btn1.onclick = function () {
+        if (text.value == "") {
+          alert("评论不能为空");
+          return false;
+        } else {
+          // 1. 创建元素
+          var li = document.createElement("li");
+          function getCookie(objname){//获取指定名称的cookie的值
+            var arrest = document.cookie.split("; ");
+            for(var i = 0;i < arrest.length;i ++){
+              var temp = arrest[i].split("=");
+              if(temp[0] == objname) return unescape(temp[1]);
+            }
+          }
+          var userName = getCookie("userName");
+          li.innerHTML = userName + ':' + text.value + '<a href="javascript:">删除</a>';
+          // 2. 添加元素
+          // ul.appendChild(li);
+          ul.insertBefore(li, ul.children[0]);
+          text.value = "";
+          // 3. 删除留言
+          var del = document.querySelectorAll("a");
+          for (var i = 0; i < del.length; i++) {
+            del[i].onclick = function () {
+              ul.removeChild(this.parentNode);
+              if (ul.children.length != 0) {
+
+              } else {
+                this.disabled = true;
+                alert("已经没有评论啦");
+              }
+            };
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

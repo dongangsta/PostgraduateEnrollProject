@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 水平表单</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script src="js/bootstrap/bootstrap-table.js"></script>
+    <script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap/bootstrap-table-editable.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.js"></script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+</head>
+<body>
+<div>
+    <br><br>
+    <form class="form-horizontal" role="form" action="showRecommend">
+        <div class="form-group" style="width:100%">
+            <label for="predict" class="col-sm-2 control-label">预期成绩</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="predict" name="predict" style="width:50%"
+                       placeholder="请输入您的预期成绩">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">查看我的推荐结果</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table table-hover">
+    <caption>推荐结果</caption>
+    <thead>
+    <tr>
+        <th>院校名称</th>
+        <th>院校地区</th>
+        <th>院校主页</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="college : ${collegeList}">
+        <td th:utext="${college.collegeName}">${college.collegeName}</td>
+        <td th:utext="${college.collegeArea}">${college.collegeArea}</td>
+        <td><a   th:href="@{toShowCollege(collegeName=${college.collegeName})}"  href="toShowCollege?collegeName=浙江大学" >查看院校主页</a>
+    </td></tr>
+    </tbody>
+</table>
+
+</body>
+</html>

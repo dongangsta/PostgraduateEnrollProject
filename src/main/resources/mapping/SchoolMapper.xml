@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.SchoolDao">
+    <cache type="edu.dsm.util.RedisCache"
+           eviction="LRU"
+           flushInterval="6000000"
+           size="1024"
+           readOnly="false"></cache>
+    <resultMap id="BaseSchoolMap" type="edu.dsm.entity.School">
+        <result column="schoolId" jdbcType="INTEGER" property="schoolId" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="schoolName" jdbcType="VARCHAR" property="schoolName" />
+        <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
+        <result column="specialtyName" jdbcType="VARCHAR" property="specialtyName" />
+        <result column="averageScore" jdbcType="INTEGER" property="averageScore" />
+        <result column="score21" jdbcType="INTEGER" property="score21" />
+        <result column="score20" jdbcType="INTEGER" property="score20" />
+        <result column="score19" jdbcType="INTEGER" property="score19" />
+        <result column="mathSubject" jdbcType="VARCHAR" property="mathSubject" />
+        <result column="englishSubject" jdbcType="VARCHAR" property="englishSubject" />
+        <result column="majorSubject" jdbcType="VARCHAR" property="majorSubject" />
+    </resultMap>
+
+    <!--抽取重复的语句代码片段-->
+    <sql id="selectSchoolSql">
+        select * from school
+    </sql>
+
+    <select id="selectAll"   resultMap="BaseSchoolMap" >
+        <include refid="selectSchoolSql"/>
+    </select>
+
+    <!-- 通过主键返回单一对象  -->
+    <select id="selectById" parameterType="Integer"  resultMap="BaseSchoolMap" >
+        <include refid="selectSchoolSql"/>
+        WHERE schoolId = #{schoolId}
+    </select>
+
+    <!-- 通过主键返回单一对象  -->
+    <select id="selectBySchoolName" parameterType="String"  resultMap="BaseSchoolMap" >
+        <include refid="selectSchoolSql"/>
+        WHERE schoolName = #{schoolName}
+    </select>
+
+    <!-- 通过主键删除相应记录  -->
+    <delete id="deleteOne">
+        DELETE FROM school WHERE schoolId = #{schoolId};
+    </delete>
+
+    <!-- 通过主键数组删除相应记录集合  -->
+    <delete id="deleteBatchSchools" >
+        DELETE FROM school WHERE schoolId in
+        <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <insert id="addSchool" parameterType="edu.dsm.entity.School" >
+        INSERT INTO school
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="province != null and province != ''"> province,</if>
+            <if test="schoolName != null and schoolName != ''"> schoolName, </if>
+            <if test="collegeName != null and collegeName != ''"> collegeName, </if>
+            <if test="specialtyName!= null and specialtyName != ''"> specialtyName, </if>
+            <if test="averageScore != null and averageScore != ''"> averageScore, </if>
+            <if test="score21 != null and score21 != ''"> score21, </if>
+            <if test="score20 != null and score21 != ''"> score20, </if>
+            <if test="score19 != null and score19 != ''"> score19, </if>
+            <if test="mathSubject != null and mathSubject != ''"> mathSubject, </if>
+            <if test="englishSubject != null and englishSubject != ''"> englishSubject, </if>
+            <if test="majorSubject != null and majorSubject != ''"> majorSubject </if>
+        </trim>
+
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="province != null and province != ''"> #{province},</if>
+            <if test="schoolName != null and schoolName != ''"> #{schoolName}, </if>
+            <if test="collegeName != null and collegeName != ''"> #{collegeName}, </if>
+            <if test="specialtyName!= null and specialtyName != ''"> #{specialtyName}, </if>
+            <if test="averageScore != null and averageScore != ''"> #{averageScore}, </if>
+            <if test="score21 != null and score21 != ''"> #{score21}, </if>
+            <if test="score20 != null and score21 != ''"> #{score20}, </if>
+            <if test="score19 != null and score19 != ''"> #{score19}, </if>
+            <if test="mathSubject != null and mathSubject != ''"> #{mathSubject}, </if>
+            <if test="englishSubject != null and englishSubject != ''"> #{englishSubject}, </if>
+            <if test="majorSubject != null and majorSubject != ''"> #{majorSubject} </if>
+        </trim>
+    </insert>
+
+    <update id="updateSchool" parameterType="edu.dsm.entity.School" >
+        UPDATE school
+        <set>
+            <if test="province != null and province != ''"> province = #{province},</if>
+            <if test="schoolName != null and schoolName != ''"> schoolName = #{schoolName}, </if>
+            <if test="collegeName != null and collegeName != ''"> collegeName = #{collegeName}, </if>
+            <if test="specialtyName!= null and specialtyName != ''"> specialtyName = #{specialtyName}, </if>
+            <if test="averageScore != null and averageScore != ''"> averageScore = #{averageScore}, </if>
+            <if test="score21 != null and score21 != ''"> score21 = #{score21}, </if>
+            <if test="score20 != null and score21 != ''"> score20 = #{score20}, </if>
+            <if test="score19 != null and score19 != ''"> score19 = #{score19}, </if>
+            <if test="mathSubject != null and mathSubject != ''"> mathSubject = #{mathSubject}, </if>
+            <if test="englishSubject != null and englishSubject != ''"> englishSubject = #{englishSubject}, </if>
+            <if test="majorSubject != null and majorSubject != ''"> majorSubject = #{majorSubject} </if>
+        </set>
+        <where>
+            schoolId = #{schoolId}
+        </where>
+    </update>
+
+    <select id="selectSchools" resultMap="BaseSchoolMap" >
+        <include refid="selectSchoolSql"/>
+        WHERE
+        <if test="province != null and province != ''"> province = #{province}</if>
+        <if test="mathSubject != null and mathSubject != ''">and mathSubject = #{mathSubject} </if>
+        <if test="englishSubject != null and englishSubject != ''">and englishSubject = #{englishSubject} </if>
+        <if test="schoolName != null and schoolName != ''"> and schoolName  LIKE  '%${schoolName}%' </if>
+        <if test="specialtyName!= null and specialtyName != ''"> and specialtyName LIKE '%${specialtyName}%'</if>
+        <if test="lowestScore != null and lowestScore != ''">  and averageScore >=  #{lowestScore} </if>
+        <if test="highestScore != null and highestScore != ''">  and #{highestScore} >=  averageScore </if>
+    </select>
+</mapper>
