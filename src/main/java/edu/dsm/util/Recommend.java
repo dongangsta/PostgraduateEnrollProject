@@ -78,22 +78,21 @@ public class Recommend {
                 u1 = user;
             }
         }
-        for (int i = 0; i < users.size(); i++) {
-            User u2 = users.get(i);
+        for (User u2 : users) {
             if (!u2.getUserName().equals(username)) {
-                List<College> collegeList1 =new ArrayList<>();
+                List<College> collegeList1 = new ArrayList<>();
                 List<MyLike> myLikeList1 = myLikeService.selectMyLike(u1.getUserId());
-                for (MyLike myLike:myLikeList1){
+                for (MyLike myLike : myLikeList1) {
                     College college = collegeService.selectById(myLike.getCollegeId());
                     collegeList1.add(college);
                 }
-                List<College> collegeList2 =new ArrayList<>();
+                List<College> collegeList2 = new ArrayList<>();
                 List<MyLike> myLikeList2 = myLikeService.selectMyLike(u2.getUserId());
-                for (MyLike myLike:myLikeList2){
+                for (MyLike myLike : myLikeList2) {
                     College college = collegeService.selectById(myLike.getCollegeId());
                     collegeList2.add(college);
                 }
-                double distance = pearson_dis(collegeList1, collegeList2,u1,u2);
+                double distance = pearson_dis(collegeList1, collegeList2, u1, u2);
                 distances.put(distance, u2.getUserName());
             }
         }
@@ -116,8 +115,8 @@ public class Recommend {
             College college = collegeList1.get(i);
             collegeForRecommendList2.add(new CollegeForRecommend(u2.getPredict(),college.getCollegeName()));
         }
-        List<Integer> collegeList1ScoreCollect = collegeForRecommendList1.stream().map(A -> A.getMyScore()).collect(Collectors.toList());
-        List<Integer> collegeList2ScoreCollect = collegeForRecommendList2.stream().map(A -> A.getMyScore()).collect(Collectors.toList());
+        List<Integer> collegeList1ScoreCollect = collegeForRecommendList1.stream().map(CollegeForRecommend::getMyScore).collect(Collectors.toList());
+        List<Integer> collegeList2ScoreCollect = collegeForRecommendList2.stream().map(CollegeForRecommend::getMyScore).collect(Collectors.toList());
 
         double Ex= collegeList1ScoreCollect.stream().mapToDouble(x->x).sum();
         double Ey= collegeList2ScoreCollect.stream().mapToDouble(y->y).sum();
