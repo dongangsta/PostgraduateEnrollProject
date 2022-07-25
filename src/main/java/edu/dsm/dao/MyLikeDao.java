@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface MyLikeDao {
-    public int likeCollege(Integer userId,Integer collegeId);
-    public List<MyLike> selectMyLike(Integer userId);
-    public int deleteMyLike(Integer collegeId);
+    int likeCollege(Integer userId,Integer collegeId);
+    List<MyLike> selectMyLike(Integer userId);
+    int deleteMyLike(Integer collegeId);
 }

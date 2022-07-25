@@ -7,9 +7,9 @@ import java.util.List;
 
 @Repository
 public interface CollegeDao {
-    public College selectByName(String collegeName);
-    public List<College> selectAll();
-    public College selectById(Integer collegeId);
-    public int addCollege(College college);
-    public int deleteBatchColleges(Integer [] ids);
+    College selectByName(String collegeName);
+    List<College> selectAll();
+    College selectById(Integer collegeId);
+    int addCollege(College college);
+    int deleteBatchColleges(Integer [] ids);
 }

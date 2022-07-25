@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface MessageDao {
-    public List<Message> selectByUserId(Integer userId);
-    public int addMessage(Message message);
+    List<Message> selectByUserId(Integer userId);
+    int addMessage(Message message);
 }
