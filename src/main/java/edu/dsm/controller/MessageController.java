@@ -20,25 +20,19 @@ import java.util.List;
  */
 @Controller
 public class MessageController {
-    /**
-     * The Message service.
-     */
     @Resource
     MessageService messageService;
-    /**
-     * The User service.
-     */
     @Resource
     UserService userService;
 
     /**
-     * To show message string.
+     * 查看留言板
      *
      * @param model   the model
      * @param request the request
      * @return the string
      */
-    @GetMapping("toShowMyMessage")        // 查看留言板
+    @GetMapping("toShowMyMessage")
     public String toShowMessage(Model model, HttpServletRequest request) {
         String userName = CookieUtil.getCookieUserName(request);
         User me = userService.getByUserName(userName);

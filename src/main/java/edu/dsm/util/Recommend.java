@@ -101,14 +101,6 @@ public class Recommend {
         return distances;
     }
 
-
-//    /**
-//     * 计算2个用户间的pearson距离
-//     * 选择公式四进行计算
-//     * @param rating1
-//     * @param rating2
-//     * @return
-//     */
     private double pearson_dis(List<College> collegeList1, List<College> collegeList2,User u1,User u2) {
         int n = 0;
         for (College college:collegeList1){

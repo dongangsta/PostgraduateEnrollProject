@@ -6,9 +6,11 @@ import edu.dsm.service.CollegeService;
 import edu.dsm.service.SchoolService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -51,16 +53,15 @@ public class CollegeController {
     }
 
     /**
-     * Gets schools.
+     * 根据学校名称返回相应的院系json
      *
-     * @param collegeName the college name
+     * @param collegeName 学校名称
      * @return the schools
      */
-    @GetMapping("getSchools")        // 取出schools
+    @GetMapping("getSchools")
     @ResponseBody
     public List<School> getSchools(String collegeName) {
-        List<School> schoolList = schoolService.selectBySchoolName(collegeName);
-        return schoolList;
+        return schoolService.selectBySchoolName(collegeName);
     }
 
     /**
@@ -86,9 +87,11 @@ public class CollegeController {
     @RequestMapping(value = "addCollege",method = RequestMethod.GET)   //  添加院校
     public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
         College college = new College(1,collegeName,collegeArea,collegeIntro,collegeNet);
-        if(college!=null){
+        if (!ObjectUtils.isEmpty(college.getCollegeName())){
             int cnt  = collegeService.addCollege(college);
             System.out.println(cnt);
+        }else {
+            JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
         }
         return null;
     }
