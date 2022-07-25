@@ -6,38 +6,24 @@
            flushInterval="6000000"
            size="1024"
            readOnly="false"></cache>
-    <resultMap id="BaseSchoolMap" type="edu.dsm.entity.po.School">
-        <result column="schoolId" jdbcType="INTEGER" property="schoolId" />
-        <result column="province" jdbcType="VARCHAR" property="province" />
-        <result column="schoolName" jdbcType="VARCHAR" property="schoolName" />
-        <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
-        <result column="specialtyName" jdbcType="VARCHAR" property="specialtyName" />
-        <result column="averageScore" jdbcType="INTEGER" property="averageScore" />
-        <result column="score21" jdbcType="INTEGER" property="score21" />
-        <result column="score20" jdbcType="INTEGER" property="score20" />
-        <result column="score19" jdbcType="INTEGER" property="score19" />
-        <result column="mathSubject" jdbcType="VARCHAR" property="mathSubject" />
-        <result column="englishSubject" jdbcType="VARCHAR" property="englishSubject" />
-        <result column="majorSubject" jdbcType="VARCHAR" property="majorSubject" />
-    </resultMap>
 
     <!--抽取重复的语句代码片段-->
     <sql id="selectSchoolSql">
         select * from school
     </sql>
 
-    <select id="selectAll"   resultMap="BaseSchoolMap" >
+    <select id="selectAll"   resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
     </select>
 
     <!-- 通过主键返回单一对象  -->
-    <select id="selectById" parameterType="Integer"  resultMap="BaseSchoolMap" >
+    <select id="selectById" parameterType="Integer"  resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
         WHERE schoolId = #{schoolId}
     </select>
 
     <!-- 通过主键返回单一对象  -->
-    <select id="selectBySchoolName" parameterType="String"  resultMap="BaseSchoolMap" >
+    <select id="selectBySchoolName" parameterType="String"  resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
         WHERE schoolName = #{schoolName}
     </select>
@@ -106,7 +92,7 @@
         </where>
     </update>
 
-    <select id="selectSchools" resultMap="BaseSchoolMap" >
+    <select id="selectSchools" resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
         WHERE
         <if test="province != null and province != ''"> province = #{province}</if>

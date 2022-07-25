@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.UserDao">
-    <resultMap id="BaseUserMap" type="edu.dsm.entity.po.User">
-        <result column="userId" jdbcType="INTEGER" property="userId" />
-        <result column="userName" jdbcType="VARCHAR" property="userName" />
-        <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="phone" jdbcType="VARCHAR" property="phone" />
-        <result column="area" jdbcType="VARCHAR" property="area" />
-        <result column="adminOrNot" jdbcType="INTEGER" property="adminOrNot" />
-        <result column="predict" jdbcType="INTEGER" property="predict" />
-    </resultMap>
 
     <!--通过名称查询用户（登录用）-->
-    <select id="selectByUserName" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
+    <select id="selectByUserName" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userName = #{userName}
     </select>
-    <select id="selectById" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
+    <select id="selectById" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userId = #{userId}
     </select>
 
-    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.po.User" resultMap="BaseUserMap" resultType="edu.dsm.entity.po.User">
+    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
         select * from user WHERE userName = #{userName} AND adminOrNot = 1
     </select>
 
-    <select id="selectAll"   resultMap="BaseUserMap" >
+    <select id="selectAll" resultType="edu.dsm.entity.po.User">
         select * from user
     </select>
 

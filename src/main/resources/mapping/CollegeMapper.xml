@@ -6,29 +6,22 @@
            flushInterval="6000000"
            size="1024"
            readOnly="false"></cache>
-    <resultMap id="BaseCollegeMap" type="edu.dsm.entity.po.College">
-        <result column="collegeId" jdbcType="INTEGER" property="collegeId" />
-        <result column="collegeName" jdbcType="VARCHAR" property="collegeName" />
-        <result column="collegeArea" jdbcType="VARCHAR" property="collegeArea" />
-        <result column="collegeIntro" jdbcType="INTEGER" property="collegeIntro" />
-        <result column="collegeNet" jdbcType="INTEGER" property="collegeNet" />
-    </resultMap>
 
     <!--抽取重复的语句代码片段-->
     <sql id="selectCollegeSql">
         select * from college
     </sql>
 
-    <select id="selectAll"   resultMap="BaseCollegeMap" >
+    <select id="selectAll"   resultType="edu.dsm.entity.po.College" >
         <include refid="selectCollegeSql"/>
     </select>
 
-    <select id="selectByName" parameterType="edu.dsm.entity.po.College" resultMap="BaseCollegeMap" resultType="edu.dsm.entity.po.College">
+    <select id="selectByName" parameterType="edu.dsm.entity.po.College" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeName = #{collegeName}
     </select>
 
-    <select id="selectById" parameterType="edu.dsm.entity.po.College" resultMap="BaseCollegeMap" resultType="edu.dsm.entity.po.College">
+    <select id="selectById" parameterType="edu.dsm.entity.po.College" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeId = #{collegeId}
     </select>
