@@ -7,7 +7,6 @@ import edu.dsm.service.CollegeService;
 import edu.dsm.service.MyLikeService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,13 +55,13 @@ public class MyLikeController {
         return "user_show_college";}
 
     /**
-     * My like list string.
+     * 查询我的意向院校
      *
      * @param model   the model
      * @param request the request
      * @return the string
      */
-    @GetMapping("myLikeList")        // 我的意向院校
+    @GetMapping("myLikeList")        //
     public String myLikeList(Model model,HttpServletRequest request) {
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
