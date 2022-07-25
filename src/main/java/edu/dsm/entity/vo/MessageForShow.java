@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
+/**
+ * The type Message for show.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

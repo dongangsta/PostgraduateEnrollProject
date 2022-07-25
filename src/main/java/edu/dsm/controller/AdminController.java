@@ -12,17 +12,32 @@ import javax.annotation.Resource;
 import javax.swing.*;
 import java.util.List;
 
+/**
+ * 管理员相关操作
+ */
 @Controller
 public class AdminController {
     @Resource
     private UserService userService;
 
-    @GetMapping("admin")        // 进入后台管理登陆页
+    /**
+     * 进入后台管理登陆页
+     *
+     * @return the string
+     */
+    @GetMapping("admin")
     public String toAdminIndex() {
         return "admin_login";
     }
 
-    @PostMapping("adminLogin")       // 验证管理员身份
+    /**
+     * 管理员登录
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @return the string
+     */
+    @PostMapping("adminLogin")
     public String adminLogin(String userName, String password) {
         User user = userService.getAdminByUserName(userName);
         Md5 md5 = new Md5();
@@ -37,19 +52,36 @@ public class AdminController {
         }
     }
 
-    @GetMapping("adminMain")        // 进入后台管理首页
+    /**
+     * 进入后台管理首页
+     *
+     * @return the string
+     */
+    @GetMapping("adminMain")
     public String toAdminMain() {
         return "admin_main";
     }
 
-    @GetMapping(value = "UserPowerMaintain")     //  进入用户权限管理页面
+    /**
+     * 进入用户权限管理页面
+     *
+     * @param model the model
+     * @return the string
+     */
+    @GetMapping(value = "UserPowerMaintain")
     public String UserPowerMaintain(Model model){
         List<User> userList = userService.getAll();
         model.addAttribute("userList",userList);
         return "admin_user_power_maintain";
     }
 
-    @GetMapping("turnToAdmin")        // 设置成管理员
+    /**
+     * 根据用户Id将用户设置成管理员/普通用户
+     *
+     * @param userId the user id
+     * @return the string
+     */
+    @GetMapping("turnToAdmin")        //
     public String turnToAdmin(int userId) {
         User user = userService.getOneById(userId);
         if (user != null){
@@ -60,6 +92,5 @@ public class AdminController {
         }
         return "redirect:UserPowerMaintain";
     }
-
 
 }

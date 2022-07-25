@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+/**
+ * The type User.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,6 +22,17 @@ public class User implements Serializable {
     private Integer adminOrNot;
     private Integer predict;
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param userId       the user id
+     * @param userName     the user name
+     * @param userPassword the user password
+     * @param email        the email
+     * @param phone        the phone
+     * @param area         the area
+     * @param adminOrNot   the admin or not
+     */
     public User(Integer userId, String userName, String userPassword, String email, String phone, String area, Integer adminOrNot) {
         this.userId = userId;
         this.userName = userName;

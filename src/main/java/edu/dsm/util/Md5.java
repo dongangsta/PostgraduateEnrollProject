@@ -6,7 +6,13 @@ import java.security.MessageDigest;
  * MD5加密工具类
  */
 public class Md5 {
-        public String string2MD5(String inStr){
+    /**
+     * String 2 md 5 string.
+     *
+     * @param inStr the in str
+     * @return the string
+     */
+    public String string2MD5(String inStr){
             MessageDigest md5;
             try{
                 md5 = MessageDigest.getInstance("MD5");
@@ -29,7 +35,6 @@ public class Md5 {
                 hexValue.append(Integer.toHexString(val));
             }
             return hexValue.toString();
-
         }
 
 }

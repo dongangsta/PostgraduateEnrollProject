@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+/**
+ * The type Article for show.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

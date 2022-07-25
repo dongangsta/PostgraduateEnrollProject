@@ -17,6 +17,9 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 推荐算法工具类
+ */
 @Component
 public class Recommend {
     /**
@@ -26,18 +29,42 @@ public class Recommend {
     private static UserService userService;
     private static MyLikeService myLikeService;
     private static SchoolService schoolService;
+
+    /**
+     * Set college service.
+     *
+     * @param collegeService the college service
+     */
     @Autowired
     public void setCollegeService (CollegeService collegeService){
         Recommend.collegeService = collegeService;
     }
+
+    /**
+     * Set user service.
+     *
+     * @param userService the user service
+     */
     @Autowired
     public void setUserService (UserService userService){
         Recommend.userService = userService;
     }
+
+    /**
+     * Set my like service.
+     *
+     * @param myLikeService the my like service
+     */
     @Autowired
     public void setMyLikeService (MyLikeService myLikeService){
         Recommend.myLikeService = myLikeService;
     }
+
+    /**
+     * Set school service.
+     *
+     * @param schoolService the school service
+     */
     @Autowired
     public void setSchoolService (SchoolService schoolService){
         Recommend.schoolService = schoolService;
@@ -111,6 +138,12 @@ public class Recommend {
         return numerator/denominator;
     }
 
+    /**
+     * Recommend list.
+     *
+     * @param username the username
+     * @return the list
+     */
     public List<College> recommend(String username) {
         //找到最近邻
         List<User> users = userService.getAll();

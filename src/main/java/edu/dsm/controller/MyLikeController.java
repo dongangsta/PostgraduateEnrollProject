@@ -18,6 +18,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type My like controller.
+ */
 @Controller
 public class MyLikeController {
     @Resource
@@ -26,6 +29,15 @@ public class MyLikeController {
     private CollegeService collegeService;
     @Resource
     private UserService userService;
+
+    /**
+     * Like college string.
+     *
+     * @param model       the model
+     * @param collegeName the college name
+     * @param request     the request
+     * @return the string
+     */
     @GetMapping("likeCollege")        // 添加意向院校
     public String likeCollege(Model model, String collegeName, HttpServletRequest request) {
         College college = collegeService.selectByName(collegeName);
@@ -43,6 +55,13 @@ public class MyLikeController {
         model.addAttribute("college",college);
         return "user_show_college";}
 
+    /**
+     * My like list string.
+     *
+     * @param model   the model
+     * @param request the request
+     * @return the string
+     */
     @GetMapping("myLikeList")        // 我的意向院校
     public String myLikeList(Model model,HttpServletRequest request) {
         String userName = CookieUtil.getCookieUserName(request);
@@ -56,6 +75,14 @@ public class MyLikeController {
         model.addAttribute("collegeList",collegeList);
         return "user_show_likelist";}
 
+    /**
+     * Delete batch users string.
+     *
+     * @param model     the model
+     * @param collegeId the college id
+     * @param request   the request
+     * @return the string
+     */
     @GetMapping(value = "deleteMyLike")    //  删除我的意向
     public String deleteBatchUsers(Model model,Integer collegeId,HttpServletRequest request){
         int cnt  = myLikeService.deleteMyLike(collegeId);

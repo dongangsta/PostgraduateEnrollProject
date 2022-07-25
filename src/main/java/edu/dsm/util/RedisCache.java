@@ -14,6 +14,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
+/**
+ * The type Redis cache.
+ */
 public class RedisCache implements Cache {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
@@ -26,6 +29,11 @@ public class RedisCache implements Cache {
 
     private static final long EXPIRE_TIME_IN_MINUTES = 30; // redis过期时间
 
+    /**
+     * Instantiates a new Redis cache.
+     *
+     * @param id the id
+     */
     public RedisCache(final String id) {
         if (id == null) {
             throw new IllegalArgumentException("Cache instances require an ID");

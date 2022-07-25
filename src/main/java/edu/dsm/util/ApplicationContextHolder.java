@@ -5,6 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Application context holder.
+ */
 @Component
 public class ApplicationContextHolder implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
@@ -17,7 +20,7 @@ public class ApplicationContextHolder implements ApplicationContextAware {
     /**
      * Get application context from everywhere
      *
-     * @return
+     * @return application context
      */
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
@@ -26,9 +29,9 @@ public class ApplicationContextHolder implements ApplicationContextAware {
     /**
      * Get bean by class
      *
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param <T>   the type parameter
+     * @param clazz the clazz
+     * @return bean
      */
     public static <T> T getBean(Class<T> clazz) {
         return applicationContext.getBean(clazz);
@@ -37,9 +40,9 @@ public class ApplicationContextHolder implements ApplicationContextAware {
     /**
      * Get bean by class name
      *
-     * @param name
-     * @param <T>
-     * @return
+     * @param <T>  the type parameter
+     * @param name the name
+     * @return bean
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {

@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * The type Article.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

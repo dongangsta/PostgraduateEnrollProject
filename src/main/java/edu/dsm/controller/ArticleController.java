@@ -17,15 +17,27 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Article controller.
+ */
 @Controller
 public class ArticleController {
     @Resource
     private ArticleService articleService;
     @Resource
     private UserService userService;
+    /**
+     * The Green text utils.
+     */
     @Resource
     GreenTextUtils greenTextUtils;
 
+    /**
+     * Show news string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value = "ArticleMaintain")
     public String showNews(Model model){
         List<Article> articleList= articleService.getAll();
@@ -39,11 +51,23 @@ public class ArticleController {
         return "admin_maintain_article";
     }
 
+    /**
+     * To show article string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("toShowArticle")        // 进入文章页
     public String toShowArticle(Model model) {
         return "user_show_articles";
     }
 
+    /**
+     * Artilces data list.
+     *
+     * @param model the model
+     * @return the list
+     */
     @GetMapping("articlesData")
     @ResponseBody
     public List<ArticleForShow> artilcesData(Model model) {
@@ -58,12 +82,25 @@ public class ArticleController {
         return showList;
     }
 
+    /**
+     * New 1 string.
+     *
+     * @param articleId the article id
+     * @param model     the model
+     * @return the string
+     */
     @GetMapping("article")  //  进入相应的文章页
     public String new1(@RequestParam("articleId") Integer articleId, Model model){
         model.addAttribute("articleId",articleId);
         return "user_show_single_article";
     }
 
+    /**
+     * Article data article for show.
+     *
+     * @param articleId the article id
+     * @return the article for show
+     */
     @GetMapping("articleData")  //  在文章页加载数据
     @ResponseBody
     public ArticleForShow articleData(Integer articleId){
@@ -74,6 +111,13 @@ public class ArticleController {
         return articleForShow;
     }
 
+    /**
+     * Article data list.
+     *
+     * @param model       the model
+     * @param collegeName the college name
+     * @return the list
+     */
     @GetMapping("articlesDataOfCollege")  //  在文章页加载数据
     @ResponseBody
     public List<ArticleForShow> articleData(Model model,String collegeName){
@@ -88,12 +132,28 @@ public class ArticleController {
     }
 
 
+    /**
+     * To add article string.
+     *
+     * @param model       the model
+     * @param collegeName the college name
+     * @return the string
+     */
     @GetMapping("toAddArticle")        // 进入文章页
     public String toAddArticle(Model model,String collegeName) {
         model.addAttribute("collegeName",collegeName);
         return "user_add_article";
     }
 
+    /**
+     * Add article string.
+     *
+     * @param text        the text
+     * @param title       the title
+     * @param collegeName the college name
+     * @param request     the request
+     * @return the string
+     */
     @ResponseBody
     @RequestMapping(value = "addArticle",method = RequestMethod.GET)    //  添加文章
     public String addArticle(String text, String title, String collegeName, HttpServletRequest request){
@@ -120,6 +180,13 @@ public class ArticleController {
         return null;
     }
 
+    /**
+     * Delete batch articles string.
+     *
+     * @param model the model
+     * @param ids   the ids
+     * @return the string
+     */
     @PostMapping(value = "deleteBatchArticles")    //  删除用户
     public String deleteBatchArticles(Model model,Integer [] ids ){
         int cnt  = articleService.deleteBatchArticles(ids);
@@ -133,11 +200,22 @@ public class ArticleController {
         return "admin_maintain_article";
     }
 
+    /**
+     * To my article string.
+     *
+     * @return the string
+     */
     @GetMapping("toMyArticle")        // 进入文章页
     public String toMyArticle() {
         return "user_show_myarticle";
     }
 
+    /**
+     * Article data list.
+     *
+     * @param request the request
+     * @return the list
+     */
     @GetMapping("articlesDataOfMe")  //  在文章页加载数据
     @ResponseBody
     public List<ArticleForShow> articleData(HttpServletRequest request){
@@ -152,11 +230,24 @@ public class ArticleController {
         return showList;
     }
 
+    /**
+     * To his center string.
+     *
+     * @param hisName the his name
+     * @param model   the model
+     * @return the string
+     */
     @GetMapping("toHisArticle")        // 查看其他人发布的文章
     public String toHisCenter(String hisName,Model model) {
         model.addAttribute("hisName",hisName);
         return "user_show_hisarticle";}
 
+    /**
+     * Articles data of him list.
+     *
+     * @param request the request
+     * @return the list
+     */
     @GetMapping("articlesDataOfHim")  //  在文章页加载数据
     @ResponseBody
     public List<ArticleForShow> articlesDataOfHim(HttpServletRequest request){
