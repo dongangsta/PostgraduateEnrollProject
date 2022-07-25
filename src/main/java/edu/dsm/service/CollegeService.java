@@ -16,7 +16,7 @@ public class CollegeService {
     private CollegeDao collegeDao;
 
     /**
-     * Select by name college.
+     * 通过大学名称查找大学相关信息
      *
      * @param collegeName the college name
      * @return the college
@@ -26,14 +26,14 @@ public class CollegeService {
     }
 
     /**
-     * Get all list.
+     * 获取所有大学列表
      *
      * @return the list
      */
     public List<College> getAll(){return collegeDao.selectAll();}
 
     /**
-     * Select by id college.
+     * 通过大学Id查找大学
      *
      * @param collegeId the college id
      * @return the college
@@ -41,7 +41,7 @@ public class CollegeService {
     public College selectById(Integer collegeId){return collegeDao.selectById(collegeId);}
 
     /**
-     * Add college int.
+     * 添加一条大学信息
      *
      * @param college the college
      * @return the int
@@ -49,7 +49,7 @@ public class CollegeService {
     public int addCollege(College college){ return collegeDao.addCollege(college);}
 
     /**
-     * Delete batch colleges int.
+     * 批量删除大学信息
      *
      * @param collegeIds the college ids
      * @return the int

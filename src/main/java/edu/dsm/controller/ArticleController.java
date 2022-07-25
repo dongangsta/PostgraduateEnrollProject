@@ -52,18 +52,17 @@ public class ArticleController {
     }
 
     /**
-     * To show article string.
+     * 进入文章页
      *
-     * @param model the model
      * @return the string
      */
-    @GetMapping("toShowArticle")        // 进入文章页
-    public String toShowArticle(Model model) {
+    @GetMapping("toShowArticle")
+    public String toShowArticle() {
         return "user_show_articles";
     }
 
     /**
-     * Artilces data list.
+     * 返回文章列表
      *
      * @param model the model
      * @return the list
@@ -73,7 +72,6 @@ public class ArticleController {
     public List<ArticleForShow> artilcesData(Model model) {
         List<Article> articleList = articleService.getAll();
         List<ArticleForShow> showList = new ArrayList<>();
-
         for (Article article:articleList){
             ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),userService.getOneById(article.getAuthorId()).getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
             showList.add(articleForShow);
@@ -83,42 +81,41 @@ public class ArticleController {
     }
 
     /**
-     * New 1 string.
+     * 进入相应的文章页
      *
      * @param articleId the article id
      * @param model     the model
      * @return the string
      */
-    @GetMapping("article")  //  进入相应的文章页
+    @GetMapping("article")
     public String new1(@RequestParam("articleId") Integer articleId, Model model){
         model.addAttribute("articleId",articleId);
         return "user_show_single_article";
     }
 
     /**
-     * Article data article for show.
+     * 在文章页加载相应Id的文章
      *
      * @param articleId the article id
      * @return the article for show
      */
-    @GetMapping("articleData")  //  在文章页加载数据
+    @GetMapping("articleData")
     @ResponseBody
     public ArticleForShow articleData(Integer articleId){
         Article article = articleService.selectByArticleId(articleId);
         User user = userService.getOneById(article.getAuthorId());
-        ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),user.getUserName(),article.getTitle(),
+        return new ArticleForShow(article.getArticleId(),user.getUserName(),article.getTitle(),
                 article.getText(),article.getArticleDate(),article.getCollegeName());
-        return articleForShow;
     }
 
     /**
-     * Article data list.
+     *  在院校对应的文章页加载数据
      *
      * @param model       the model
      * @param collegeName the college name
      * @return the list
      */
-    @GetMapping("articlesDataOfCollege")  //  在文章页加载数据
+    @GetMapping("articlesDataOfCollege")
     @ResponseBody
     public List<ArticleForShow> articleData(Model model,String collegeName){
         List<Article> articleList = articleService.selectByCollegeName(collegeName);
@@ -133,20 +130,20 @@ public class ArticleController {
 
 
     /**
-     * To add article string.
+     * 进入添加文章页
      *
      * @param model       the model
      * @param collegeName the college name
      * @return the string
      */
-    @GetMapping("toAddArticle")        // 进入文章页
+    @GetMapping("toAddArticle")
     public String toAddArticle(Model model,String collegeName) {
         model.addAttribute("collegeName",collegeName);
         return "user_add_article";
     }
 
     /**
-     * Add article string.
+     * 添加文章
      *
      * @param text        the text
      * @param title       the title
@@ -155,12 +152,12 @@ public class ArticleController {
      * @return the string
      */
     @ResponseBody
-    @RequestMapping(value = "addArticle",method = RequestMethod.GET)    //  添加文章
+    @RequestMapping(value = "addArticle",method = RequestMethod.GET)
     public String addArticle(String text, String title, String collegeName, HttpServletRequest request){
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
         System.out.println("text="+text);
-
+        //  对文章进行审核
         if (text!=null) {
             String conclusion = greenTextUtils.greenText(text);
             System.setProperty("java.awt.headless", "false");

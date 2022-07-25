@@ -2,7 +2,6 @@ package edu.dsm.service;
 
 import edu.dsm.dao.ArticleDao;
 import edu.dsm.entity.po.Article;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,23 +39,23 @@ public class ArticleService{
         public int deleteBatchArticles(Integer [] ids){return articleDao.deleteBatchArticles(ids);}
 
         /**
-         * Select by college name list.
+         * 通过大学名称查找文章列表
          *
-         * @param collegeName the college name
+         * @param collegeName 大学名称
          * @return the list
          */
         public List<Article> selectByCollegeName(String collegeName){return articleDao.selectByCollegeName(collegeName);}
 
         /**
-         * Select by user id list.
+         * 通过作者userId查找文章列表
          *
-         * @param userId the user id
+         * @param userId 作者userId
          * @return the list
          */
         public List<Article> selectByUserId(Integer userId){return articleDao.selectByUserId(userId);}
 
         /**
-         * Add article int.
+         * 添加一篇文章
          *
          * @param userId      the user id
          * @param collegeName the college name
