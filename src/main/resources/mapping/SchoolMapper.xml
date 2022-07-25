@@ -94,8 +94,8 @@
 
     <select id="selectSchools" resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
-        WHERE
-        <if test="province != null and province != ''"> province = #{province}</if>
+        WHERE not schoolId  = ''
+        <if test="province != null and province != ''"> and province = #{province}</if>
         <if test="mathSubject != null and mathSubject != ''">and mathSubject = #{mathSubject} </if>
         <if test="englishSubject != null and englishSubject != ''">and englishSubject = #{englishSubject} </if>
         <if test="schoolName != null and schoolName != ''"> and schoolName  LIKE  '%${schoolName}%' </if>
@@ -106,6 +106,7 @@
 
     <select id="selectTwoSchools" resultType="edu.dsm.entity.po.School" >
     <include refid="selectSchoolSql"/>
-    WHERE schoolName = #{schoolName1} or schoolName = #{schoolName2}
+    WHERE schoolName = #{schoolName1}
+        <if test="schoolName2 != null and schoolName2 != ''">or schoolName = #{schoolName2}</if>
     </select>
 </mapper>

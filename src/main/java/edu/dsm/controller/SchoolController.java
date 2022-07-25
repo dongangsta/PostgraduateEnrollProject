@@ -126,7 +126,7 @@ public class SchoolController {
     }
 
     /**
-     * Select schools string.
+     * 按条件详细查询院系信息
      *
      * @param model          the model
      * @param province       the province
@@ -138,7 +138,7 @@ public class SchoolController {
      * @param englishSubject the english subject
      * @return the string
      */
-    @PostMapping (value ="selectSchools")        // 详细查询
+    @PostMapping (value ="selectSchools")        // 按条件详细查询
     public String selectSchools(Model model,String province,String specialtyName,String schoolName,Integer lowestScore,
                                 Integer highestScore,String mathSubject, String englishSubject) {
         List<School> schoolList = schoolService.selectSchools(province,specialtyName,schoolName,lowestScore,
