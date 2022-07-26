@@ -41,8 +41,7 @@ public class MessageController {
         for (Message message:mList){
             User user = userService.getOneById(message.getUserId());
             User reader = userService.getOneById(message.getReaderId());
-            MessageForShow messageForShow = new MessageForShow(user.getUserName(),reader.getUserName(),message.getMessage(),message.getMessageDate());
-            messageList.add(messageForShow);
+            messageList.add(new MessageForShow(user.getUserName(),reader.getUserName(),message.getMessage(),message.getMessageDate()));
         }
         model.addAttribute("messageList",messageList);
         return "user_show_mymessage";
