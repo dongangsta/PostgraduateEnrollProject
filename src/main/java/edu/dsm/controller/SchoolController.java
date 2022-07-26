@@ -73,7 +73,7 @@ public class SchoolController {
     @ResponseBody
     @RequestMapping(value = "addSchool",method = RequestMethod.POST)
     public String addSchool(String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
-        School school = new School(10086,province,schoolName,collegeName,specialtyName,
+        School school = new School(province,schoolName,collegeName,specialtyName,
                 averageScore,score21,score20,score19,mathSubject,englishSubject,majorSubject);
         if(!ObjectUtils.isEmpty(school.getSchoolName())){
             int cnt  = schoolService.addSchool(school);

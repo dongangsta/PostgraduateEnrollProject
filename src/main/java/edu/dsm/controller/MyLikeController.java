@@ -42,7 +42,6 @@ public class MyLikeController {
         College college = collegeService.selectByName(collegeName);
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
-        System.out.println(user.getUserName()+"的userId="+user.getUserId());
         int cnt = myLikeService.likeCollege(user.getUserId(),college.getCollegeId());
         if (cnt == 1) {
             JOptionPaneUtil.Popup("系统提醒","院校已添加至意向！");
@@ -59,7 +58,7 @@ public class MyLikeController {
      * @param request the request
      * @return the string
      */
-    @GetMapping("myLikeList")        //
+    @GetMapping("myLikeList")
     public String myLikeList(Model model,HttpServletRequest request) {
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
@@ -73,17 +72,16 @@ public class MyLikeController {
         return "user_show_likelist";}
 
     /**
-     * Delete batch users string.
+     * 删除我的意向
      *
      * @param model     the model
      * @param collegeId the college id
      * @param request   the request
      * @return the string
      */
-    @GetMapping(value = "deleteMyLike")    //  删除我的意向
-    public String deleteBatchUsers(Model model,Integer collegeId,HttpServletRequest request){
+    @GetMapping(value = "deleteMyLike")
+    public String deleteMyLike(Model model,Integer collegeId,HttpServletRequest request){
         int cnt  = myLikeService.deleteMyLike(collegeId);
-        List<User> userList= userService.getAll();
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
         List<College> collegeList =new ArrayList<>();

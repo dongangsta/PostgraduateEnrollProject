@@ -86,7 +86,6 @@ public class CollegeController {
         College college = new College(collegeName,collegeArea,collegeIntro,collegeNet);
         if (!ObjectUtils.isEmpty(college.getCollegeName())){
             int cnt  = collegeService.addCollege(college);
-            System.out.println(cnt);
         }else {
             JOptionPaneUtil.Popup("添加失败","院校名为空!");
         }

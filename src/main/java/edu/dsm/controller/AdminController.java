@@ -84,10 +84,12 @@ public class AdminController {
     public String turnToAdmin(int userId) {
         User user = userService.getOneById(userId);
         if (user != null){
-            if (user.getAdminOrNot()!=1) {int cnt = userService.turnToAdmin(userId);
-                System.out.println(cnt+"个用户已成为管理员");}
-            else  {int cnt = userService.turnToUser(userId);
-                System.out.println(cnt+"个用户已成为普通用户");}
+            if (user.getAdminOrNot()!=1) {
+                int cnt = userService.turnToAdmin(userId);
+                }
+            else  {
+                int cnt = userService.turnToUser(userId);
+                }
         }
         return "redirect:UserPowerMaintain";
     }
