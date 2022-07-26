@@ -7,13 +7,13 @@ import edu.dsm.service.CollegeService;
 import edu.dsm.service.MyLikeService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
+import edu.dsm.util.JOptionPaneUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +45,9 @@ public class MyLikeController {
         System.out.println(user.getUserName()+"的userId="+user.getUserId());
         int cnt = myLikeService.likeCollege(user.getUserId(),college.getCollegeId());
         if (cnt == 1) {
-            System.setProperty("java.awt.headless", "false");
-            JOptionPane.showMessageDialog(null, "院校已添加至意向！", "系统提醒", JOptionPane.PLAIN_MESSAGE);
+            JOptionPaneUtil.Popup("系统提醒","院校已添加至意向！");
         }else if(cnt == 0){
-            System.setProperty("java.awt.headless", "false");
-            JOptionPane.showMessageDialog(null, "您已添加过该意向院校！", "系统提醒", JOptionPane.PLAIN_MESSAGE);
+            JOptionPaneUtil.Popup("系统提醒","您已添加过该意向院校！");
         }
         model.addAttribute("college",college);
         return "user_show_college";}

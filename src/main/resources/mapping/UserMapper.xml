@@ -81,7 +81,7 @@
     <update id="rePassword" parameterType="edu.dsm.entity.po.User" >
         UPDATE user
         <set>
-            userPassword = '11111111',
+            userPassword = '1bbd886460827015e5d605ed44252251',
         </set>
         <where>
             userId = #{userId}

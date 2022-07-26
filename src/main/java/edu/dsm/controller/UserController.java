@@ -4,7 +4,8 @@ import edu.dsm.entity.po.College;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
-import edu.dsm.util.Md5;
+import edu.dsm.util.JOptionPaneUtil;
+import edu.dsm.util.Md5Util;
 import edu.dsm.util.Recommend;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,7 @@ public class UserController {
     @RequestMapping("loginJudge")   //
     public String login(@RequestParam("userName") String userName, @RequestParam("userPassword") String userPassword, HttpServletResponse response) {
         User user = userService.getByUserName(userName);
-        userPassword = Md5.string2MD5(userPassword);
+        userPassword = Md5Util.string2MD5(userPassword);
         if (user==null|| !user.getUserPassword().equals(userPassword)){
             System.out.println("账号密码不正确");
             }
@@ -102,9 +103,13 @@ public class UserController {
      */
     @GetMapping("rePassword")
     public String rePassword(Model model,Integer userId) {
-        System.setProperty("java.awt.headless", "false");
-        JOptionPane.showMessageDialog(null,"密码已重置为11111111!","密码已重置",JOptionPane.PLAIN_MESSAGE);
         int cnt = userService.rePassword(userId);
+        if (cnt == 1){
+            JOptionPaneUtil.Popup("密码已重置","密码已重置为11111111!");
+        }
+        else {
+            JOptionPaneUtil.Popup("密码重置失败","密码重置失败，请重试!");
+        }
         model.addAttribute("userList",userService.getAll());
         return "admin_user_maintain";}
 
@@ -234,7 +239,7 @@ public class UserController {
      */
     @PostMapping("register")
     public String register(String userName,String userPassword,String email,String phone,String area) {
-        User user = new User(1,userName,Md5.string2MD5(userPassword),email,phone,area,0);
+        User user = new User(1,userName, Md5Util.string2MD5(userPassword),email,phone,area,0);
         int cnt = userService.addUser(user);
         return "user_login";
     }

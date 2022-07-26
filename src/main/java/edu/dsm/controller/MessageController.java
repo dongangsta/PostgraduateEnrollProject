@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Message controller.
+ * 留言相关功能
  */
 @Controller
 public class MessageController {
@@ -86,13 +86,13 @@ public class MessageController {
     }
 
     /**
-     * To show hisssage string.
+     * 查看其他人的留言板
      *
      * @param model   the model
      * @param request the request
      * @return the string
      */
-    @GetMapping("toShowHisMessage")        // 查看留言板
+    @GetMapping("toShowHisMessage")
     public String toShowHisssage(Model model, HttpServletRequest request) {
         String hisName = CookieUtil.getCookieHisName(request);
         User him = userService.getByUserName(hisName);

@@ -4,13 +4,13 @@ import edu.dsm.entity.po.College;
 import edu.dsm.entity.po.School;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.SchoolService;
+import edu.dsm.util.JOptionPaneUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -84,12 +84,11 @@ public class CollegeController {
     @RequestMapping(value = "addCollege",method = RequestMethod.GET)   //  添加院校
     public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
         College college = new College(collegeName,collegeArea,collegeIntro,collegeNet);
-        if (!ObjectUtils.isEmpty(college)){
+        if (!ObjectUtils.isEmpty(college.getCollegeName())){
             int cnt  = collegeService.addCollege(college);
             System.out.println(cnt);
         }else {
-            System.setProperty("java.awt.headless", "false");
-            JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
+            JOptionPaneUtil.Popup("添加失败","院校名为空!");
         }
         return null;
     }

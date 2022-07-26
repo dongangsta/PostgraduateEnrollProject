@@ -2,13 +2,13 @@ package edu.dsm.controller;
 
 import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
+import edu.dsm.util.JOptionPaneUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -55,7 +55,7 @@ public class SchoolController {
     }
 
     /**
-     * Add user string.
+     * 添加院系招生信息
      *
      * @param province       the province
      * @param schoolName     the school name
@@ -71,16 +71,15 @@ public class SchoolController {
      * @return the string
      */
     @ResponseBody
-    @RequestMapping(value = "addSchool",method = RequestMethod.POST)   //  添加院系招生信息
-    public String addUser(String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
+    @RequestMapping(value = "addSchool",method = RequestMethod.POST)
+    public String addSchool(String province,String schoolName,String collegeName,String specialtyName,Integer averageScore,Integer score21,Integer score20,Integer score19,String mathSubject,String englishSubject,String majorSubject){
         School school = new School(10086,province,schoolName,collegeName,specialtyName,
                 averageScore,score21,score20,score19,mathSubject,englishSubject,majorSubject);
         if(!ObjectUtils.isEmpty(school.getSchoolName())){
             int cnt  = schoolService.addSchool(school);
             System.out.println(cnt);
         }else {
-            System.setProperty("java.awt.headless", "false");
-            JOptionPane.showMessageDialog(null,"院校名为空!","添加失败",JOptionPane.PLAIN_MESSAGE);
+            JOptionPaneUtil.Popup("添加失败","院系名为空!");
         }
         return null;
     }

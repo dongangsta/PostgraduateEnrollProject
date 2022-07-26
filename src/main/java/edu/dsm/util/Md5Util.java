@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 /**
  * MD5加密工具类
  */
-public class Md5 {
+public class Md5Util {
     /**
      * 将string转换成MD5加密
      *
@@ -17,7 +17,6 @@ public class Md5 {
             try{
                 md5 = MessageDigest.getInstance("MD5");
             }catch (Exception e){
-                System.out.println(e);
                 e.printStackTrace();
                 return "";
             }
@@ -37,4 +36,7 @@ public class Md5 {
             return hexValue.toString();
         }
 
+    public static void main(String[] args) {
+        System.out.println(Md5Util.string2MD5("11111111"));
+    }
 }
