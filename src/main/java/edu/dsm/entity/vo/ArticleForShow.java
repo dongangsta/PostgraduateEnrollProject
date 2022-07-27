@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * The type Article for show.
@@ -17,6 +17,6 @@ public class ArticleForShow {
         private String userName;
         private String title;
         private String text;
-        private Timestamp articleDate;
+        private LocalDateTime articleDate;
         private String collegeName;
 }

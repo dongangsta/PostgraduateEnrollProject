@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * The type Message.
@@ -17,7 +17,7 @@ public class Message {
     private Integer userId;
     private Integer readerId;
     private String message;
-    private Timestamp messageDate;
+    private LocalDateTime messageDate;
 
     /**
      * Instantiates a new Message.

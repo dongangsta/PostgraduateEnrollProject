@@ -5,19 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * The type Article.
  */
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article implements Serializable {
     private Integer articleId;
     private Integer authorId;
     private String title;
     private String text;
-    private Timestamp articleDate;
+    private LocalDateTime articleDate;
     private String collegeName;
 }
