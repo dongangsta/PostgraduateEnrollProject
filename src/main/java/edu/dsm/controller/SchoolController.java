@@ -6,6 +6,7 @@ import edu.dsm.util.JOptionPaneUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -137,12 +138,18 @@ public class SchoolController {
      * @param englishSubject the english subject
      * @return the string
      */
-    @PostMapping (value ="selectSchools")        // 按条件详细查询
+    @PostMapping (value ="selectSchools")
     public String selectSchools(Model model,String province,String specialtyName,String schoolName,Integer lowestScore,
                                 Integer highestScore,String mathSubject, String englishSubject) {
+        //  加入计时器
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("selectSchools");
         List<School> schoolList = schoolService.selectSchools(province,specialtyName,schoolName,lowestScore,
                 highestScore,mathSubject,englishSubject);
         model.addAttribute("schoolList",schoolList);
+        //  停止计时器并输出
+        stopWatch.stop();
+        System.out.println(stopWatch.prettyPrint());
         return "user_show_school";
     }
 
