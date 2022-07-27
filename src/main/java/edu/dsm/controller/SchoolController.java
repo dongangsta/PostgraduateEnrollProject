@@ -112,16 +112,20 @@ public class SchoolController {
     }
 
     /**
-     * Compare two schools string.
+     * 两个院校的对比查询
      *
      * @param model   the model
      * @param school1 the school 1
      * @param school2 the school 2
      * @return the string
      */
-    @PostMapping (value ="compareTwoSchools")        // 对比查询
+    @PostMapping (value ="compareTwoSchools")
     public String compareTwoSchools(Model model,String school1,String school2) {
-        model.addAttribute("schoolList",schoolService.selectTwoSchools(school1,school2));
+        if (!ObjectUtils.isEmpty(school2) && ObjectUtils.isEmpty(school1)){
+            model.addAttribute("schoolList",schoolService.selectBySchoolName(school2));
+            return "user_show_two_school";
+        }
+        model.addAttribute("schoolList", schoolService.selectTwoSchools(school1, school2));
         return "user_show_two_school";
     }
 

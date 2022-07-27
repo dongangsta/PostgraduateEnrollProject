@@ -48,24 +48,24 @@ public class MessageController {
     }
 
     /**
-     * To add message string.
+     * 进入留言页面
      *
      * @return the string
      */
-    @GetMapping("toAddMessage") //  进入留言页面
+    @GetMapping("toAddMessage") //
     public String toAddMessage(){
         return "user_add_message";
     }
 
     /**
-     * Add message string.
+     * 添加留言
      *
      * @param model   the model
      * @param request the request
      * @param text    the text
      * @return the string
      */
-    @GetMapping("addMessage")        // 添加留言
+    @GetMapping("addMessage")
     public String addMessage(Model model, HttpServletRequest request,String text) {
         String myName = CookieUtil.getCookieUserName(request);
         String hisName = CookieUtil.getCookieHisName(request);

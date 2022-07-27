@@ -30,14 +30,14 @@ public class MyLikeController {
     private UserService userService;
 
     /**
-     * Like college string.
+     * 添加意向院校
      *
      * @param model       the model
      * @param collegeName the college name
      * @param request     the request
      * @return the string
      */
-    @GetMapping("likeCollege")        // 添加意向院校
+    @GetMapping("likeCollege")
     public String likeCollege(Model model, String collegeName, HttpServletRequest request) {
         College college = collegeService.selectByName(collegeName);
         String userName = CookieUtil.getCookieUserName(request);

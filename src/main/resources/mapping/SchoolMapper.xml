@@ -106,7 +106,8 @@
 
     <select id="selectTwoSchools" resultType="edu.dsm.entity.po.School" >
     <include refid="selectSchoolSql"/>
-    WHERE schoolName = #{schoolName1}
+    WHERE not schoolId  = ''
+        <if test="schoolName1 != null and schoolName1 != ''">and schoolName = #{schoolName1}</if>
         <if test="schoolName2 != null and schoolName2 != ''">or schoolName = #{schoolName2}</if>
     </select>
 </mapper>
