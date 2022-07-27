@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 /**
@@ -14,10 +15,13 @@ import java.io.Serializable;
 @Data
 public class User implements Serializable {
     private Integer userId;
+    @NotBlank(message = "用户名不能为空")
     private String userName;
     private String userPassword;
+    @Email(message = "邮箱有误！")
     private String email;
     private String phone;
+    @NotBlank(message = "地址不能为空！")
     private String area;
     private Integer adminOrNot;
     private Integer predict;

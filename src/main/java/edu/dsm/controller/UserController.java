@@ -9,6 +9,7 @@ import edu.dsm.util.Md5Util;
 import edu.dsm.util.Recommend;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -86,11 +87,11 @@ public class UserController {
     }
 
     /**
-     * Register string.
+     * 进入注册页面
      *
      * @return the string
      */
-    @GetMapping("register")        // 进入注册页面
+    @GetMapping("register")
     public String register() {return "user_register";}
 
 
@@ -181,7 +182,7 @@ public class UserController {
      * @return the string
      */
     @PostMapping(value = "updateUser")
-    public String modifySpot(Model model,User user){
+    public String updateUser(Model model,@Validated User user){
         if(user!=null){
             int cnt  = userService.updateUser(user);
             System.out.println(cnt);
@@ -197,8 +198,8 @@ public class UserController {
      * @param request the request
      * @return the string
      */
-    @GetMapping(value = "showUserUpadateUser")
-    public String showUserUpadateUser(Model model,HttpServletRequest request){
+    @GetMapping(value = "showUserUpdateUser")
+    public String showUserUpdateUser(Model model,HttpServletRequest request){
         User user = userService.getByUserName(CookieUtil.getCookieUserName(request));
         model.addAttribute("user",user);
         return "user_mod_user";
@@ -212,7 +213,7 @@ public class UserController {
      * @return the string
      */
     @PostMapping(value = "userUpdateUser")
-    public String userUpdateUser(Model model,User user){
+    public String userUpdateUser(Model model,@Validated User user){
         System.setProperty("java.awt.headless", "false");
         if(user!=null){
             int cnt  = userService.updateUser(user);
