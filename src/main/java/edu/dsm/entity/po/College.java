@@ -22,8 +22,12 @@ public class College implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         College college = (College) o;
         return Objects.equals(collegeId, college.collegeId) && Objects.equals(collegeName, college.collegeName) && Objects.equals(collegeArea, college.collegeArea) && Objects.equals(collegeIntro, college.collegeIntro) && Objects.equals(collegeNet, college.collegeNet);
     }

@@ -159,19 +159,19 @@
             </thead>
             <tr th:if="${schoolList.size()<=0}">
                 <td colspan="5" style="align-items: center" >表中无数据</td>
-            <tr th:each="s : ${schoolList}">
-                <td th:text="${s.schoolId }">${s.schoolId }</td>
-                <td th:text="${s.province }">${s.province }</td>
-                <td th:text="${s.schoolName }">${s.schoolName }</td>
-                <td th:text="${s.collegeName }">${s.collegeName }</td>
-                <td th:text="${s.specialtyName }">${s.specialtyName }</td>
-                <td th:text="${s.averageScore }">${s.averageScore }</td>
-                <td th:text="${s.score21 }">${s.score21 }</td>
-                <td th:text="${s.score20 }">${s.score20 }</td>
-                <td th:text="${s.score19 }">${s.score19 }</td>
-                <td th:text="${s.mathSubject }">${s.mathSubject }</td>
-                <td th:text="${s.englishSubject }">${s.englishSubject }</td>
-                <td th:text="${s.majorSubject }">${s.majorSubject }</td>
+            <tr th:each="school : ${schoolList}">
+                <td th:text="${school.schoolId }">${school.schoolId }</td>
+                <td th:text="${school.province }">${school.province }</td>
+                <td th:text="${school.schoolName }">${school.schoolName }</td>
+                <td th:text="${school.collegeName }">${school.collegeName }</td>
+                <td th:text="${school.specialtyName }">${school.specialtyName }</td>
+                <td th:text="${school.averageScore }">${school.averageScore }</td>
+                <td th:text="${school.score21 }">${school.score21 }</td>
+                <td th:text="${school.score20 }">${school.score20 }</td>
+                <td th:text="${school.score19 }">${school.score19 }</td>
+                <td th:text="${school.mathSubject }">${school.mathSubject }</td>
+                <td th:text="${school.englishSubject }">${school.englishSubject }</td>
+                <td th:text="${school.majorSubject }">${school.majorSubject }</td>
             </tr>
             </tbody>
         </table>
