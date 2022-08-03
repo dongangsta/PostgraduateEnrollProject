@@ -100,8 +100,8 @@
         <if test="englishSubject != null and englishSubject != ''">and englishSubject = #{englishSubject} </if>
         <if test="schoolName != null and schoolName != ''"> and schoolName  LIKE  '%${schoolName}%' </if>
         <if test="specialtyName!= null and specialtyName != ''"> and specialtyName LIKE '%${specialtyName}%'</if>
-        <if test="lowestScore != null and lowestScore != ''">  and averageScore >=  #{lowestScore} </if>
-        <if test="highestScore != null and highestScore != ''">  and #{highestScore} >=  averageScore </if>
+        <if test="lowestScore != null and lowestScore != ''">  <![CDATA[ and averageScore >=  #{lowestScore}  ]]></if>
+        <if test="highestScore != null and highestScore != ''">  <![CDATA[ and #{highestScore} >=  averageScore ]]></if>
     </select>
 
     <select id="selectTwoSchools" resultType="edu.dsm.entity.po.School" >
