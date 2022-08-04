@@ -22,7 +22,4 @@ public class ArticleForShow {
         private LocalDateTime articleDate;
         private String collegeName;
 
-//        public void setArticleDate(LocalDateTime articleDate) {
-//                this.articleDate = articleDate.toLocalDate();
-//        }
 }
