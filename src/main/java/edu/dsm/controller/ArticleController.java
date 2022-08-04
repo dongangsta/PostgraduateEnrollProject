@@ -65,20 +65,17 @@ public class ArticleController {
     /**
      * 返回文章列表
      *
-     * @param model the model
      * @return the list
      */
     @GetMapping("articlesData")
     @ResponseBody
-    public List<ArticleForShow> artilcesData(Model model) {
-        List<Article> articleList = articleService.getAll();
+    public List<ArticleForShow> articlesData() {
         List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleList){
+        for (Article article:articleService.getAll()){
             ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
             articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
-        model.addAttribute("showList", showList);
         return showList;
     }
 

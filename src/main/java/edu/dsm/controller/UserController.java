@@ -139,7 +139,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "addUser",method = RequestMethod.GET)
     public String addUser(String userName,String userPassword,String email,String phone,String area,Integer adminOrNot){
-        User user = new User(10086,userName,userPassword,email,phone,area,adminOrNot);
+        User user = new User(userName,userPassword,email,phone,area,adminOrNot);
         if(userName != null){
             int cnt  = userService.addUser(user);
             System.out.println(cnt);
@@ -185,7 +185,6 @@ public class UserController {
     public String updateUser(Model model,@Validated User user){
         if(user!=null){
             int cnt  = userService.updateUser(user);
-            System.out.println(cnt);
         }
         model.addAttribute("userList",userService.getAll());
         return "admin_user_maintain";
@@ -240,7 +239,7 @@ public class UserController {
      */
     @PostMapping("register")
     public String register(String userName,String userPassword,String email,String phone,String area) {
-        User user = new User(1,userName, Md5Util.string2MD5(userPassword),email,phone,area,0);
+        User user = new User(userName, Md5Util.string2MD5(userPassword),email,phone,area,0);
         int cnt = userService.addUser(user);
         return "user_login";
     }

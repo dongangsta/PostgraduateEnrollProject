@@ -29,7 +29,6 @@ public class User implements Serializable {
     /**
      * Instantiates a new User.
      *
-     * @param userId       the user id
      * @param userName     the user name
      * @param userPassword the user password
      * @param email        the email
@@ -37,8 +36,7 @@ public class User implements Serializable {
      * @param area         the area
      * @param adminOrNot   the admin or not
      */
-    public User(Integer userId, String userName, String userPassword, String email, String phone, String area, Integer adminOrNot) {
-        this.userId = userId;
+    public User(String userName, String userPassword, String email, String phone, String area, Integer adminOrNot) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.email = email;
