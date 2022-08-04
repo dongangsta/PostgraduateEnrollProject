@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * The interface Article converter.
+ * 编译自动生成转换的实现
  */
 @Mapper
 public interface ArticleConverter {
