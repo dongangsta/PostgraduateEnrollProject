@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -17,6 +18,10 @@ public class ArticleForShow {
         private String userName;
         private String title;
         private String text;
-        private LocalDateTime articleDate;
+        private LocalDate articleDate;
         private String collegeName;
+
+        public void setArticleDate(LocalDateTime articleDate) {
+                this.articleDate = articleDate.toLocalDate();
+        }
 }

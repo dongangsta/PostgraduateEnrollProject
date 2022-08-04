@@ -1,5 +1,6 @@
 package edu.dsm.controller;
 
+import edu.dsm.converter.ArticleConverter;
 import edu.dsm.entity.po.Article;
 import edu.dsm.entity.po.User;
 import edu.dsm.entity.vo.ArticleForShow;
@@ -43,8 +44,8 @@ public class ArticleController {
         List<Article> articleList= articleService.getAll();
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            User author = userService.getOneById(article.getAuthorId());
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),author.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         model.addAttribute("showList", showList);
@@ -73,7 +74,8 @@ public class ArticleController {
         List<Article> articleList = articleService.getAll();
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),userService.getOneById(article.getAuthorId()).getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         model.addAttribute("showList", showList);
@@ -104,8 +106,9 @@ public class ArticleController {
     public ArticleForShow articleData(Integer articleId){
         Article article = articleService.selectByArticleId(articleId);
         User user = userService.getOneById(article.getAuthorId());
-        return new ArticleForShow(article.getArticleId(),user.getUserName(),article.getTitle(),
-                article.getText(),article.getArticleDate(),article.getCollegeName());
+        ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+        articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
+        return articleForShow;
     }
 
     /**
@@ -121,7 +124,8 @@ public class ArticleController {
         List<Article> articleList = articleService.selectByCollegeName(collegeName);
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),"dong1",article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         model.addAttribute("showList", showList);
@@ -190,7 +194,8 @@ public class ArticleController {
         List<Article> articleList= articleService.getAll();
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),"dong1",article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         model.addAttribute("showList", showList);
@@ -221,7 +226,8 @@ public class ArticleController {
         List<Article> articleList= articleService.selectByUserId(user.getUserId());
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),user.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         return showList;
@@ -253,7 +259,8 @@ public class ArticleController {
         List<Article> articleList= articleService.selectByUserId(him.getUserId());
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
-            ArticleForShow articleForShow = new ArticleForShow(article.getArticleId(),him.getUserName(),article.getTitle(),article.getText(),article.getArticleDate(),article.getCollegeName());
+            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
+            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
             showList.add(articleForShow);
         }
         return showList;
