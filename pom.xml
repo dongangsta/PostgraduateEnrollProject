@@ -101,6 +101,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--  hutool https://www.mianshigee.com/tutorial/hutool/a6819f05207359bb.md -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.15</version>
+        </dependency>
     </dependencies>
 
     <build>
