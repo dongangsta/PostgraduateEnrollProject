@@ -16,7 +16,7 @@
         order by articleDate desc
     </select>
 
-    <select id="selectByArticleId" parameterType="Article" resultType="Article">
+    <select id="selectByArticleId" parameterType="Integer" resultType="Article">
         select * from article WHERE articleId = #{articleId}
     </select>
 
@@ -28,10 +28,10 @@
         </foreach>
     </delete>
 
-    <select id="selectByCollegeName" parameterType="Article" resultType="Article">
+    <select id="selectByCollegeName" parameterType="String" resultType="Article">
         select * from article WHERE collegeName = #{collegeName}
     </select>
-    <select id="selectByUserId" parameterType="Article" resultType="Article">
+    <select id="selectByUserId" parameterType="Integer" resultType="Article">
         select * from article WHERE authorId = #{userId}
     </select>
     <insert id="addArticle">

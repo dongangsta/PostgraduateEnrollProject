@@ -17,7 +17,7 @@ public class CookieUtil {
     public static String hisname;
 
     /**
-     * Get cookie user name string.
+     * 从Cookie中获取登录用户userName
      *
      * @param request the request
      * @return the string
@@ -35,7 +35,7 @@ public class CookieUtil {
     }
 
     /**
-     * Get cookie his name string.
+     * 从Cookie中获取访问用户hisName
      *
      * @param request the request
      * @return the string
