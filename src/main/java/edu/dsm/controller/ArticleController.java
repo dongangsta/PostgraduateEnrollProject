@@ -104,7 +104,7 @@ public class ArticleController {
         Article article = articleService.selectByArticleId(articleId);
         User user = userService.getOneById(article.getAuthorId());
         ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-        articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
+        articleForShow.setUserName(user.getUserName());
         return articleForShow;
     }
 
@@ -188,7 +188,7 @@ public class ArticleController {
     @PostMapping(value = "deleteBatchArticles")    //  删除用户
     public String deleteBatchArticles(Model model,Integer [] ids ){
         int cnt  = articleService.deleteBatchArticles(ids);
-        List<Article> articleList= articleService.getAll();
+        List<Article> articleList = articleService.getAll();
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
@@ -200,22 +200,22 @@ public class ArticleController {
     }
 
     /**
-     * To my article string.
+     * 进入文章页
      *
      * @return the string
      */
-    @GetMapping("toMyArticle")        // 进入文章页
+    @GetMapping("toMyArticle")
     public String toMyArticle() {
         return "user_show_myarticle";
     }
 
     /**
-     * Article data list.
+     * 在文章页加载我的文章数据
      *
      * @param request the request
      * @return the list
      */
-    @GetMapping("articlesDataOfMe")  //  在文章页加载数据
+    @GetMapping("articlesDataOfMe")
     @ResponseBody
     public List<ArticleForShow> articleData(HttpServletRequest request){
         String userName = CookieUtil.getCookieUserName(request);
@@ -231,24 +231,24 @@ public class ArticleController {
     }
 
     /**
-     * To his center string.
+     * 查看其他人发布的文章
      *
      * @param hisName the his name
      * @param model   the model
      * @return the string
      */
-    @GetMapping("toHisArticle")        // 查看其他人发布的文章
+    @GetMapping("toHisArticle")
     public String toHisCenter(String hisName,Model model) {
         model.addAttribute("hisName",hisName);
         return "user_show_hisarticle";}
 
     /**
-     * Articles data of him list.
+     * 在文章页加载被查看人的文章数据
      *
      * @param request the request
      * @return the list
      */
-    @GetMapping("articlesDataOfHim")  //  在文章页加载数据
+    @GetMapping("articlesDataOfHim")
     @ResponseBody
     public List<ArticleForShow> articlesDataOfHim(HttpServletRequest request){
         String hisName = CookieUtil.getCookieHisName(request);
