@@ -3,23 +3,23 @@
 <mapper namespace="edu.dsm.dao.UserDao">
 
     <!--通过名称查询用户（登录用）-->
-    <select id="selectByUserName" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
+    <select id="selectByUserName" parameterType="User" resultType="User">
         select * from user WHERE userName = #{userName}
     </select>
-    <select id="selectById" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
+    <select id="selectById" parameterType="User" resultType="User">
         select * from user WHERE userId = #{userId}
     </select>
 
-    <select id="selectAdminByUserName" parameterType="edu.dsm.entity.po.User" resultType="edu.dsm.entity.po.User">
+    <select id="selectAdminByUserName" parameterType="User" resultType="User">
         select * from user WHERE userName = #{userName} AND adminOrNot = 1
     </select>
 
-    <select id="selectAll" resultType="edu.dsm.entity.po.User">
+    <select id="selectAll" resultType="User">
         select * from user
     </select>
 
     <!--  修改对象相应记录  -->
-    <update id="turnToAdmin" parameterType="edu.dsm.entity.po.User" >
+    <update id="turnToAdmin" parameterType="User" >
         UPDATE user
         <set>
                 adminOrNot = 1,
@@ -29,7 +29,7 @@
         </where>
     </update>
 
-    <update id="updatePredict" parameterType="edu.dsm.entity.po.User" >
+    <update id="updatePredict" parameterType="User" >
         UPDATE user
         <set>
             predict = #{predict},
@@ -40,7 +40,7 @@
     </update>
 
 
-    <update id="turnToUser" parameterType="edu.dsm.entity.po.User" >
+    <update id="turnToUser" parameterType="User" >
         UPDATE user
         <set>
             adminOrNot = 0,
@@ -50,7 +50,7 @@
         </where>
     </update>
 
-    <insert id="addUser" parameterType="edu.dsm.entity.po.User" >
+    <insert id="addUser" parameterType="User" >
         INSERT INTO user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userName != null and userName != ''"> userName,</if>
@@ -78,7 +78,7 @@
         </foreach>
     </delete>
 
-    <update id="rePassword" parameterType="edu.dsm.entity.po.User" >
+    <update id="rePassword" parameterType="User" >
         UPDATE user
         <set>
             userPassword = '1bbd886460827015e5d605ed44252251',
@@ -88,7 +88,7 @@
         </where>
     </update>
 
-    <update id="updateUser" parameterType="edu.dsm.entity.po.User" >
+    <update id="updateUser" parameterType="User" >
         UPDATE user
         <set>
             <if test="userName != null and userName != ''"> userName = #{userName},</if>

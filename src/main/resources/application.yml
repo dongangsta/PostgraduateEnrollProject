@@ -1,6 +1,7 @@
 server:
   port: 8088
   max-http-header-size: 1000000
+#  max-http-header-size配置最大 HTTP 标头大小
   servlet:
     context-path: /
 
@@ -12,6 +13,7 @@ spring:
     encoding: utf-8
 
   datasource:
+#    mysql数据库数据源配置
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/school?serverTimezone=GMT%2B8&useSSL=false
     username: root
@@ -20,6 +22,7 @@ spring:
       maximum-pool-size: 2
 
   redis:
+#    redis配置
     host: 127.0.0.1
     port: 6379
     password:
@@ -28,7 +31,9 @@ spring:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:mapping/*Mapper.xml
+#  mapper-locations定义mapper接口位置的属性
   type-aliases-package: edu.dsm.entity
+#  type-aliases-package配置实体类所在的包，在mapper.xml映射文件中无需写出实体类的完整路径，只需写出类名
 
 #showSql
 logging:

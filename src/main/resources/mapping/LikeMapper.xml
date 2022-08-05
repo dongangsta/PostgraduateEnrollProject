@@ -20,7 +20,7 @@
 	);
     </insert>
 
-    <select id="selectMyLike" resultType="edu.dsm.entity.po.MyLike">
+    <select id="selectMyLike" resultType="MyLike">
         select * from mylike where userId = #{userId}
     </select>
 

@@ -11,12 +11,12 @@
         select * from article
     </sql>
 
-    <select id="selectAll"  resultType="edu.dsm.entity.po.Article" >
+    <select id="selectAll"  resultType="Article" >
         <include refid="selectArticleSql"/>
         order by articleDate desc
     </select>
 
-    <select id="selectByArticleId" parameterType="edu.dsm.entity.po.Article" resultType="edu.dsm.entity.po.Article">
+    <select id="selectByArticleId" parameterType="Article" resultType="Article">
         select * from article WHERE articleId = #{articleId}
     </select>
 
@@ -28,10 +28,10 @@
         </foreach>
     </delete>
 
-    <select id="selectByCollegeName" parameterType="edu.dsm.entity.po.Article" resultType="edu.dsm.entity.po.Article">
+    <select id="selectByCollegeName" parameterType="Article" resultType="Article">
         select * from article WHERE collegeName = #{collegeName}
     </select>
-    <select id="selectByUserId" parameterType="edu.dsm.entity.po.Article" resultType="edu.dsm.entity.po.Article">
+    <select id="selectByUserId" parameterType="Article" resultType="Article">
         select * from article WHERE authorId = #{userId}
     </select>
     <insert id="addArticle">

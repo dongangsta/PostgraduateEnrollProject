@@ -12,21 +12,21 @@
         select * from college
     </sql>
 
-    <select id="selectAll"   resultType="edu.dsm.entity.po.College" >
+    <select id="selectAll"   resultType="College" >
         <include refid="selectCollegeSql"/>
     </select>
 
-    <select id="selectByName" parameterType="edu.dsm.entity.po.College" resultType="edu.dsm.entity.po.College">
+    <select id="selectByName" parameterType="College" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeName = #{collegeName}
     </select>
 
-    <select id="selectById" parameterType="edu.dsm.entity.po.College" resultType="edu.dsm.entity.po.College">
+    <select id="selectById" parameterType="College" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
         WHERE collegeId = #{collegeId}
     </select>
 
-    <insert id="addCollege" parameterType="edu.dsm.entity.po.College" >
+    <insert id="addCollege" parameterType="College" >
         INSERT INTO college
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="collegeName != null and collegeName != ''"> collegeName,</if>

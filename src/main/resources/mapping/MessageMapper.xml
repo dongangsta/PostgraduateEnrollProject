@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.MessageDao">
 
-    <select id="selectByUserId" parameterType="edu.dsm.entity.po.Message" resultType="edu.dsm.entity.po.Message">
+    <select id="selectByUserId" parameterType="Message" resultType="edu.dsm.entity.po.Message">
         select * from message WHERE userId = #{userId}
     </select>
     <insert id="addMessage">

@@ -12,18 +12,18 @@
         select * from school
     </sql>
 
-    <select id="selectAll"   resultType="edu.dsm.entity.po.School" >
+    <select id="selectAll"   resultType="School" >
         <include refid="selectSchoolSql"/>
     </select>
 
     <!-- 通过主键返回单一对象  -->
-    <select id="selectById" parameterType="Integer"  resultType="edu.dsm.entity.po.School" >
+    <select id="selectById" parameterType="Integer"  resultType="School" >
         <include refid="selectSchoolSql"/>
         WHERE schoolId = #{schoolId}
     </select>
 
     <!-- 通过主键返回单一对象  -->
-    <select id="selectBySchoolName" parameterType="String"  resultType="edu.dsm.entity.po.School" >
+    <select id="selectBySchoolName" parameterType="String"  resultType="School" >
         <include refid="selectSchoolSql"/>
         WHERE schoolName = #{schoolName}
     </select>
@@ -41,7 +41,7 @@
         </foreach>
     </delete>
 
-    <insert id="addSchool" parameterType="edu.dsm.entity.po.School" >
+    <insert id="addSchool" parameterType="School" >
         INSERT INTO school
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="province != null and province != ''"> province,</if>
@@ -72,7 +72,7 @@
         </trim>
     </insert>
 
-    <update id="updateSchool" parameterType="edu.dsm.entity.po.School" >
+    <update id="updateSchool" parameterType="School" >
         UPDATE school
         <set>
             <if test="province != null and province != ''"> province = #{province},</if>
@@ -92,7 +92,7 @@
         </where>
     </update>
 
-    <select id="selectSchools" resultType="edu.dsm.entity.po.School" >
+    <select id="selectSchools" resultType="School" >
         <include refid="selectSchoolSql"/>
         WHERE not schoolId  = ''
         <if test="province != null and province != ''"> and province = #{province}</if>
@@ -104,7 +104,7 @@
         <if test="highestScore != null and highestScore != ''">  <![CDATA[ and #{highestScore} >=  averageScore ]]></if>
     </select>
 
-    <select id="selectTwoSchools" resultType="edu.dsm.entity.po.School" >
+    <select id="selectTwoSchools" resultType="School" >
     <include refid="selectSchoolSql"/>
     WHERE not schoolId  = ''
         <if test="schoolName1 != null and schoolName1 != ''">and schoolName = #{schoolName1}</if>
