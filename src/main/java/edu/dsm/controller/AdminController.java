@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import javax.swing.*;
-import java.util.List;
 
 /**
  * 管理员相关操作
@@ -26,9 +25,7 @@ public class AdminController {
      * @return the string
      */
     @GetMapping("admin")
-    public String toAdminIndex() {
-        return "admin_login";
-    }
+    public String toAdminIndex() {return "admin_login";}
 
     /**
      * 管理员登录
@@ -57,9 +54,7 @@ public class AdminController {
      * @return the string
      */
     @GetMapping("adminMain")
-    public String toAdminMain() {
-        return "admin_main";
-    }
+    public String toAdminMain() {return "admin_main";}
 
     /**
      * 进入用户权限管理页面
@@ -69,8 +64,7 @@ public class AdminController {
      */
     @GetMapping(value = "UserPowerMaintain")
     public String UserPowerMaintain(Model model){
-        List<User> userList = userService.getAll();
-        model.addAttribute("userList",userList);
+        model.addAttribute("userList",userService.getAll());
         return "admin_user_power_maintain";
     }
 
