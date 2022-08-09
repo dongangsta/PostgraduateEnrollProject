@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.dsm.dao.CommentDao" >
+  <resultMap id="BaseResultMap" type="edu.dsm.entity.po.Comment" >
+    <id column="commentId" property="commentid" jdbcType="INTEGER" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="commentDate" property="commentdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.dsm.entity.po.Comment" >
+    insert into comment (commentId, articleId, userId, 
+      message, commentDate)
+    values (#{commentid,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{message,jdbcType=VARCHAR}, #{commentdate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="edu.dsm.entity.po.Comment" >
+    update comment
+    set articleId = #{articleid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      commentDate = #{commentdate,jdbcType=TIMESTAMP}
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select commentId, articleId, userId, message, commentDate
+    from comment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select commentId, articleId, userId, message, commentDate
+    from comment
+  </select>
+</mapper>
