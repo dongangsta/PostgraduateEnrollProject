@@ -8,6 +8,7 @@ import edu.dsm.service.ArticleService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.GreenTextUtils;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * The type Article controller.
  */
+@Api(tags = "文章管理") //  tags：你可以当作是这个组的名字。
 @Controller
 public class ArticleController {
     @Resource

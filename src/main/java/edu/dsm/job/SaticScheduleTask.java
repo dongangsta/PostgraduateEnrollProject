@@ -23,9 +23,9 @@ public class SaticScheduleTask {
     @Resource
     private ArticleService articleService;
     //3.添加定时任务
-    //  @Scheduled(cron = "0/5 * * * * ?")
-    //或直接指定时间间隔，例如：500秒
-    @Scheduled(fixedRate=500000)
+//    @Scheduled(cron = "0/300 * * * * ? *")
+//    或直接指定时间间隔，例如：500秒
+    @Scheduled(fixedRate=300000)
     private void configureTasks() {
         collegeService.getAll();
         schoolService.getAll();
