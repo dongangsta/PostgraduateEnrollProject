@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.UserDao">
+    <cache type="edu.dsm.util.RedisCache"
+           eviction="LRU"
+           flushInterval="6000000"
+           size="1024"
+           readOnly="false"></cache>
 
     <!--通过名称查询用户（登录用）-->
     <select id="selectByUserName" parameterType="User" resultType="User">
