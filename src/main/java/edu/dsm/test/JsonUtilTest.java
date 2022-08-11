@@ -12,9 +12,12 @@ public class JsonUtilTest {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) {
+    public static <List> void main(String[] args) {
         String jsonStr = "[\"value1\", \"value2\", \"value3\"]";
         JSONArray array = JSONUtil.parseArray(jsonStr);
         System.out.println(array);
+        String jsonTime = "1660123752780";
+        // String con = JSON.parse(JSONObject.toJSONStringWithDateFormat(要json的值,"yyyy-MM-dd HH:mm:ss")).toString();
+
     }
 }
