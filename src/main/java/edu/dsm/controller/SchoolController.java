@@ -1,6 +1,8 @@
 package edu.dsm.controller;
 
+import edu.dsm.converter.SchoolConverter;
 import edu.dsm.entity.po.School;
+import edu.dsm.entity.vo.SchoolTestVo;
 import edu.dsm.service.SchoolService;
 import edu.dsm.util.JOptionPaneUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -10,6 +12,7 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -187,5 +190,22 @@ public class SchoolController {
         List<School> schoolList = schoolService.getAll();
         model.addAttribute("schoolList", schoolList);
         return "admin_maintain_school";
+    }
+
+    /**
+     * 测试MapStruct能否在@Mapping处进行数字计算
+     *
+     * @return the list
+     */
+    @ResponseBody
+    @GetMapping(value = "testSchoolMaintain")
+    public List<SchoolTestVo> SchoolsMaintain(){
+        List<School> schoolList = schoolService.getAll();
+        List<SchoolTestVo> showList = new ArrayList<>();
+        for (School school:schoolList){
+            SchoolTestVo schoolVO = SchoolConverter.INSTANCT.conver(school);
+            showList.add(schoolVO);
+        }
+        return showList;
     }
 }
