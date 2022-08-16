@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration // 标明是配置类
 @EnableSwagger2 //开启swagger功能
 public class SwaggerConfig {
-    //  http://localhost:8088/swagger-ui.html   访问Swagger
+    // {@link http://localhost:8088/swagger-ui.html}   访问Swagger
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)  // DocumentationType.SWAGGER_2 固定的，代表swagger2
