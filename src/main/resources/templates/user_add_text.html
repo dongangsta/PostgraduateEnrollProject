@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>添加text</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"  />
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"  />
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <script type="text/javascript" src="tableExport.js"></script>
+    <script src="js/jquery/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap/bootstrap.js"></script>
+    <script src="js/bootstrap/bootstrap-table.js"></script>
+    <script src="js/bootstrap/bootstrap-paginator.js"></script>
+    <script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap/bootstrap-table-editable.js"></script>
+</head>
+<body>
+<fieldset class="layui-field-title" style="margin-top: 20px;">
+    <legend>添加text</legend>
+</fieldset>
+<div style="position: absolute;left: 50px" >
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" id="userName" name="userName" lay-verify="required" placeholder="输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户密码</label>
+            <div class="layui-input-inline">
+                <input type="text" id="userPassword" name="userPassword" lay-verify="required" placeholder="输入用户密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户邮箱</label>
+            <div class="layui-input-inline">
+                <input type="text" id="email" name="email" lay-verify="required" placeholder="输入用户邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在地区</label>
+            <div class="layui-input-inline">
+                <input type="text" id="area" name="area" lay-verify="required" placeholder="输入所在地区" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-inline">
+                <input type="text" id="phone" name="phone" lay-verify="required" placeholder="输入电话号码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理权限</label>
+            <div class="layui-input-block">
+                <select id="adminOrNot" name="adminOrNot" lay-verify="required" lay-search>
+                    <option value="">请选择一个角色</option>
+                    <option value="1">管理员</option>
+                    <option value="0">普通用户</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-upload" style="margin-left: 110px;margin-bottom: 30px;">
+            <button type="button" class="layui-btn" id="uploadImg">上传图片</button>
+            <div style="display:none;">
+                <input type="text" name="img_url" id="ipt_fileName" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" id="img_id">
+                <p id="demoText"></p>
+            </div>
+            <div style="width: 95px;">
+                <div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="upload_filter">
+                    <div class="layui-progress-bar" lay-percent=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="btn btn-primary" type="button" onclick="save()">保存</button>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use('form', function(){  //此段代码必不可少
+        var form = layui.form;
+        form.render('select');
+    });
+    function save() {
+        var userName = document.getElementById("userName").value;
+        var userPassword = document.getElementById("userPassword").value;
+        var email = document.getElementById("email").value;
+        var area = document.getElementById("area").value;
+        var phone = document.getElementById("phone").value;
+        var adminOrNot = document.getElementById("adminOrNot").value;
+        $.ajax({
+            url: "addUser?userName="+userName+"&userPassword="+userPassword+"&email="+email+"&area="+area+"&phone="+phone+"&adminOrNot="+adminOrNot,
+            type: "get",
+            success:function(){
+                window.location.href = '/UserMaintain';
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
