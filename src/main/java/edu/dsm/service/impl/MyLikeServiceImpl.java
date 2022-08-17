@@ -1,4 +1,4 @@
-package edu.dsm.service;
+package edu.dsm.service.impl;
 
 import edu.dsm.dao.MyLikeDao;
 import edu.dsm.entity.po.MyLike;
@@ -11,7 +11,7 @@ import java.util.List;
  * The type My like service.
  */
 @Service
-public class MyLikeService {
+public class MyLikeServiceImpl {
     @Resource
     private MyLikeDao myLikeDao;
 

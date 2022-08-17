@@ -3,7 +3,7 @@ package edu.dsm.controller;
 import edu.dsm.entity.po.Message;
 import edu.dsm.entity.po.User;
 import edu.dsm.entity.vo.MessageForShow;
-import edu.dsm.service.MessageService;
+import edu.dsm.service.impl.MessageServiceImpl;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import org.springframework.stereotype.Controller;
@@ -21,9 +21,9 @@ import java.util.List;
 @Controller
 public class MessageController {
     @Resource
-    MessageService messageService;
+    private MessageServiceImpl messageService;
     @Resource
-    UserService userService;
+    private UserService userService;
 
     /**
      * 查看留言板

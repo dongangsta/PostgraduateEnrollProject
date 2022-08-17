@@ -4,10 +4,10 @@ import edu.dsm.entity.po.College;
 import edu.dsm.entity.vo.CollegeForRecommend;
 import edu.dsm.entity.po.MyLike;
 import edu.dsm.entity.po.User;
-import edu.dsm.service.CollegeService;
-import edu.dsm.service.MyLikeService;
-import edu.dsm.service.SchoolService;
-import edu.dsm.service.UserService;
+import edu.dsm.service.impl.CollegeServiceImpl;
+import edu.dsm.service.impl.MyLikeServiceImpl;
+import edu.dsm.service.impl.SchoolServiceImpl;
+import edu.dsm.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,10 +25,10 @@ public class Recommend {
     /**
      * 在给定username的情况下，计算其他用户和它的距离并排序
      */
-    private static CollegeService collegeService;
-    private static UserService userService;
-    private static MyLikeService myLikeService;
-    private static SchoolService schoolService;
+    private static CollegeServiceImpl collegeService;
+    private static UserServiceImpl userService;
+    private static MyLikeServiceImpl myLikeService;
+    private static SchoolServiceImpl schoolService;
 
     /**
      * Set college service.
@@ -36,7 +36,7 @@ public class Recommend {
      * @param collegeService the college service
      */
     @Autowired
-    public void setCollegeService (CollegeService collegeService){
+    public void setCollegeService (CollegeServiceImpl collegeService){
         Recommend.collegeService = collegeService;
     }
 
@@ -46,7 +46,7 @@ public class Recommend {
      * @param userService the user service
      */
     @Autowired
-    public void setUserService (UserService userService){
+    public void setUserService (UserServiceImpl userService){
         Recommend.userService = userService;
     }
 
@@ -56,7 +56,7 @@ public class Recommend {
      * @param myLikeService the my like service
      */
     @Autowired
-    public void setMyLikeService (MyLikeService myLikeService){
+    public void setMyLikeService (MyLikeServiceImpl myLikeService){
         Recommend.myLikeService = myLikeService;
     }
 
@@ -66,7 +66,7 @@ public class Recommend {
      * @param schoolService the school service
      */
     @Autowired
-    public void setSchoolService (SchoolService schoolService){
+    public void setSchoolService (SchoolServiceImpl schoolService){
         Recommend.schoolService = schoolService;
     }
     private TreeMap<Double, String> computeNearestNeighbor(String username) {

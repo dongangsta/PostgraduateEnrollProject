@@ -4,7 +4,7 @@ import edu.dsm.entity.po.College;
 import edu.dsm.entity.po.MyLike;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.CollegeService;
-import edu.dsm.service.MyLikeService;
+import edu.dsm.service.impl.MyLikeServiceImpl;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.JOptionPaneUtil;
@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 public class MyLikeController {
     @Resource
-    private MyLikeService myLikeService;
+    private MyLikeServiceImpl myLikeService;
     @Resource
     private CollegeService collegeService;
     @Resource

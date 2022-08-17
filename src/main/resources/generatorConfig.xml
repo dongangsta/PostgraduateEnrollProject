@@ -55,7 +55,7 @@
         <javaClientGenerator targetPackage="edu.dsm.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <!--生成全部的表名，用%-->
-        <table tableName="comment" schema="Comment"/>
+        <table tableName="text" schema="Text"/>
     </context>
 
 </generatorConfiguration>

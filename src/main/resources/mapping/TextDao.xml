@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.dsm.dao.TextDao" >
+  <resultMap id="BaseResultMap" type="edu.dsm.entity.po.Text" >
+    <id column="text_id" property="textId" jdbcType="INTEGER" />
+    <result column="text_subject" property="textSubject" jdbcType="VARCHAR" />
+    <result column="text_difficulty" property="textDifficulty" jdbcType="VARCHAR" />
+    <result column="text_image_url" property="textImageUrl" jdbcType="VARCHAR" />
+    <result column="text_note_flag" property="textNoteFlag" jdbcType="TINYINT" />
+    <result column="text_note_text" property="textNoteText" jdbcType="VARCHAR" />
+    <result column="text_note_image" property="textNoteImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from text
+    where text_id = #{textId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.dsm.entity.po.Text" >
+    insert into text (text_id, text_subject, text_difficulty, 
+      text_image_url, text_note_flag, text_note_text, 
+      text_note_image)
+    values (#{textId,jdbcType=INTEGER}, #{textSubject,jdbcType=VARCHAR}, #{textDifficulty,jdbcType=VARCHAR}, 
+      #{textImageUrl,jdbcType=VARCHAR}, #{textNoteFlag,jdbcType=TINYINT}, #{textNoteText,jdbcType=VARCHAR}, 
+      #{textNoteImage,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="edu.dsm.entity.po.Text" >
+    update text
+    set text_subject = #{textSubject,jdbcType=VARCHAR},
+      text_difficulty = #{textDifficulty,jdbcType=VARCHAR},
+      text_image_url = #{textImageUrl,jdbcType=VARCHAR},
+      text_note_flag = #{textNoteFlag,jdbcType=TINYINT},
+      text_note_text = #{textNoteText,jdbcType=VARCHAR},
+      text_note_image = #{textNoteImage,jdbcType=VARCHAR}
+    where text_id = #{textId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select text_id, text_subject, text_difficulty, text_image_url, text_note_flag, text_note_text, 
+    text_note_image
+    from text
+    where text_id = #{textId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select text_id, text_subject, text_difficulty, text_image_url, text_note_flag, text_note_text, 
+    text_note_image
+    from text
+  </select>
+</mapper>
