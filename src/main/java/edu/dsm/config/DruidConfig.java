@@ -30,8 +30,8 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        // 这些参数可以在 com.alibaba.druid.support.http.StatViewServlet
-        // 的父类 com.alibaba.druid.support.http.ResourceServlet 中找到
+        /* 这些参数可以在 com.alibaba.druid.support.http.StatViewServlet的父类
+         com.alibaba.druid.support.http.ResourceServlet 中找到 */
         Map<String, String> initParams = new HashMap<>();
         initParams.put("loginUsername", "dong1");
         //后台管理界面的登录账号
@@ -46,5 +46,4 @@ public class DruidConfig {
         //设置初始化参数
         bean.setInitParameters(initParams);    return bean;
     }
-
 }
