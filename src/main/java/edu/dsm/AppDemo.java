@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @SpringBootApplication(exclude = { MongoAutoConfiguration.class, MongoDataAutoConfiguration.class}) //排除mongo的自动配置
 public class AppDemo {
-
     /**
      * 启动类
      * Swagger配置类：{@link SwaggerConfig}
