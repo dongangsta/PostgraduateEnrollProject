@@ -1,5 +1,6 @@
 package edu.dsm;
 
+import edu.dsm.config.DruidConfig;
 import edu.dsm.config.SwaggerConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +16,7 @@ public class AppDemo {
     /**
      * 启动类
      * Swagger配置类：{@link SwaggerConfig}
-     *
+     * Druid配置类：{@link DruidConfig}
      * @param args the input arguments
      */
     public static void main(String[] args) {
