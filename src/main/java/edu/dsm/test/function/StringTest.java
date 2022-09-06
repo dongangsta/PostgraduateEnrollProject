@@ -1,6 +1,7 @@
-package edu.dsm.test;
+package edu.dsm.test.function;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StringTest {
-    public static void main(String[] args) {
+    @Test
+    public void stringTest() {
         String historyTrans = "123554,1234566,123556,284996";
         List<String> historyTransList = new ArrayList<>();
         if (!StringUtils.isBlank(historyTrans)) {

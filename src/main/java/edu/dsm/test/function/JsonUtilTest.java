@@ -1,7 +1,8 @@
-package edu.dsm.test;
+package edu.dsm.test.function;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
+import org.junit.Test;
 
 /**
  * 测试JsonUtil from hutool
@@ -10,9 +11,10 @@ public class JsonUtilTest {
     /**
      * 测试功能入口
      *
-     * @param args the input arguments
      */
-    public static <List> void main(String[] args) {
+
+    @Test
+    public void test() {
         String jsonStr = "[\"value1\", \"value2\", \"value3\"]";
         JSONArray array = JSONUtil.parseArray(jsonStr);
         System.out.println(array);

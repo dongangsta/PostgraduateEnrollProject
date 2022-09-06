@@ -1,4 +1,4 @@
-package edu.dsm.test;
+package edu.dsm.test.web;
 
 import java.io.*;
 import java.net.Socket;

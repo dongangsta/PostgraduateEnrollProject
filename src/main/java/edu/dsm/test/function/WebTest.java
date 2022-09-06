@@ -1,13 +1,15 @@
-package edu.dsm.test;
+package edu.dsm.test.function;
 
 import edu.dsm.util.WebUtil;
+import org.junit.Test;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
 public class WebTest {
-    public static void main(String[] args) throws UnknownHostException {
+    @Test
+    public void webTest() throws UnknownHostException {
 
         String ip1 = WebUtil.getIpByName("www.baidu.com");
         // from百度：实现 String 类型的 ip 与整数之间的相互转化。

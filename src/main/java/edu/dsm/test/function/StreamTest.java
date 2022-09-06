@@ -1,4 +1,6 @@
-package edu.dsm.test;
+package edu.dsm.test.function;
+
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,7 +10,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamTest {
-    public static void main(String[] args) {
+    @Test
+    public void streamTest() {
         //Stream 流
         Stream<String> stream1 = Stream.of("aaa", "bbb", "ccc", "bbb");
         Stream<String> stream2 = Stream.of("aaa", "bbb", "ccc", "bbb");

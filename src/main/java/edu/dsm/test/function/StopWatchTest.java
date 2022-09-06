@@ -1,5 +1,6 @@
-package edu.dsm.test;
+package edu.dsm.test.function;
 
+import org.junit.Test;
 import org.springframework.util.StopWatch;
 
 /**
@@ -9,10 +10,10 @@ public class StopWatchTest {
     /**
      * The entry point of application.
      *
-     * @param args the input arguments
      * @throws InterruptedException the interrupted exception
      */
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void testStopWatch() throws InterruptedException {
         StopWatch stopWatch = new StopWatch();
 
         // 任务一模拟休眠3秒钟
