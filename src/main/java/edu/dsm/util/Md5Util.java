@@ -1,5 +1,7 @@
 package edu.dsm.util;
 
+import org.junit.Test;
+
 import java.security.MessageDigest;
 
 /**
@@ -38,7 +40,8 @@ public class Md5Util {
             return hexValue.toString();
         }
 
-    public static void main(String[] args) {
+    @Test
+    public void md5Test() {
         System.out.println(Md5Util.string2MD5("11111111"));
         //System.out.println();
     }

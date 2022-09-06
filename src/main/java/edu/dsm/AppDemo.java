@@ -17,7 +17,7 @@ public class AppDemo {
      * 启动类
      * Swagger配置类：{@link SwaggerConfig}
      * Druid配置类：{@link DruidConfig}
-     * 热部署:ctrl+shift+f9
+     * 热部署:ctrl+f9
      * @param args the input arguments
      */
     public static void main(String[] args) {
