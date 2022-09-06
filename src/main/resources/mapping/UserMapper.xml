@@ -23,11 +23,16 @@
         select * from user
     </select>
 
-    <!--  修改对象相应记录  -->
-    <update id="turnToAdmin" parameterType="User" >
+    <!--  修改对象角色  -->
+    <update id="turnRole" parameterType="User" >
         UPDATE user
         <set>
-                adminOrNot = 1,
+            <if test="adminOrNot == 1">
+                adminOrNot = 0
+            </if>
+            <if test="adminOrNot == 0">
+                adminOrNot = 1
+            </if>
         </set>
         <where>
             userId = #{userId}
@@ -38,17 +43,6 @@
         UPDATE user
         <set>
             predict = #{predict},
-        </set>
-        <where>
-            userId = #{userId}
-        </where>
-    </update>
-
-
-    <update id="turnToUser" parameterType="User" >
-        UPDATE user
-        <set>
-            adminOrNot = 0,
         </set>
         <where>
             userId = #{userId}

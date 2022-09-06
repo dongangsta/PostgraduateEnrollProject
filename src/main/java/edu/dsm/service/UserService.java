@@ -9,8 +9,7 @@ public interface UserService {
     User getByUserName(String userName);
     User getAdminByUserName(String userName);
     List<User> getAll();
-    int turnToAdmin(int userId);
-    int turnToUser(int userId);
+    int turnRole(User user);
     int addUser(User user);
     int deleteBatchUsers(Integer [] ids);
     int rePassword(Integer userId);

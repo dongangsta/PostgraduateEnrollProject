@@ -56,20 +56,10 @@ public class UserServiceImpl implements UserService {
     /**
      * Turn to admin int.
      *
-     * @param userId the user id
      * @return the int
      */
     @Override
-    public int turnToAdmin(int userId){ return userDao.turnToAdmin(userId);}
-
-    /**
-     * Turn to user int.
-     *
-     * @param userId the user id
-     * @return the int
-     */
-    @Override
-    public int turnToUser(int userId){ return userDao.turnToUser(userId);}
+    public int turnRole(User user){ return userDao.turnRole(user);}
 
     /**
      * Add user int.

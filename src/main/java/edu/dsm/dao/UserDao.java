@@ -11,8 +11,7 @@ public interface UserDao {
     User selectAdminByUserName(String userName);
     List<User> selectAll();
     User selectById(Integer id);
-    int turnToAdmin(int userId);
-    int turnToUser(int userId);
+    int turnRole(User user);
     int addUser(User user);
     int deleteBatchUsers(Integer [] ids);
     int rePassword(Integer userId);

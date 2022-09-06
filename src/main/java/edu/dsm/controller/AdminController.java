@@ -5,6 +5,7 @@ import edu.dsm.service.UserService;
 import edu.dsm.util.Md5Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -77,13 +78,8 @@ public class AdminController {
     @GetMapping("turnToAdmin")        //
     public String turnToAdmin(int userId) {
         User user = userService.getOneById(userId);
-        if (user != null){
-            if (user.getAdminOrNot()!=1) {
-                int cnt = userService.turnToAdmin(userId);
-                }
-            else  {
-                int cnt = userService.turnToUser(userId);
-                }
+        if (!ObjectUtils.isEmpty(user)){
+                int cnt = userService.turnRole(user);
         }
         return "redirect:UserPowerMaintain";
     }
