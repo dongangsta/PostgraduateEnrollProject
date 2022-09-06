@@ -4,6 +4,10 @@ server:
 #  max-http-header-size配置最大 HTTP 标头大小
   servlet:
     context-path: /
+#  undertow:
+#    direct-buffers: true
+#    io-threads: 4
+#    worker-threads: 160
 
 spring:
   thymeleaf:
@@ -71,3 +75,5 @@ logging:
     edu:
       dsm:
         dao: debug
+
+
