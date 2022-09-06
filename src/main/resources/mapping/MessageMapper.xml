@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.dsm.dao.MessageDao">
-
+    <cache type="edu.dsm.util.RedisCache"
+           eviction="LRU"
+           flushInterval="6000000"
+           size="1024"
+           readOnly="false"></cache>
     <select id="selectByUserId" parameterType="Message" resultType="edu.dsm.entity.po.Message">
         select * from message WHERE userId = #{userId}
+    </select>
+    <select id="getAll" resultType="edu.dsm.entity.po.Message">
+        select * from message
     </select>
     <insert id="addMessage">
         insert into message (userId,readerId,message,messageDate) values (#{userId},#{readerId},#{message},now());

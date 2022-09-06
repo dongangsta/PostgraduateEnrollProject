@@ -1,9 +1,6 @@
 package edu.dsm.job;
 
-import edu.dsm.service.impl.ArticleServiceImpl;
-import edu.dsm.service.impl.CollegeServiceImpl;
-import edu.dsm.service.impl.SchoolServiceImpl;
-import edu.dsm.service.impl.UserServiceImpl;
+import edu.dsm.service.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,22 +12,28 @@ import java.time.LocalDateTime;
 @EnableScheduling   // 2.开启定时任务
 public class SaticScheduleTask {
     @Resource
-    private CollegeServiceImpl collegeService;
+    private CollegeService collegeService;
     @Resource
-    private SchoolServiceImpl schoolService;
+    private SchoolService schoolService;
     @Resource
-    private UserServiceImpl userService;
+    private UserService userService;
     @Resource
-    private ArticleServiceImpl articleService;
+    private ArticleService articleService;
+    @Resource
+    private MessageService messageService;
+    @Resource
+    private MyLikeService myLikeService;
     //3.添加定时任务
 //    @Scheduled(cron = "0/300 * * * * ? *")
-//    或直接指定时间间隔，例如：500秒
-    @Scheduled(fixedRate=300000)
+//    或直接指定时间间隔，例如：500秒 fixedRate=300000
+    @Scheduled(fixedRate=18000)
     private void configureTasks() {
         collegeService.getAll();
         schoolService.getAll();
         userService.getAll();
         articleService.getAll();
+        messageService.getAll();
+        myLikeService.selectAll();
         System.out.println("院校信息院系信息用户信息文章信息已存入Redis");
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
     }

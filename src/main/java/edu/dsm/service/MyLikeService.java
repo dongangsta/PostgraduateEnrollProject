@@ -1,15 +1,12 @@
-package edu.dsm.dao;
+package edu.dsm.service;
 
 import edu.dsm.entity.po.MyLike;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface MyLikeDao {
-    int likeCollege(Integer userId,Integer collegeId);
+public interface MyLikeService {
+    int likeCollege(Integer userId, Integer collegeId);
     List<MyLike> selectMyLike(Integer userId);
     int deleteMyLike(Integer collegeId);
-
     List<MyLike> selectAll();
 }

@@ -27,7 +27,7 @@ public class RedisCache implements Cache {
 
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
-    private static final long EXPIRE_TIME_IN_MINUTES = 30; // redis过期时间
+    private static final long EXPIRE_TIME_IN_SECONDS = 30; // redis过期时间
 
     /**
      * Instantiates a new Redis cache.
@@ -53,7 +53,7 @@ public class RedisCache implements Cache {
         try {
             RedisTemplate redisTemplate = getRedisTemplate();
             ValueOperations opsForValue = redisTemplate.opsForValue();
-            opsForValue.set(key, value, EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES);
+            opsForValue.set(key, value, EXPIRE_TIME_IN_SECONDS, TimeUnit.SECONDS);
             logger.debug("Put query result to redis");
         }
         catch (Throwable t) {

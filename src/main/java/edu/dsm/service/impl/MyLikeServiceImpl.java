@@ -2,6 +2,7 @@ package edu.dsm.service.impl;
 
 import edu.dsm.dao.MyLikeDao;
 import edu.dsm.entity.po.MyLike;
+import edu.dsm.service.MyLikeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,7 +12,7 @@ import java.util.List;
  * The type My like service.
  */
 @Service
-public class MyLikeServiceImpl {
+public class MyLikeServiceImpl implements MyLikeService {
     @Resource
     private MyLikeDao myLikeDao;
 
@@ -22,6 +23,7 @@ public class MyLikeServiceImpl {
      * @param collegeId the college id
      * @return the int
      */
+    @Override
     public int likeCollege(Integer userId, Integer collegeId){return myLikeDao.likeCollege(userId,collegeId);}
 
     /**
@@ -30,6 +32,7 @@ public class MyLikeServiceImpl {
      * @param userId the user id
      * @return the list
      */
+    @Override
     public List<MyLike> selectMyLike(Integer userId){return myLikeDao.selectMyLike(userId);}
 
     /**
@@ -38,5 +41,11 @@ public class MyLikeServiceImpl {
      * @param collegeId the college id
      * @return the int
      */
+    @Override
     public int deleteMyLike(Integer collegeId){return myLikeDao.deleteMyLike(collegeId);}
+
+    @Override
+    public List<MyLike> selectAll() {
+        return myLikeDao.selectAll();
+    }
 }
