@@ -1,7 +1,7 @@
-package edu.dsm.test.function;
+package edu.dsm.test.web.function;
 
 import edu.dsm.util.WebUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

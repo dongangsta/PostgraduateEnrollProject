@@ -1,8 +1,8 @@
-package edu.dsm.test.function;
+package edu.dsm.test.web.function;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 测试JsonUtil from hutool
