@@ -94,7 +94,7 @@
 
     <select id="selectSchools" resultType="School" >
         <include refid="selectSchoolSql"/>
-        WHERE not schoolId  = ''
+        <where>
         <if test="province != null and province != ''"> and province = #{province}</if>
         <if test="mathSubject != null and mathSubject != ''">and mathSubject = #{mathSubject} </if>
         <if test="englishSubject != null and englishSubject != ''">and englishSubject = #{englishSubject} </if>
@@ -102,12 +102,14 @@
         <if test="specialtyName!= null and specialtyName != ''"> and specialtyName LIKE '%${specialtyName}%'</if>
         <if test="lowestScore != null and lowestScore != ''">  <![CDATA[ and averageScore >=  #{lowestScore}  ]]></if>
         <if test="highestScore != null and highestScore != ''">  <![CDATA[ and #{highestScore} >=  averageScore ]]></if>
+        </where>
     </select>
 
     <select id="selectTwoSchools" resultType="School" >
     <include refid="selectSchoolSql"/>
-    WHERE not schoolId  = ''
+    <where>
         <if test="schoolName1 != null and schoolName1 != ''">and schoolName = #{schoolName1}</if>
         <if test="schoolName2 != null and schoolName2 != ''">or schoolName = #{schoolName2}</if>
+    </where>
     </select>
 </mapper>
