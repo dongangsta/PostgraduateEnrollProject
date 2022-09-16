@@ -24,12 +24,16 @@
       userId = #{userid,jdbcType=INTEGER},
       message = #{message,jdbcType=VARCHAR},
       commentDate = #{commentdate,jdbcType=TIMESTAMP}
-    where commentId = #{commentid,jdbcType=INTEGER}
+    <where>
+    commentId = #{commentid,jdbcType=INTEGER}
+    </where>
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select commentId, articleId, userId, message, commentDate
     from comment
-    where commentId = #{commentid,jdbcType=INTEGER}
+    <where>
+      commentId = #{commentid,jdbcType=INTEGER}
+    </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select commentId, articleId, userId, message, commentDate

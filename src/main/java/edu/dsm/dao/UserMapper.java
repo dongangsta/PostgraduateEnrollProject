@@ -8,7 +8,6 @@ public interface UserMapper extends BaseMapper<User> {
     User selectByUserName(String userName);
     User selectAdminByUserName(String userName);
     int turnRole(User user);
-    int deleteBatchUsers(Integer [] ids);
     int rePassword(Integer userId);
     int updatePredict(Integer predict,Integer userId);
 }

@@ -21,7 +21,7 @@
     </select>
 
 
-    <delete id="deleteBatchArticles" >
+    <delete id="deleteBatch" >
         DELETE FROM article WHERE articleId in
         <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
             #{arr}

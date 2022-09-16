@@ -75,7 +75,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements
      */
     @Override
     public int deleteBatchUsers(Integer [] ids){
-        return this.getBaseMapper().deleteBatchUsers(ids);
+        return this.getBaseMapper().deleteBatch(ids);
     }
 
     /**

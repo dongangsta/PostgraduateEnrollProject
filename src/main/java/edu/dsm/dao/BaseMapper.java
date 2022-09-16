@@ -48,4 +48,5 @@ public interface BaseMapper<T> {
      */
     int updateByPrimaryKey(T record);
 
+    int deleteBatch(Integer [] ids);
 }

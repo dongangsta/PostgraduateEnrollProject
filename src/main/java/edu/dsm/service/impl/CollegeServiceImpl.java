@@ -57,5 +57,5 @@ public class CollegeServiceImpl extends BaseServiceImpl<CollegeMapper, College> 
      * @return the int
      */
     @Override
-    public int deleteBatchColleges(Integer [] collegeIds){return this.getBaseMapper().deleteBatchColleges(collegeIds);}
+    public int deleteBatchColleges(Integer [] collegeIds){return this.getBaseMapper().deleteBatch(collegeIds);}
 }

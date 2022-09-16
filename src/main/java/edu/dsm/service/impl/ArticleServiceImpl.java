@@ -37,7 +37,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper,Article> i
          * @return the int
          */
         @Override
-        public int deleteBatchArticles(Integer [] ids){return this.getBaseMapper().deleteBatchArticles(ids);}
+        public int deleteBatchArticles(Integer [] ids){return this.getBaseMapper().deleteBatch(ids);}
 
         /**
          * 通过大学名称查找文章列表

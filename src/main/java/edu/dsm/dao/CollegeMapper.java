@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CollegeMapper extends BaseMapper<College>{
     College selectByName(String collegeName);
-    int deleteBatchColleges(Integer [] ids);
 }

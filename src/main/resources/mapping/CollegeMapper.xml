@@ -44,7 +44,7 @@
     </insert>
 
     <!-- 通过主键数组删除相应记录集合  -->
-    <delete id="deleteBatchColleges" >
+    <delete id="deleteBatch" >
         DELETE FROM college WHERE collegeId in
         <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
             #{arr}

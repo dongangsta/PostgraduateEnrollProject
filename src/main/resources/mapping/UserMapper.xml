@@ -79,7 +79,7 @@
         </trim>
     </insert>
 
-    <delete id="deleteBatchUsers" >
+    <delete id="deleteBatch" >
         DELETE FROM user WHERE userId in
         <foreach collection="array" item="arr" open="(" close=")" separator="," index="no">
             #{arr}

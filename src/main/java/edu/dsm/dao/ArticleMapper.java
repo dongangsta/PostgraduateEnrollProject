@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ArticleMapper extends BaseMapper<Article>{
-    int deleteBatchArticles(Integer [] ids);
     List<Article> selectByCollegeName(String collegeName);
     List<Article> selectByUserId(Integer userId);
     int addArticle(Integer userId,String title,String collegeName,String text);
