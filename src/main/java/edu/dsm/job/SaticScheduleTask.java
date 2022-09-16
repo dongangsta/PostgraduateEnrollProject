@@ -26,7 +26,7 @@ public class SaticScheduleTask {
     //3.添加定时任务
 //    @Scheduled(cron = "0/300 * * * * ? *")
 //    或直接指定时间间隔，例如：500秒 fixedRate=300000
-    @Scheduled(fixedRate=18000)
+    @Scheduled(fixedRate=180000)
     private void configureTasks() {
         collegeService.getAll();
         schoolService.getAll();
