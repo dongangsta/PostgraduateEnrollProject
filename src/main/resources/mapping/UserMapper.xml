@@ -12,11 +12,17 @@
         select * from user WHERE userName = #{userName}
     </select>
     <select id="selectById" parameterType="User" resultType="User">
-        select * from user WHERE userId = #{userId}
+        select * from user
+        <where>
+            userId = #{userId}
+        </where>
     </select>
 
     <select id="selectAdminByUserName" parameterType="User" resultType="User">
-        select * from user WHERE userName = #{userName} AND adminOrNot = 1
+        select * from user
+            <where>
+                userName = #{userName} AND adminOrNot = 1
+            </where>
     </select>
 
     <select id="selectAll" resultType="User">

@@ -1,18 +1,8 @@
 package edu.dsm.entity.po;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * The type Message.
- */
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class Message implements Serializable {
     private Integer messageId;
     private Integer userId;
@@ -33,4 +23,54 @@ public class Message implements Serializable {
         this.message = message;
     }
 
+    public Integer getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getReaderId() {
+        return readerId;
+    }
+
+    public void setReaderId(Integer readerId) {
+        this.readerId = readerId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public LocalDateTime getMessageDate() {
+        return messageDate;
+    }
+
+    public void setMessageDate(LocalDateTime messageDate) {
+        this.messageDate = messageDate;
+    }
+
+    public Message() {
+    }
+
+    public Message(Integer messageId, Integer userId, Integer readerId, String message, LocalDateTime messageDate) {
+        this.messageId = messageId;
+        this.userId = userId;
+        this.readerId = readerId;
+        this.message = message;
+        this.messageDate = messageDate;
+    }
 }

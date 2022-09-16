@@ -22,15 +22,18 @@
         WHERE schoolId = #{schoolId}
     </select>
 
-    <!-- 通过主键返回单一对象  -->
+    <!-- 通过院系名称返回单一对象  -->
     <select id="selectBySchoolName" parameterType="String"  resultType="School" >
         <include refid="selectSchoolSql"/>
-        WHERE schoolName = #{schoolName}
+            <where>schoolName = #{schoolName}</where>
     </select>
 
     <!-- 通过主键删除相应记录  -->
     <delete id="deleteOne">
-        DELETE FROM school WHERE schoolId = #{schoolId};
+        DELETE FROM school
+            <where>
+            schoolId = #{schoolId}
+            </where>
     </delete>
 
     <!-- 通过主键数组删除相应记录集合  -->
