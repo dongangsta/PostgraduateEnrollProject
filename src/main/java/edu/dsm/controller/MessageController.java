@@ -6,6 +6,7 @@ import edu.dsm.entity.vo.MessageForShow;
 import edu.dsm.service.impl.MessageServiceImpl;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * 留言相关功能
  */
+@Api(tags = "留言管理")
 @Controller
 public class MessageController {
     @Resource

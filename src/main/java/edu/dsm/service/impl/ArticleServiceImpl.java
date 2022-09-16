@@ -3,6 +3,8 @@ package edu.dsm.service.impl;
 import edu.dsm.dao.ArticleMapper;
 import edu.dsm.entity.po.Article;
 import edu.dsm.service.ArticleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper,Article> implements ArticleService {
-
+        private final static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
         /**
          * Get all list.
          *

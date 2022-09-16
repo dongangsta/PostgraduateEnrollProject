@@ -3,6 +3,8 @@ package edu.dsm.service.impl;
 import edu.dsm.dao.MyLikeMapper;
 import edu.dsm.entity.po.MyLike;
 import edu.dsm.service.MyLikeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @Service
 public class MyLikeServiceImpl extends BaseServiceImpl<MyLikeMapper,MyLike> implements MyLikeService {
 
+    private final static Logger logger = LoggerFactory.getLogger(MyLikeServiceImpl.class);
     /**
      * Like college int.
      *

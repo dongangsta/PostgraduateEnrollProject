@@ -3,6 +3,8 @@ package edu.dsm.service.impl;
 import edu.dsm.dao.SchoolMapper;
 import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class SchoolServiceImpl extends BaseServiceImpl<SchoolMapper,School> implements SchoolService {
-
+    private final static Logger logger = LoggerFactory.getLogger(SchoolServiceImpl.class);
     /**
      * Get one by id school.
      *

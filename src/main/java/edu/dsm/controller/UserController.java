@@ -7,6 +7,7 @@ import edu.dsm.util.CookieUtil;
 import edu.dsm.util.JOptionPaneUtil;
 import edu.dsm.util.Md5Util;
 import edu.dsm.util.Recommend;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import java.util.List;
 /**
  * The type User controller.
  */
+@Api(tags = "用户管理")
 @Controller
 public class UserController {
     @Resource

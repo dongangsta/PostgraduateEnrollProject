@@ -3,6 +3,8 @@ package edu.dsm.service.impl;
 import edu.dsm.dao.CollegeMapper;
 import edu.dsm.entity.po.College;
 import edu.dsm.service.CollegeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class CollegeServiceImpl extends BaseServiceImpl<CollegeMapper, College> implements CollegeService {
-
+    private final static Logger logger = LoggerFactory.getLogger(CollegeServiceImpl.class);
     /**
      * 通过大学名称查找大学相关信息
      *

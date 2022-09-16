@@ -3,6 +3,8 @@ package edu.dsm.service.impl;
 import edu.dsm.dao.UserMapper;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements UserService {
-
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
      * Get one by id user.
      *

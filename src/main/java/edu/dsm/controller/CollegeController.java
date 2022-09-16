@@ -5,6 +5,7 @@ import edu.dsm.entity.po.School;
 import edu.dsm.service.CollegeService;
 import edu.dsm.service.SchoolService;
 import edu.dsm.util.JOptionPaneUtil;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * The type College controller.
  */
+@Api(tags = "学校管理")
 @Controller
 public class CollegeController {
     @Resource

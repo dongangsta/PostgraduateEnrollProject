@@ -8,6 +8,7 @@ import edu.dsm.service.impl.MyLikeServiceImpl;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.JOptionPaneUtil;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.util.List;
 /**
  * The type My like controller.
  */
+@Api(tags = "意向院校管理")
 @Controller
 public class MyLikeController {
     @Resource

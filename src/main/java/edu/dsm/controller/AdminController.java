@@ -3,6 +3,7 @@ package edu.dsm.controller;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import edu.dsm.util.Md5Util;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -15,6 +16,7 @@ import javax.swing.*;
 /**
  * 管理员相关操作
  */
+@Api(tags = "管理员功能")
 @Controller
 public class AdminController {
     @Resource
