@@ -5,16 +5,13 @@ import edu.dsm.entity.po.Message;
 import edu.dsm.service.MessageService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * The type Message service.
  */
 @Service
-public class MessageServiceImpl implements MessageService {
-    @Resource
-    private MessageMapper messageMapper;
+public class MessageServiceImpl extends BaseServiceImpl<MessageMapper,Message> implements MessageService {
 
     /**
      * Select by user id list.
@@ -23,7 +20,7 @@ public class MessageServiceImpl implements MessageService {
      * @return the list
      */
     @Override
-    public List<Message> selectByUserId(Integer userId){return messageMapper.selectByUserId(userId);}
+    public List<Message> selectByUserId(Integer userId){return this.getBaseMapper().selectByUserId(userId);}
 
     /**
      * Add message int.
@@ -32,9 +29,9 @@ public class MessageServiceImpl implements MessageService {
      * @return the int
      */
     @Override
-    public int addMessage(Message message){return messageMapper.addMessage(message);}
+    public int addMessage(Message message){return this.getBaseMapper().insert(message);}
 
     @Override public List<Message> getAll() {
-        return messageMapper.getAll();
+        return this.getBaseMapper().selectAll();
     }
 }

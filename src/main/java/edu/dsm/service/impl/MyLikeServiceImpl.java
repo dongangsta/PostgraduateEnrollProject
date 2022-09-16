@@ -5,16 +5,13 @@ import edu.dsm.entity.po.MyLike;
 import edu.dsm.service.MyLikeService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * The type My like service.
  */
 @Service
-public class MyLikeServiceImpl implements MyLikeService {
-    @Resource
-    private MyLikeMapper myLikeMapper;
+public class MyLikeServiceImpl extends BaseServiceImpl<MyLikeMapper,MyLike> implements MyLikeService {
 
     /**
      * Like college int.
@@ -24,7 +21,7 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the int
      */
     @Override
-    public int likeCollege(Integer userId, Integer collegeId){return myLikeMapper.likeCollege(userId,collegeId);}
+    public int likeCollege(Integer userId, Integer collegeId){return this.getBaseMapper().likeCollege(userId,collegeId);}
 
     /**
      * Select my like list.
@@ -33,7 +30,7 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the list
      */
     @Override
-    public List<MyLike> selectMyLike(Integer userId){return myLikeMapper.selectMyLike(userId);}
+    public List<MyLike> selectMyLike(Integer userId){return this.getBaseMapper().selectMyLike(userId);}
 
     /**
      * Delete my like int.
@@ -42,10 +39,10 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the int
      */
     @Override
-    public int deleteMyLike(Integer collegeId){return myLikeMapper.deleteMyLike(collegeId);}
+    public int deleteMyLike(Integer collegeId){return this.getBaseMapper().deleteMyLike(collegeId);}
 
     @Override
     public List<MyLike> selectAll() {
-        return myLikeMapper.selectAll();
+        return this.getBaseMapper().selectAll();
     }
 }

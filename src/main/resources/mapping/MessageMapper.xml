@@ -9,10 +9,10 @@
     <select id="selectByUserId" parameterType="Message" resultType="edu.dsm.entity.po.Message">
         select * from message WHERE userId = #{userId}
     </select>
-    <select id="getAll" resultType="edu.dsm.entity.po.Message">
+    <select id="selectAll" resultType="edu.dsm.entity.po.Message">
         select * from message
     </select>
-    <insert id="addMessage">
+    <insert id="insert">
         insert into message (userId,readerId,message,messageDate) values (#{userId},#{readerId},#{message},now());
     </insert>
 </mapper>

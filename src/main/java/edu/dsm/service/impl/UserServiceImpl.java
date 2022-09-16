@@ -5,16 +5,13 @@ import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * The type User service.
  */
 @Service
-public class UserServiceImpl implements UserService {
-    @Resource
-    private UserMapper userMapper;
+public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements UserService {
 
     /**
      * Get one by id user.
@@ -24,7 +21,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User getOneById(Integer userId){
-        return userMapper.selectById(userId );
+        return this.getBaseMapper().selectByPrimaryKey(userId );
     }
 
     /**
@@ -34,7 +31,7 @@ public class UserServiceImpl implements UserService {
      * @return the user
      */
     @Override
-    public User getByUserName(String userName){return userMapper.selectByUserName(userName);}
+    public User getByUserName(String userName){return this.getBaseMapper().selectByUserName(userName);}
 
     /**
      * Get admin by user name user.
@@ -43,7 +40,7 @@ public class UserServiceImpl implements UserService {
      * @return the user
      */
     @Override
-    public User getAdminByUserName(String userName){return userMapper.selectAdminByUserName(userName);}
+    public User getAdminByUserName(String userName){return this.getBaseMapper().selectAdminByUserName(userName);}
 
     /**
      * Get all list.
@@ -51,7 +48,7 @@ public class UserServiceImpl implements UserService {
      * @return the list
      */
     @Override
-    public List<User> getAll(){return userMapper.selectAll();}
+    public List<User> getAll(){return this.getBaseMapper().selectAll();}
 
     /**
      * Turn to admin int.
@@ -59,7 +56,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int turnRole(User user){ return userMapper.turnRole(user);}
+    public int turnRole(User user){ return this.getBaseMapper().turnRole(user);}
 
     /**
      * Add user int.
@@ -68,7 +65,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int addUser(User user){ return userMapper.addUser(user);}
+    public int addUser(User user){ return this.getBaseMapper().insert(user);}
 
     /**
      * Delete batch users int.
@@ -78,7 +75,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int deleteBatchUsers(Integer [] ids){
-        return userMapper.deleteBatchUsers(ids);
+        return this.getBaseMapper().deleteBatchUsers(ids);
     }
 
     /**
@@ -88,7 +85,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int rePassword(Integer userId){return userMapper.rePassword(userId);}
+    public int rePassword(Integer userId){return this.getBaseMapper().rePassword(userId);}
 
     /**
      * Update user int.
@@ -97,7 +94,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int updateUser(User user){return userMapper.updateUser(user);}
+    public int updateUser(User user){return this.getBaseMapper().updateByPrimaryKey(user);}
 
     /**
      * Update predict int.
@@ -107,5 +104,5 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int updatePredict(Integer predict,Integer userId){return userMapper.updatePredict(predict,userId);}
+    public int updatePredict(Integer predict,Integer userId){return this.getBaseMapper().updatePredict(predict,userId);}
 }

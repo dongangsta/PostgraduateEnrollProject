@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageMapper {
+public interface MessageMapper extends BaseMapper<Message> {
     List<Message> selectByUserId(Integer userId);
-    int addMessage(Message message);
-
-    List<Message> getAll();
 }

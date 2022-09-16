@@ -6,10 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MyLikeMapper {
+public interface MyLikeMapper extends BaseMapper<MyLike> {
     int likeCollege(Integer userId,Integer collegeId);
     List<MyLike> selectMyLike(Integer userId);
     int deleteMyLike(Integer collegeId);
-
-    List<MyLike> selectAll();
 }
