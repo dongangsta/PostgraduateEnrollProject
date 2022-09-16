@@ -4,7 +4,7 @@ import edu.dsm.entity.po.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends BaseService<User>{
     User getOneById(Integer userId);
     User getByUserName(String userName);
     User getAdminByUserName(String userName);

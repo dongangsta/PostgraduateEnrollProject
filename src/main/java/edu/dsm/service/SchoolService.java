@@ -4,7 +4,7 @@ import edu.dsm.entity.po.School;
 
 import java.util.List;
 
-public interface SchoolService {
+public interface SchoolService extends BaseService<School>{
     School getOneById(Integer id);
     List<School> getAll();
     int addSchool(School school);

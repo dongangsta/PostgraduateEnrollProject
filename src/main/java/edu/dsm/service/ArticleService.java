@@ -4,7 +4,7 @@ import edu.dsm.entity.po.Article;
 
 import java.util.List;
 
-public interface ArticleService {
+public interface ArticleService extends BaseService<Article> {
     List<Article> getAll();
     Article selectByArticleId(Integer articleId);
     int deleteBatchArticles(Integer [] ids);
