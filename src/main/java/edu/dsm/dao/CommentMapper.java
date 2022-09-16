@@ -3,7 +3,7 @@ package edu.dsm.dao;
 import edu.dsm.entity.po.Comment;
 import java.util.List;
 
-public interface CommentDao {
+public interface CommentMapper {
     int deleteByPrimaryKey(Integer commentid);
 
     int insert(Comment record);

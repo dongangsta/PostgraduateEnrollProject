@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.dsm.dao.SchoolDao">
+<mapper namespace="edu.dsm.dao.SchoolMapper">
     <cache type="edu.dsm.util.RedisCache"
            eviction="LRU"
            flushInterval="6000000"
@@ -17,7 +17,7 @@
     </select>
 
     <!-- 通过主键返回单一对象  -->
-    <select id="selectById" parameterType="Integer"  resultType="School" >
+    <select id="selectByPrimaryKey" parameterType="Integer"  resultType="edu.dsm.entity.po.School" >
         <include refid="selectSchoolSql"/>
         WHERE schoolId = #{schoolId}
     </select>
@@ -29,7 +29,7 @@
     </select>
 
     <!-- 通过主键删除相应记录  -->
-    <delete id="deleteOne">
+    <delete id="deleteByPrimaryKey">
         DELETE FROM school
             <where>
             schoolId = #{schoolId}
@@ -44,7 +44,7 @@
         </foreach>
     </delete>
 
-    <insert id="addSchool" parameterType="School" >
+    <insert id="insert" parameterType="School" >
         INSERT INTO school
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="province != null and province != ''"> province,</if>
@@ -75,7 +75,7 @@
         </trim>
     </insert>
 
-    <update id="updateSchool" parameterType="School" >
+    <update id="updateByPrimaryKey" parameterType="School" >
         UPDATE school
         <set>
             <if test="province != null and province != ''"> province = #{province},</if>

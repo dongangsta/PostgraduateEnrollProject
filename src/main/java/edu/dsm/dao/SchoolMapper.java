@@ -6,12 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SchoolDao {
-    School selectById(Integer id);
-    List<School> selectAll();
-    int addSchool(School school);
-    int updateSchool(School school);
-    int deleteOne(Integer id);
+public interface SchoolMapper extends BaseMapper<School>{
     int deleteBatchSchools(Integer [] ids);
     List<School> selectBySchoolName(String schoolName);
     List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,

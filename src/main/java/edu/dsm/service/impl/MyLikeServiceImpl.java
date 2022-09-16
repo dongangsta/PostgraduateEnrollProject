@@ -1,6 +1,6 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.MyLikeDao;
+import edu.dsm.dao.MyLikeMapper;
 import edu.dsm.entity.po.MyLike;
 import edu.dsm.service.MyLikeService;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class MyLikeServiceImpl implements MyLikeService {
     @Resource
-    private MyLikeDao myLikeDao;
+    private MyLikeMapper myLikeMapper;
 
     /**
      * Like college int.
@@ -24,7 +24,7 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the int
      */
     @Override
-    public int likeCollege(Integer userId, Integer collegeId){return myLikeDao.likeCollege(userId,collegeId);}
+    public int likeCollege(Integer userId, Integer collegeId){return myLikeMapper.likeCollege(userId,collegeId);}
 
     /**
      * Select my like list.
@@ -33,7 +33,7 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the list
      */
     @Override
-    public List<MyLike> selectMyLike(Integer userId){return myLikeDao.selectMyLike(userId);}
+    public List<MyLike> selectMyLike(Integer userId){return myLikeMapper.selectMyLike(userId);}
 
     /**
      * Delete my like int.
@@ -42,10 +42,10 @@ public class MyLikeServiceImpl implements MyLikeService {
      * @return the int
      */
     @Override
-    public int deleteMyLike(Integer collegeId){return myLikeDao.deleteMyLike(collegeId);}
+    public int deleteMyLike(Integer collegeId){return myLikeMapper.deleteMyLike(collegeId);}
 
     @Override
     public List<MyLike> selectAll() {
-        return myLikeDao.selectAll();
+        return myLikeMapper.selectAll();
     }
 }

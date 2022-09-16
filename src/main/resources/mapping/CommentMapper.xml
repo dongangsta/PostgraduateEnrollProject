@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.dsm.dao.CommentDao" >
+<mapper namespace="edu.dsm.dao.CommentMapper" >
   <resultMap id="BaseResultMap" type="edu.dsm.entity.po.Comment" >
     <id column="commentId" property="commentid" jdbcType="INTEGER" />
     <result column="articleId" property="articleid" jdbcType="INTEGER" />

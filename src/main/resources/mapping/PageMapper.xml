@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="edu.dsm.dao.PageDao">   <!--namespace就是mapper文件的路径,文件名必须跟Dao类名字一致，因为是根据文件名做关联-->
+<mapper namespace="edu.dsm.dao.PageMapper">   <!--namespace就是mapper文件的路径,文件名必须跟Dao类名字一致，因为是根据文件名做关联-->
 
     <select id="selectSize" statementType="STATEMENT" resultType="int" >
         select count(*) from

@@ -1,21 +1,17 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.SchoolDao;
+import edu.dsm.dao.SchoolMapper;
 import edu.dsm.entity.po.School;
 import edu.dsm.service.SchoolService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * The type School service.
  */
 @Service
-public class SchoolServiceImpl implements SchoolService {
-
-    @Resource
-    private SchoolDao schoolDao;
+public class SchoolServiceImpl extends BaseServiceImpl<SchoolMapper,School> implements SchoolService {
 
     /**
      * Get one by id school.
@@ -25,7 +21,7 @@ public class SchoolServiceImpl implements SchoolService {
      */
     @Override
     public School getOneById(Integer id){
-        return schoolDao.selectById(id);
+        return this.getBaseMapper().selectByPrimaryKey(id);
     }
 
     /**
@@ -34,7 +30,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the list
      */
     @Override
-    public List<School> getAll(){return schoolDao.selectAll();}
+    public List<School> getAll(){return this.getBaseMapper().selectAll();}
 
     /**
      * Add school int.
@@ -43,7 +39,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the int
      */
     @Override
-    public int addSchool(School school){ return schoolDao.addSchool(school); }
+    public int addSchool(School school){ return this.getBaseMapper().insert(school); }
 
     /**
      * Update school int.
@@ -52,7 +48,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the int
      */
     @Override
-    public int updateSchool(School school){ return schoolDao.updateSchool(school); }
+    public int updateSchool(School school){ return this.getBaseMapper().updateByPrimaryKey(school); }
 
     /**
      * Remove one int.
@@ -61,7 +57,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the int
      */
     @Override
-    public int removeOne(Integer sid){return schoolDao.deleteOne(sid);}
+    public int removeOne(Integer sid){return this.getBaseMapper().deleteByPrimaryKey(sid);}
 
     /**
      * Delete batch schools int.
@@ -70,7 +66,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the int
      */
     @Override
-    public int deleteBatchSchools(Integer [] schoolIds){return schoolDao.deleteBatchSchools(schoolIds);}
+    public int deleteBatchSchools(Integer [] schoolIds){return this.getBaseMapper().deleteBatchSchools(schoolIds);}
 
     /**
      * Select by school name list.
@@ -79,7 +75,7 @@ public class SchoolServiceImpl implements SchoolService {
      * @return the list
      */
     @Override
-    public List<School> selectBySchoolName(String schoolName){return schoolDao.selectBySchoolName(schoolName);}
+    public List<School> selectBySchoolName(String schoolName){return this.getBaseMapper().selectBySchoolName(schoolName);}
 
     /**
      * Select schools list.
@@ -96,9 +92,9 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,
                                       Integer highestScore,String mathSubject, String englishSubject){return
-            schoolDao.selectSchools(province,specialtyName,schoolName,lowestScore,highestScore,mathSubject,englishSubject);}
+            this.getBaseMapper().selectSchools(province,specialtyName,schoolName,lowestScore,highestScore,mathSubject,englishSubject);}
     @Override
     public List<School> selectTwoSchools(String schoolName1,String schoolName2){
-        return schoolDao.selectTwoSchools(schoolName1,schoolName2);
+        return this.getBaseMapper().selectTwoSchools(schoolName1,schoolName2);
     }
 }

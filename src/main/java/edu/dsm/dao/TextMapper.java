@@ -3,7 +3,7 @@ package edu.dsm.dao;
 import edu.dsm.entity.po.Text;
 import java.util.List;
 
-public interface TextDao {
+public interface TextMapper {
     int deleteByPrimaryKey(Integer textId);
 
     int insert(Text record);

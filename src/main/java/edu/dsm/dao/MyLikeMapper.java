@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MyLikeDao {
+public interface MyLikeMapper {
     int likeCollege(Integer userId,Integer collegeId);
     List<MyLike> selectMyLike(Integer userId);
     int deleteMyLike(Integer collegeId);

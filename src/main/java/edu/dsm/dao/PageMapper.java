@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface PageDao {
+public interface PageMapper {
     List<Map<String,Object>> selectTableData(String entity, Integer pageBegin, Integer pageSize);
 
     int selectSize(String entity);

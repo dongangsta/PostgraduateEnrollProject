@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageDao {
+public interface MessageMapper {
     List<Message> selectByUserId(Integer userId);
     int addMessage(Message message);
 

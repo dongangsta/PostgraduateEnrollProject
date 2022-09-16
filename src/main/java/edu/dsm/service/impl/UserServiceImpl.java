@@ -1,6 +1,6 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.UserDao;
+import edu.dsm.dao.UserMapper;
 import edu.dsm.entity.po.User;
 import edu.dsm.service.UserService;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     /**
      * Get one by id user.
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User getOneById(Integer userId){
-        return userDao.selectById(userId );
+        return userMapper.selectById(userId );
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
      * @return the user
      */
     @Override
-    public User getByUserName(String userName){return userDao.selectByUserName(userName);}
+    public User getByUserName(String userName){return userMapper.selectByUserName(userName);}
 
     /**
      * Get admin by user name user.
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
      * @return the user
      */
     @Override
-    public User getAdminByUserName(String userName){return userDao.selectAdminByUserName(userName);}
+    public User getAdminByUserName(String userName){return userMapper.selectAdminByUserName(userName);}
 
     /**
      * Get all list.
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
      * @return the list
      */
     @Override
-    public List<User> getAll(){return userDao.selectAll();}
+    public List<User> getAll(){return userMapper.selectAll();}
 
     /**
      * Turn to admin int.
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int turnRole(User user){ return userDao.turnRole(user);}
+    public int turnRole(User user){ return userMapper.turnRole(user);}
 
     /**
      * Add user int.
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int addUser(User user){ return userDao.addUser(user);}
+    public int addUser(User user){ return userMapper.addUser(user);}
 
     /**
      * Delete batch users int.
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int deleteBatchUsers(Integer [] ids){
-        return userDao.deleteBatchUsers(ids);
+        return userMapper.deleteBatchUsers(ids);
     }
 
     /**
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int rePassword(Integer userId){return userDao.rePassword(userId);}
+    public int rePassword(Integer userId){return userMapper.rePassword(userId);}
 
     /**
      * Update user int.
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int updateUser(User user){return userDao.updateUser(user);}
+    public int updateUser(User user){return userMapper.updateUser(user);}
 
     /**
      * Update predict int.
@@ -107,5 +107,5 @@ public class UserServiceImpl implements UserService {
      * @return the int
      */
     @Override
-    public int updatePredict(Integer predict,Integer userId){return userDao.updatePredict(predict,userId);}
+    public int updatePredict(Integer predict,Integer userId){return userMapper.updatePredict(predict,userId);}
 }

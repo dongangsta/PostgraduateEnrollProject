@@ -1,6 +1,6 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.MessageDao;
+import edu.dsm.dao.MessageMapper;
 import edu.dsm.entity.po.Message;
 import edu.dsm.service.MessageService;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService {
     @Resource
-    private MessageDao messageDao;
+    private MessageMapper messageMapper;
 
     /**
      * Select by user id list.
@@ -23,7 +23,7 @@ public class MessageServiceImpl implements MessageService {
      * @return the list
      */
     @Override
-    public List<Message> selectByUserId(Integer userId){return messageDao.selectByUserId(userId);}
+    public List<Message> selectByUserId(Integer userId){return messageMapper.selectByUserId(userId);}
 
     /**
      * Add message int.
@@ -32,9 +32,9 @@ public class MessageServiceImpl implements MessageService {
      * @return the int
      */
     @Override
-    public int addMessage(Message message){return messageDao.addMessage(message);}
+    public int addMessage(Message message){return messageMapper.addMessage(message);}
 
     @Override public List<Message> getAll() {
-        return messageDao.getAll();
+        return messageMapper.getAll();
     }
 }

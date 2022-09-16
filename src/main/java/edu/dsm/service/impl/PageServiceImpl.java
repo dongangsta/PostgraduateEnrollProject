@@ -1,6 +1,6 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.PageDao;
+import edu.dsm.dao.PageMapper;
 import edu.dsm.service.PageService;
 import edu.dsm.util.ErrorMessage;
 import edu.dsm.util.Page;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class PageServiceImpl implements PageService {
 
     @Autowired
-    private PageDao pageMapper;
+    private PageMapper pageMapper;
 
     @Override
     public int selectSize(String entity) {

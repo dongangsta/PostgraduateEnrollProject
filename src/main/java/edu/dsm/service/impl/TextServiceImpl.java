@@ -1,6 +1,6 @@
 package edu.dsm.service.impl;
 
-import edu.dsm.dao.TextDao;
+import edu.dsm.dao.TextMapper;
 import edu.dsm.entity.po.Text;
 import edu.dsm.service.TextService;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class TextServiceImpl implements TextService {
 
-    @Resource TextDao textDao;
+    @Resource TextMapper textMapper;
     @Override
-    public List<Text> getAll(){return textDao.selectAll();}
+    public List<Text> getAll(){return textMapper.selectAll();}
     @Override
-    public Text selectById(Integer textId){return textDao.selectByPrimaryKey(textId);}
+    public Text selectById(Integer textId){return textMapper.selectByPrimaryKey(textId);}
     @Override
-    public int addText(Text text){return textDao.insert(text);}
+    public int addText(Text text){return textMapper.insert(text);}
 }
