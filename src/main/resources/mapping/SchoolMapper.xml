@@ -115,4 +115,14 @@
         <if test="schoolName2 != null and schoolName2 != ''">or schoolName = #{schoolName2}</if>
     </where>
     </select>
+
+    <update id="updateAverageScore">
+        update school
+        <set>
+            averageScore = #{averageScore}
+        </set>
+        <where>
+            schoolId = #{schoolId}
+        </where>
+    </update>
 </mapper>

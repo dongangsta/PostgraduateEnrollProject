@@ -12,4 +12,6 @@ public interface SchoolMapper extends BaseMapper<School>{
     List<School> selectSchools(String province,String specialtyName,String schoolName,Integer lowestScore,
                                       Integer highestScore,String mathSubject, String englishSubject);
     List<School> selectTwoSchools(String schoolName1,String schoolName2);
+
+    int updateAverageScore(Integer averageScore,Integer schoolId);
 }

@@ -99,4 +99,9 @@ public class SchoolServiceImpl extends BaseServiceImpl<SchoolMapper,School> impl
     public List<School> selectTwoSchools(String schoolName1,String schoolName2){
         return this.getBaseMapper().selectTwoSchools(schoolName1,schoolName2);
     }
+
+    @Override public int updateAverageScore(Integer schoolId, Integer averageScore) {
+        return this.getBaseMapper().updateAverageScore(averageScore,schoolId);
+    }
+
 }
