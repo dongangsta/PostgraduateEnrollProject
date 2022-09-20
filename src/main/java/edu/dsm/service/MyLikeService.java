@@ -7,6 +7,6 @@ import java.util.List;
 public interface MyLikeService extends BaseService<MyLike>{
     int likeCollege(Integer userId, Integer collegeId);
     List<MyLike> selectMyLike(Integer userId);
-    int deleteMyLike(Integer collegeId);
+    int deleteMyLike(Integer userId, Integer collegeId);
     List<MyLike> selectAll();
 }

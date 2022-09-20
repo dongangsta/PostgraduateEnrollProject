@@ -42,7 +42,7 @@ public class MyLikeServiceImpl extends BaseServiceImpl<MyLikeMapper,MyLike> impl
      * @return the int
      */
     @Override
-    public int deleteMyLike(Integer collegeId){return this.getBaseMapper().deleteMyLike(collegeId);}
+    public int deleteMyLike(Integer userId, Integer collegeId){return this.getBaseMapper().deleteMyLike(userId,collegeId);}
 
     @Override
     public List<MyLike> selectAll() {

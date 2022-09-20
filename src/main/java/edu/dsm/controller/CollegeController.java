@@ -87,7 +87,7 @@ public class CollegeController {
     public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
         College college = new College(collegeName,collegeArea,collegeIntro,collegeNet);
         if (!ObjectUtils.isEmpty(college.getCollegeName())){
-            int cnt  = collegeService.addCollege(college);
+            collegeService.addCollege(college);
         }else {
             JOptionPaneUtil.Popup("添加失败","院校名为空!");
         }
@@ -102,7 +102,7 @@ public class CollegeController {
      * @return the string
      */
     @GetMapping(value = "showCollegeMod")
-    public String showCollegeUpadate(Integer collegeId,Model model){
+    public String showCollegeUpdate(Integer collegeId,Model model){
         model.addAttribute("college",collegeService.selectById(collegeId));
         return "admin_mod_college";
     }
@@ -116,7 +116,7 @@ public class CollegeController {
      */
     @PostMapping(value = "deleteBatchColleges")
     public String deleteBatchColleges(Model model,Integer [] ids ){
-        int cnt  = collegeService.deleteBatchColleges(ids);
+        collegeService.deleteBatchColleges(ids);
         model.addAttribute("collegeList",collegeService.getAll());
         return "admin_maintain_college";
     }

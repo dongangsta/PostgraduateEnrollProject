@@ -52,7 +52,7 @@
             <td th:text="${college.collegeIntro }">${college.collegeIntro }</td>
             <td th:text="${college.collegeNet }">${college.collegeNet  }</td>
             <td >
-                <a  target="_blank" th:href="@{deleteMyLike(collegeId=${college.collegeId})}"  href="deleteMyLike?collegeId=1"  >删除</a>
+                <a  target="_self" th:href="@{deleteMyLike(collegeId=${college.collegeId})}"  href="deleteMyLike?collegeId=1"  >删除</a>
             </td>
         </tr>
         </tbody>

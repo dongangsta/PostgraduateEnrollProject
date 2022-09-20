@@ -8,30 +8,33 @@
            readOnly="false"></cache>
     <!--抽取重复的语句代码片段-->
     <sql id="selectLikeSql">
-        select * from like
+        select likeId, userId, collegeId from mylike
     </sql>
 
     <insert id="likeCollege">
         insert into mylike (userId,collegeId) select #{userId},#{collegeId}
             WHERE
 	    NOT EXISTS (
-		    SELECT
-			    *
-		    FROM
-			    mylike
+            <include refid="selectLikeSql"/>
 		    WHERE
 			    userId = #{userId} AND collegeId = #{collegeId}
 	);
     </insert>
 
     <select id="selectMyLike" resultType="MyLike">
-        select * from mylike where userId = #{userId}
+        <include refid="selectLikeSql"/>
+         <where>
+             userId = #{userId}
+         </where>
     </select>
     <select id="selectAll" resultType="edu.dsm.entity.po.MyLike">
-        select * from mylike
+        <include refid="selectLikeSql"/>
     </select>
 
     <delete id="deleteMyLike" >
-        DELETE FROM mylike WHERE likeId = #{collegeId}
+        DELETE FROM mylike
+            <where>
+                userId = #{userId} and collegeId = #{collegeId}
+            </where>
     </delete>
 </mapper>

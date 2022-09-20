@@ -1,6 +1,5 @@
 package edu.dsm.controller;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import edu.dsm.converter.SchoolConverter;
 import edu.dsm.entity.po.School;
 import edu.dsm.entity.vo.SchoolTestVo;
@@ -8,14 +7,12 @@ import edu.dsm.service.SchoolService;
 import edu.dsm.util.JOptionPaneUtil;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +24,6 @@ import java.util.List;
 public class SchoolController {
     @Resource
     private SchoolService schoolService;
-    @Autowired
-    DataSource dataSource;
 
     /**
      * Schools maintain string.
@@ -51,22 +46,16 @@ public class SchoolController {
     @GetMapping("toUserShowSchool")        // 进入用户首页
     public String toUserShowSchool(Model model) {
         model.addAttribute("schoolList",schoolService.getAll());
-        //看一下默认数据源
-        System.out.println("数据源"+dataSource.getClass());
-        DruidDataSource druidDataSource = (DruidDataSource) dataSource;
-        System.out.println("druidDataSource 数据源最大连接数：" + druidDataSource.getMaxActive());
-        System.out.println("druidDataSource 数据源初始化连接数：" + druidDataSource.getInitialSize());
         return "user_show_school";
     }
 
     /**
      * Show add school string.
      *
-     * @param model the model
      * @return the string
      */
     @GetMapping("showAddSchool")        // 添加学校信息
-    public String showAddSchool(Model model) {
+    public String showAddSchool() {
         return "admin_add_school";
     }
 
@@ -109,7 +98,7 @@ public class SchoolController {
      */
     @PostMapping(value = "deleteBatchSchools")    //  删除院系招生信息
     public String deleteBatchSchools(Model model,Integer [] ids ){
-        int cnt  = schoolService.deleteBatchSchools(ids);
+        schoolService.deleteBatchSchools(ids);
         model.addAttribute("schoolList",schoolService.getAll());
         return "admin_maintain_school";
     }

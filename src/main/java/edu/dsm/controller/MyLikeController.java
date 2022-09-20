@@ -62,15 +62,7 @@ public class MyLikeController {
      */
     @GetMapping("myLikeList")
     public String myLikeList(Model model,HttpServletRequest request) {
-        String userName = CookieUtil.getCookieUserName(request);
-        User user = userService.getByUserName(userName);
-        List<College> collegeList =new ArrayList<>();
-        List<MyLike> myLikeList = myLikeService.selectMyLike(user.getUserId());
-        for (MyLike myLike:myLikeList){
-            College college = collegeService.selectById(myLike.getCollegeId());
-            collegeList.add(college);
-        }
-        model.addAttribute("collegeList",collegeList);
+        model.addAttribute("collegeList",extractCollege(request));
         return "user_show_likelist";}
 
     /**
@@ -83,7 +75,20 @@ public class MyLikeController {
      */
     @GetMapping(value = "deleteMyLike")
     public String deleteMyLike(Model model,Integer collegeId,HttpServletRequest request){
-        int cnt  = myLikeService.deleteMyLike(collegeId);
+        String userName = CookieUtil.getCookieUserName(request);
+        User user = userService.getByUserName(userName);
+        myLikeService.deleteMyLike(user.getUserId(),collegeId);
+        model.addAttribute("collegeList",extractCollege(request));
+        return "user_show_likelist";
+    }
+
+    /**
+     * 抽取通过喜欢列表获取院校列表方法
+     *
+     * @param request the request
+     * @return the list
+     */
+    public List<College> extractCollege(HttpServletRequest request){
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
         List<College> collegeList =new ArrayList<>();
@@ -92,7 +97,6 @@ public class MyLikeController {
             College college = collegeService.selectById(myLike.getCollegeId());
             collegeList.add(college);
         }
-        model.addAttribute("collegeList",collegeList);
-        return "user_show_likelist";
+        return collegeList;
     }
 }

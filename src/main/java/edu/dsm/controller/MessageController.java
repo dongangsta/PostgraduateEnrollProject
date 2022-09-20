@@ -39,13 +39,7 @@ public class MessageController {
         String userName = CookieUtil.getCookieUserName(request);
         User me = userService.getByUserName(userName);
         List<Message> mList = messageService.selectByUserId(me.getUserId());
-        List<MessageForShow> messageList = new ArrayList<>();
-        for (Message message:mList){
-            User user = userService.getOneById(message.getUserId());
-            User reader = userService.getOneById(message.getReaderId());
-            messageList.add(new MessageForShow(user.getUserName(),reader.getUserName(),message.getMessage(),message.getMessageDate()));
-        }
-        model.addAttribute("messageList",messageList);
+        model.addAttribute("messageList",extractMessageList(mList));
         return "user_show_mymessage";
     }
 
@@ -74,16 +68,9 @@ public class MessageController {
         User me = userService.getByUserName(myName);
         User him = userService.getByUserName(hisName);
         Message m = new Message(him.getUserId(),me.getUserId(),text);
-        int cnt = messageService.addMessage(m);
+        messageService.addMessage(m);
         List<Message> hisList = messageService.selectByUserId(him.getUserId());
-        List<MessageForShow> messageList = new ArrayList<>();
-        for (Message message:hisList){
-            User user = userService.getOneById(message.getUserId());
-            User reader = userService.getOneById(message.getReaderId());
-            MessageForShow messageForShow = new MessageForShow(user.getUserName(),reader.getUserName(),message.getMessage(),message.getMessageDate());
-            messageList.add(messageForShow);
-        }
-        model.addAttribute("messageList",messageList);
+        model.addAttribute("messageList",extractMessageList(hisList));
         return "user_show_message";
     }
 
@@ -99,6 +86,11 @@ public class MessageController {
         String hisName = CookieUtil.getCookieHisName(request);
         User him = userService.getByUserName(hisName);
         List<Message> mList = messageService.selectByUserId(him.getUserId());
+        model.addAttribute("messageList",extractMessageList(mList));
+        return "user_show_message";
+    }
+
+    public List<MessageForShow> extractMessageList(List<Message> mList){
         List<MessageForShow> messageList = new ArrayList<>();
         for (Message message:mList){
             User user = userService.getOneById(message.getUserId());
@@ -106,7 +98,7 @@ public class MessageController {
             MessageForShow messageForShow = new MessageForShow(user.getUserName(),reader.getUserName(),message.getMessage(),message.getMessageDate());
             messageList.add(messageForShow);
         }
-        model.addAttribute("messageList",messageList);
-        return "user_show_message";
+        return messageList;
     }
+
 }

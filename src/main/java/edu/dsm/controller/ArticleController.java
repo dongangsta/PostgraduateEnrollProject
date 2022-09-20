@@ -43,14 +43,8 @@ public class ArticleController {
      */
     @GetMapping(value = "ArticleMaintain")
     public String showNews(Model model){
-        List<Article> articleList= articleService.getAll();
-        List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleList){
-            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
-            showList.add(articleForShow);
-        }
-        model.addAttribute("showList", showList);
+        List<Article> articleList = articleService.getAll();
+        model.addAttribute("showList", turnArticleListToShowList(articleList));
         return "admin_maintain_article";
     }
 
@@ -72,13 +66,8 @@ public class ArticleController {
     @GetMapping("articlesData")
     @ResponseBody
     public List<ArticleForShow> articlesData() {
-        List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleService.getAll()){
-            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
-            showList.add(articleForShow);
-        }
-        return showList;
+        List<Article> articleList = articleService.getAll();
+        return turnArticleListToShowList(articleList);
     }
 
     /**
@@ -113,22 +102,14 @@ public class ArticleController {
     /**
      *  在院校对应的文章页加载数据
      *
-     * @param model       the model
      * @param collegeName the college name
      * @return the list
      */
     @GetMapping("articlesDataOfCollege")
     @ResponseBody
-    public List<ArticleForShow> articleData(Model model,String collegeName){
+    public List<ArticleForShow> articleData(String collegeName){
         List<Article> articleList = articleService.selectByCollegeName(collegeName);
-        List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleList){
-            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
-            showList.add(articleForShow);
-        }
-        model.addAttribute("showList", showList);
-        return showList;
+        return turnArticleListToShowList(articleList);
     }
 
 
@@ -181,23 +162,17 @@ public class ArticleController {
     }
 
     /**
-     * Delete batch articles string.
+     * 批量删除文章
      *
      * @param model the model
      * @param ids   the ids
      * @return the string
      */
-    @PostMapping(value = "deleteBatchArticles")    //  删除用户
+    @PostMapping(value = "deleteBatchArticles")
     public String deleteBatchArticles(Model model,Integer [] ids ){
         int cnt  = articleService.deleteBatchArticles(ids);
-        List<Article> articleList = articleService.getAll();
-        List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleList){
-            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
-            showList.add(articleForShow);
-        }
-        model.addAttribute("showList", showList);
+        List<Article> articleList= articleService.getAll();
+        model.addAttribute("showList", turnArticleListToShowList(articleList));
         return "admin_maintain_article";
     }
 
@@ -223,13 +198,7 @@ public class ArticleController {
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
         List<Article> articleList= articleService.selectByUserId(user.getUserId());
-        List<ArticleForShow> showList = new ArrayList<>();
-        for (Article article:articleList){
-            ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);
-            articleForShow.setUserName(userService.getOneById(article.getAuthorId()).getUserName());
-            showList.add(articleForShow);
-        }
-        return showList;
+        return turnArticleListToShowList(articleList);
     }
 
     /**
@@ -256,6 +225,11 @@ public class ArticleController {
         String hisName = CookieUtil.getCookieHisName(request);
         User him = userService.getByUserName(hisName);
         List<Article> articleList= articleService.selectByUserId(him.getUserId());
+        return turnArticleListToShowList(articleList);
+    }
+
+
+    public List<ArticleForShow> turnArticleListToShowList(List<Article> articleList){
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
             ArticleForShow articleForShow = ArticleConverter.INSTANCT.conver(article);

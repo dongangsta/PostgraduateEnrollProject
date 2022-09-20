@@ -43,8 +43,8 @@ public class UserController {
     /**
      * 登录判断
      *
-     * @param userName     the user name
-     * @param userPassword the user password
+     * @param userName     the userName
+     * @param userPassword the userPassword
      * @param response     the response
      * @return the string
      */
@@ -159,7 +159,7 @@ public class UserController {
      */
     @PostMapping(value = "deleteBatchUsers")
     public String deleteBatchUsers(Model model,Integer [] ids ){
-        int cnt  = userService.deleteBatchUsers(ids);
+        userService.deleteBatchUsers(ids);
         model.addAttribute("userList",userService.getAll());
         return "admin_user_maintain";
     }
@@ -187,7 +187,7 @@ public class UserController {
     @PostMapping(value = "updateUser")
     public String updateUser(Model model,@Validated User user){
         if(user!=null){
-            int cnt  = userService.updateUser(user);
+            userService.updateUser(user);
         }
         model.addAttribute("userList",userService.getAll());
         return "admin_user_maintain";
@@ -218,7 +218,7 @@ public class UserController {
     public String userUpdateUser(Model model,@Validated User user){
         System.setProperty("java.awt.headless", "false");
         if(user!=null){
-            int cnt  = userService.updateUser(user);
+            userService.updateUser(user);
             JOptionPane.showMessageDialog(null,"信息修改成功!","信息修改成功",JOptionPane.PLAIN_MESSAGE);
             User u = userService.getByUserName(user.getUserName());
             model.addAttribute("user",u);
@@ -243,7 +243,7 @@ public class UserController {
     @PostMapping("register")
     public String register(String userName,String userPassword,String email,String phone,String area) {
         User user = new User(userName, Md5Util.string2MD5(userPassword),email,phone,area, AdminOrNotEnum.USER.getCode());
-        int cnt = userService.addUser(user);
+        userService.addUser(user);
         return "user_login";
     }
 
@@ -285,7 +285,7 @@ public class UserController {
     public String showRecommend(Model model,HttpServletRequest request,Integer predict) {
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
-        int cnt = userService.updatePredict(predict,user.getUserId());
+        userService.updatePredict(predict,user.getUserId());
         Recommend recommend = new Recommend();
         List<College> recommendationColleges = recommend.recommend(userName);
         System.out.println("-----------------------");

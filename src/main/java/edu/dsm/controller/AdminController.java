@@ -81,7 +81,7 @@ public class AdminController {
     public String turnToAdmin(int userId) {
         User user = userService.getOneById(userId);
         if (!ObjectUtils.isEmpty(user)){
-                int cnt = userService.turnRole(user);
+                userService.turnRole(user);
         }
         return "redirect:UserPowerMaintain";
     }
