@@ -24,7 +24,7 @@
     <select id="selectAdminByUserName" parameterType="User" resultType="User">
         select * from user
             <where>
-                userName = #{userName} AND adminOrNot = 1
+                userName = #{userName} AND adminOrNot = ${@edu.dsm.enums.AdminOrNotEnum@ADMIN.code}
             </where>
     </select>
 
@@ -37,10 +37,10 @@
         UPDATE user
         <set>
             <if test="adminOrNot == 1">
-                adminOrNot = 0
+                adminOrNot = ${@edu.dsm.enums.AdminOrNotEnum@USER.code}
             </if>
             <if test="adminOrNot == 0">
-                adminOrNot = 1
+                adminOrNot = ${@edu.dsm.enums.AdminOrNotEnum@ADMIN.code}
             </if>
         </set>
         <where>

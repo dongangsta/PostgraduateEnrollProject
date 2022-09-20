@@ -2,6 +2,7 @@ package edu.dsm.controller;
 
 import edu.dsm.entity.po.College;
 import edu.dsm.entity.po.User;
+import edu.dsm.enums.AdminOrNotEnum;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.JOptionPaneUtil;
@@ -241,7 +242,7 @@ public class UserController {
      */
     @PostMapping("register")
     public String register(String userName,String userPassword,String email,String phone,String area) {
-        User user = new User(userName, Md5Util.string2MD5(userPassword),email,phone,area,0);
+        User user = new User(userName, Md5Util.string2MD5(userPassword),email,phone,area, AdminOrNotEnum.USER.getCode());
         int cnt = userService.addUser(user);
         return "user_login";
     }
