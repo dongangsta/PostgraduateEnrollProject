@@ -1,6 +1,7 @@
 package edu.dsm.controller;
 
 import edu.dsm.converter.ArticleConverter;
+import edu.dsm.entity.po.AddArticleWebPo;
 import edu.dsm.entity.po.Article;
 import edu.dsm.entity.po.User;
 import edu.dsm.entity.vo.ArticleForShow;
@@ -9,6 +10,9 @@ import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.GreenTextUtils;
 import io.swagger.annotations.Api;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,8 +232,6 @@ public class ArticleController {
         List<Article> articleList= articleService.selectByUserId(him.getUserId());
         return turnArticleListToShowList(articleList);
     }
-
-
     public List<ArticleForShow> turnArticleListToShowList(List<Article> articleList){
         List<ArticleForShow> showList = new ArrayList<>();
         for (Article article:articleList){
@@ -237,5 +240,25 @@ public class ArticleController {
             showList.add(articleForShow);
         }
         return showList;
+    }
+
+    @PostMapping(value = "addArticleFromWeb")
+    @ResponseBody
+    public boolean addArticleFromWeb(@RequestBody AddArticleWebPo po) throws IOException {
+        return catchZhiHuArticle(po.getPaths(), po.getCollegeName());
+    }
+
+    public boolean catchZhiHuArticle(List<String> paths,String collegeName) throws IOException {
+        int num = 0;
+        for (String path:paths) {
+            Document document = Jsoup.connect(path).timeout(20000).get();
+            String title = document.title();
+            System.out.println("title is" + title);
+            Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
+            String text = textInElements.toString();
+            int cnt = articleService.addArticle(1,collegeName,title,text);
+            if (cnt == 1) num++;
+        }
+       return num == paths.size();
     }
 }

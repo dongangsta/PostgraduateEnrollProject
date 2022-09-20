@@ -31,6 +31,7 @@ public class SaticScheduleTask {
 //    @Scheduled(cron = "0/300 * * * * ? *")
 //    或直接指定时间间隔，例如：500秒 fixedRate=300000
     int cntUpdate = 0;
+    @Scheduled(cron = "30 10 * * * ?")
     @Scheduled(fixedRate=1800000)
     private void start(){
         StopWatch stopWatch = new StopWatch();
@@ -51,6 +52,7 @@ public class SaticScheduleTask {
                     +", averageScore = "+averageScore);
         }
         stopWatch.stop();
+
         stopWatch.start("SaveIntoRedis");
         collegeService.getAll();
         schoolService.getAll();

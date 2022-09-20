@@ -9,6 +9,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -54,7 +56,16 @@ public class CatchTest {
 
     @Test
     public void jsoupTest() throws IOException {
-        Document document = Jsoup.connect("http://suolongkaoyan.info/school_detail/%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6").timeout(2000).get();
-        System.out.println(document);
+        Document document = Jsoup.connect("https://zhuanlan.zhihu.com/p/492385833").timeout(20000).get();
+        String title = document.title();
+        System.out.println("title is: " + title);
+        Element data = document.getElementById("root");
+        System.out.println("data is: " +data);
+        Elements elementsByClass = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
+        System.out.println("elements are: " +elementsByClass);
+        String text = elementsByClass.toString();
+        System.out.println(text);
+//        System.out.println("text is: " + elementsByClass.text());
+        //System.out.println(document);
     }
 }
