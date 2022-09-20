@@ -9,7 +9,8 @@
 
     <!--抽取重复的语句代码片段-->
     <sql id="selectSchoolSql">
-        select * from school
+        select schoolId,province,schoolName,collegeName,specialtyName,averageScore,
+               score21,score20,score19,mathSubject,englishSubject,majorSubject from school
     </sql>
 
     <select id="selectAll"   resultType="School" >
@@ -119,7 +120,7 @@
     <update id="updateAverageScore">
         update school
         <set>
-            averageScore = #{averageScore}
+            averageScore = #{averageScore}, updatetime = now()
         </set>
         <where>
             schoolId = #{schoolId}

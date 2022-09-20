@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StopWatch;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -29,21 +30,12 @@ public class SaticScheduleTask {
     //3.添加定时任务
 //    @Scheduled(cron = "0/300 * * * * ? *")
 //    或直接指定时间间隔，例如：500秒 fixedRate=300000
-    @Scheduled(fixedRate=180000)
-    private void configureTasks() {
-        collegeService.getAll();
-        schoolService.getAll();
-        userService.getAll();
-        articleService.getAll();
-        messageService.getAll();
-        myLikeService.selectAll();
-        System.out.println("院校信息院系信息用户信息文章信息已存入Redis");
-        System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
-    }
-
     int cntUpdate = 0;
     @Scheduled(fixedRate=1800000)
-    private void countAverage(){
+    private void start(){
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("TaskAverageScore");
         List<School> schoolList = schoolService.getAll();
         for (School school:schoolList) {
             int cnt = 3;
@@ -56,7 +48,20 @@ public class SaticScheduleTask {
             int numCnt = schoolService.updateAverageScore(school.getSchoolId(),averageScore);
             cntUpdate = cntUpdate + numCnt;
             System.out.println(cntUpdate+"条数据已经被更新，本条数据的schoolId = " + school.getSchoolId()
-                    +"averageScore = "+averageScore);
+                    +", averageScore = "+averageScore);
         }
+        stopWatch.stop();
+        stopWatch.start("SaveIntoRedis");
+        collegeService.getAll();
+        schoolService.getAll();
+        userService.getAll();
+        articleService.getAll();
+        messageService.getAll();
+        myLikeService.selectAll();
+        System.out.println("院校信息院系信息用户信息文章信息已存入Redis");
+        System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
     }
 }
