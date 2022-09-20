@@ -29,7 +29,11 @@
     </delete>
 
     <select id="selectByCollegeName" parameterType="String" resultType="Article">
-        select * from article WHERE collegeName = #{collegeName}
+        select * from article
+        <where>
+            collegeName = #{collegeName}
+        </where>
+        order by articleDate desc
     </select>
     <select id="selectByUserId" parameterType="Integer" resultType="Article">
         select * from article WHERE authorId = #{userId}
