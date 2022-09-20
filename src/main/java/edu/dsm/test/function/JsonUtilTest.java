@@ -1,4 +1,4 @@
-package edu.dsm.test.web.function;
+package edu.dsm.test.function;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;

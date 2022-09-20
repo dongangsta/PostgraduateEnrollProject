@@ -1,4 +1,4 @@
-package edu.dsm.test.web.function;
+package edu.dsm.test.function;
 
 import edu.dsm.util.WebUtil;
 import org.junit.jupiter.api.Test;
