@@ -34,7 +34,7 @@
     <select id="selectByCollegeName" parameterType="String" resultType="Article">
         <include refid="selectArticleSql"/>
         <where>
-            collegeName = #{collegeName}
+            <![CDATA[ collegeName like CONCAT('%', #{collegeName}, '%') ]]>
         </where>
         order by articleDate desc
     </select>

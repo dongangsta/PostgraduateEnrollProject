@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -248,10 +250,11 @@ public class ArticleController {
 
     @PostMapping("addZhiHuArticle")
     @ResponseBody
-    public boolean insertArticleFromZhiHuArticleList(@RequestBody AddArticleWebPo addArticleWebPo){
+    public boolean insertArticleFromZhiHuArticleList(@RequestBody AddArticleWebPo addArticleWebPo)
+            throws UnsupportedEncodingException {
         //  输入：在txt文件先键入大学名称 然后空格 再贴入相应的知乎文章搜索页动态网页代码
         String strHtml = TxtUtil.txt2String(new File(addArticleWebPo.getPathName()));
-        String collegeName = strHtml.substring(0,strHtml.indexOf(" "));
+        String collegeName = URLDecoder.decode(strHtml.substring(0,strHtml.indexOf(" ")), "utf-8");
         Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         Matcher matcher = pattern.matcher(strHtml);
         List<String> urlArr = new ArrayList<>();

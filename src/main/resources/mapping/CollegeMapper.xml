@@ -18,7 +18,9 @@
 
     <select id="selectByName" parameterType="College" resultType="edu.dsm.entity.po.College">
         <include refid="selectCollegeSql"/>
-        WHERE collegeName = #{collegeName}
+        <where>
+            <![CDATA[ collegeName like CONCAT('%', #{collegeName}, '%') ]]>
+        </where>
     </select>
 
     <select id="selectByPrimaryKey" parameterType="College" resultType="edu.dsm.entity.po.College">
