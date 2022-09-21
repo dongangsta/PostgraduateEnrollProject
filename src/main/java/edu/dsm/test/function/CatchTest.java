@@ -1,5 +1,6 @@
 package edu.dsm.test.function;
 
+import edu.dsm.util.TxtUtil;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -13,7 +14,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CatchTest {
     @Test
@@ -54,6 +60,11 @@ public class CatchTest {
         }
     }
 
+    /**
+     * 测试成功：Jsoup抓取知乎文章页成功
+     *
+     * @throws IOException the io exception
+     */
     @Test
     public void jsoupTest() throws IOException {
         Document document = Jsoup.connect("https://zhuanlan.zhihu.com/p/492385833").timeout(20000).get();
@@ -64,8 +75,44 @@ public class CatchTest {
         Elements elementsByClass = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
         System.out.println("elements are: " +elementsByClass);
         String text = elementsByClass.toString();
-        System.out.println(text);
+        String newText = text.replaceAll("</div?[^>]+>", ""); //剔出</div>的标签
+        newText = newText.replaceAll("<div?[^>]+>", ""); //剔出<div>的标签
+        System.out.println(newText);
 //        System.out.println("text is: " + elementsByClass.text());
         //System.out.println(document);
     }
+
+    /**
+     * 测试失败：结果：知乎的文章列表中的list暂时通过jsoup无法抓取
+     *
+     * @throws IOException the io exception
+     */
+    @Test
+    public void testZhiHuList() throws IOException{
+        Document document =
+                Jsoup.connect("https://www.zhihu.com/search?q=%E4%B8%9C%E8%92%99%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF&type=content&utm_content=search_suggestion&vertical=article").timeout(20000).get();
+//        Element data = document.getElementById("root");
+//        System.out.println("data is: " +data);
+        Elements elementsByClass = document.getElementById("root").getAllElements();
+        System.out.println("elements are: " +elementsByClass);
+        for (Element element:elementsByClass) {
+            System.out.println("element" + element.id() + "" + element.text());
+        }
+    }
+
+    @Test
+    public void getUrl(){
+        String strHtml = TxtUtil.txt2String(new File("D:/url.txt"));
+        Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
+        Matcher matcher = pattern.matcher(strHtml);
+        List<String> urlArr = new ArrayList<>();
+        while (matcher.find()) {
+            if (matcher.group().contains("zhuanlan")) {
+                String matcherStr = "https:" + matcher.group();
+                urlArr.add(matcherStr);
+            }
+        }
+        System.out.println(urlArr);
+    }
+
 }

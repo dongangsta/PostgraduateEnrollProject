@@ -8,7 +8,7 @@
            readOnly="false"></cache>
     <!--抽取重复的语句代码片段-->
     <sql id="selectArticleSql">
-        select * from article
+        select articleId,authorId,title,text,articleDate,collegeName from article
     </sql>
 
     <select id="selectAll"  resultType="Article" >
@@ -17,7 +17,10 @@
     </select>
 
     <select id="selectByPrimaryKey" parameterType="Integer" resultType="Article">
-        select * from article WHERE articleId = #{articleId}
+        <include refid="selectArticleSql"/>
+            <where>
+                articleId = #{articleId}
+            </where>
     </select>
 
 
@@ -29,14 +32,17 @@
     </delete>
 
     <select id="selectByCollegeName" parameterType="String" resultType="Article">
-        select * from article
+        <include refid="selectArticleSql"/>
         <where>
             collegeName = #{collegeName}
         </where>
         order by articleDate desc
     </select>
     <select id="selectByUserId" parameterType="Integer" resultType="Article">
-        select * from article WHERE authorId = #{userId}
+        <include refid="selectArticleSql"/>
+        <where>
+            authorId = #{userId}
+        </where>
     </select>
     <insert id="addArticle">
         insert into article (authorId,title,text,articleDate,collegeName) values (#{userId},#{title},#{text},now(),#{collegeName});
