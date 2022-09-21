@@ -1,29 +1,20 @@
 package edu.dsm.entity.po;
 
-import java.util.List;
-
 public class AddArticleWebPo {
-    List<String> paths;
-    String collegeName;
+    String pathName;
 
-    public List<String> getPaths() {
-        return paths;
+    public String getPathName() {
+        return pathName;
     }
 
-    public void setPaths(List<String> paths) {
-        this.paths = paths;
+    public void setPathName(String pathName) {
+        this.pathName = pathName;
     }
 
-    public String getCollegeName() {
-        return collegeName;
+    public AddArticleWebPo(String pathName) {
+        this.pathName = pathName;
     }
 
-    public void setCollegeName(String collegeName) {
-        this.collegeName = collegeName;
-    }
-
-    public AddArticleWebPo(List<String> paths, String collegeName) {
-        this.paths = paths;
-        this.collegeName = collegeName;
+    public AddArticleWebPo() {
     }
 }

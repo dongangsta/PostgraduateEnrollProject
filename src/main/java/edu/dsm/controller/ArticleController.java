@@ -1,6 +1,7 @@
 package edu.dsm.controller;
 
 import edu.dsm.converter.ArticleConverter;
+import edu.dsm.entity.po.AddArticleWebPo;
 import edu.dsm.entity.po.Article;
 import edu.dsm.entity.po.User;
 import edu.dsm.entity.vo.ArticleForShow;
@@ -245,11 +246,11 @@ public class ArticleController {
         return showList;
     }
 
-    @GetMapping("addZhiHuArticle")
+    @PostMapping("addZhiHuArticle")
     @ResponseBody
-    public boolean insertArticleFromZhiHuArticleList() throws IOException {
+    public boolean insertArticleFromZhiHuArticleList(@RequestBody AddArticleWebPo addArticleWebPo){
         //  输入：在txt文件先键入大学名称 然后空格 再贴入相应的知乎文章搜索页动态网页代码
-        String strHtml = TxtUtil.txt2String(new File("D:/url.txt"));
+        String strHtml = TxtUtil.txt2String(new File(addArticleWebPo.getPathName()));
         String collegeName = strHtml.substring(0,strHtml.indexOf(" "));
         Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         Matcher matcher = pattern.matcher(strHtml);

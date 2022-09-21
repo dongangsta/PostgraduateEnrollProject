@@ -13,7 +13,7 @@
 
     <groupId>edu.abc</groupId><!--包名-->
     <artifactId>IdeaProject</artifactId><!--工程名-->
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.5.0-SNAPSHOT</version>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -159,7 +159,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.2.12</version>
+            <version>1.2.13-SNSAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>

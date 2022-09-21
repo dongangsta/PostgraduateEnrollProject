@@ -2,7 +2,6 @@ package edu.dsm.test.function;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import edu.dsm.util.TxtUtil;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,12 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CatchTest {
     @Test
@@ -112,19 +106,5 @@ public class CatchTest {
         }
     }
 
-    @Test
-    public void getUrl(){
-        String strHtml = TxtUtil.txt2String(new File("D:/url.txt"));
-        Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
-        Matcher matcher = pattern.matcher(strHtml);
-        List<String> urlArr = new ArrayList<>();
-        while (matcher.find()) {
-            if (matcher.group().contains("zhuanlan")) {
-                String matcherStr = "https:" + matcher.group();
-                urlArr.add(matcherStr);
-            }
-        }
-        System.out.println(urlArr);
-    }
 
 }
