@@ -1,5 +1,7 @@
 package edu.dsm.test.function;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import edu.dsm.util.TxtUtil;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -83,17 +85,27 @@ public class CatchTest {
     }
 
     /**
-     * 测试失败：结果：知乎的文章列表中的list暂时通过jsoup无法抓取
+     * 测试失败：结果：知乎的文章列表中的list暂时通过jsoup无法抓取,Htmlunit模拟未成功
      *
      * @throws IOException the io exception
      */
     @Test
     public void testZhiHuList() throws IOException{
-        Document document =
-                Jsoup.connect("https://www.zhihu.com/search?q=%E4%B8%9C%E8%92%99%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF&type=content&utm_content=search_suggestion&vertical=article").timeout(20000).get();
-//        Element data = document.getElementById("root");
+        //Htmlunit模拟的浏览器，设置css,js等支持及其它的一些简单设置
+        WebClient browser = new WebClient();
+        browser.getOptions().setCssEnabled(false);
+        browser.getOptions().setJavaScriptEnabled(true);
+        browser.getOptions().setThrowExceptionOnScriptError(false);
+        //设置等待js的加载时间
+        browser.waitForBackgroundJavaScript(20000);
+        //获取页面
+        HtmlPage htmlPage = browser.getPage("https://www.zhihu.com/search?q=%E4%B8%9C%E8%92%99%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF&type=content&utm_content=search_suggestion&vertical=article");
+        //使用xml的方式解析获取到jsoup的document对象
+        Document document = Jsoup.parse(htmlPage.asXml());
+       //        Element data = document.getElementById("root");
 //        System.out.println("data is: " +data);
-        Elements elementsByClass = document.getElementById("root").getAllElements();
+
+        Elements elementsByClass = document.getElementById("root").getElementsByClass("SearchMain");
         System.out.println("elements are: " +elementsByClass);
         for (Element element:elementsByClass) {
             System.out.println("element" + element.id() + "" + element.text());

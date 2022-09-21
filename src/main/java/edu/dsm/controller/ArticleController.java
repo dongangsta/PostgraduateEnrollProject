@@ -1,7 +1,6 @@
 package edu.dsm.controller;
 
 import edu.dsm.converter.ArticleConverter;
-import edu.dsm.entity.po.AddArticleWebPo;
 import edu.dsm.entity.po.Article;
 import edu.dsm.entity.po.User;
 import edu.dsm.entity.vo.ArticleForShow;
@@ -9,6 +8,7 @@ import edu.dsm.service.ArticleService;
 import edu.dsm.service.UserService;
 import edu.dsm.util.CookieUtil;
 import edu.dsm.util.GreenTextUtils;
+import edu.dsm.util.TxtUtil;
 import io.swagger.annotations.Api;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The type Article controller.
@@ -242,23 +245,53 @@ public class ArticleController {
         return showList;
     }
 
-    @PostMapping(value = "addArticleFromWeb")
+    @GetMapping("addZhiHuArticle")
     @ResponseBody
-    public boolean addArticleFromWeb(@RequestBody AddArticleWebPo po) throws IOException {
-        return catchZhiHuArticle(po.getPaths(), po.getCollegeName());
+    public boolean insertArticleFromZhiHuArticleList() throws IOException {
+        //  输入：在txt文件先键入大学名称 然后空格 再贴入相应的知乎文章搜索页动态网页代码
+        String strHtml = TxtUtil.txt2String(new File("D:/url.txt"));
+        String collegeName = strHtml.substring(0,strHtml.indexOf(" "));
+        Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
+        Matcher matcher = pattern.matcher(strHtml);
+        List<String> urlArr = new ArrayList<>();
+        while (matcher.find()) {
+            if (matcher.group().contains("zhuanlan")) {
+                String matcherStr = "https:" + matcher.group();
+                urlArr.add(matcherStr);
+            }
+        }
+        return catchZhiHuArticle(urlArr,collegeName);
     }
 
-    public boolean catchZhiHuArticle(List<String> paths,String collegeName) throws IOException {
-        int num = 0;
-        for (String path:paths) {
-            Document document = Jsoup.connect(path).timeout(20000).get();
-            String title = document.title();
-            System.out.println("title is" + title);
-            Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
-            String text = textInElements.toString();
-            int cnt = articleService.addArticle(1,collegeName,title,text);
-            if (cnt == 1) num++;
+    public boolean catchZhiHuArticle(List<String> paths,String collegeName){
+        try {
+            int num = 0;
+            for (String path:paths) {
+                Document document = Jsoup.connect(path).timeout(20000).get();
+                String title = document.title();
+                System.out.println("正在添加的title is" + title);
+                Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
+                String text = textInElements.toString();
+                text = text.replaceAll("</div?[^>]+>", ""); //剔出</div>的标签
+                text = text.replaceAll("<div?[^>]+>", ""); //剔出<div>的标签
+                int cnt = articleService.addArticle(1,collegeName,title,text);
+                if (cnt == 1){
+                    System.out.println(title + "添加成功");
+                    num++;
+                }
+            }
+            if(num == paths.size()) {
+                System.out.println("全部添加成功，成功个数" +paths.size());
+                return true;
+            }
+            else{
+                System.out.println("部分添加失败，失败个数" + (paths.size()-num));
+                return false;
+            }
         }
-       return num == paths.size();
+        catch (IOException e){
+            System.out.println("IO读写异常");
+            return false;
+        }
     }
 }
