@@ -274,7 +274,7 @@ public class ArticleController {
                 Document document = Jsoup.connect(path).timeout(20000).get();
                 String title = document.title();
                 System.out.println("正在添加的title is" + title);
-                Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
+                Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-4em6pe");
                 String text = textInElements.toString();
                 text = text.replaceAll("</div?[^>]+>", ""); //剔出</div>的标签
                 text = text.replaceAll("<div?[^>]+>", ""); //剔出<div>的标签

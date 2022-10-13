@@ -26,11 +26,13 @@ public class ArticleServiceTest {
     @Test
     public void insertArticleFromZhiHuArticleList() throws IOException {
         //  输入：在txt文件先键入大学名称 然后空格 再贴入相应的知乎文章搜索页动态网页代码
-        String strHtml = TxtUtil.txt2String(new File("D:/url.txt"));
+        String strHtml = TxtUtil.txt2String(new File("E:/url.txt"));
+        System.out.println(strHtml);
         String collegeName = strHtml.substring(0,strHtml.indexOf(" "));
         Pattern pattern = Pattern.compile("//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         Matcher matcher = pattern.matcher(strHtml);
         List<String> urlArr = new ArrayList<>();
+        System.out.println(urlArr);
         while (matcher.find()) {
             if (matcher.group().contains("zhuanlan")) {
                 String matcherStr = "https:" + matcher.group();
@@ -44,7 +46,7 @@ public class ArticleServiceTest {
         try {
             int num = 0;
             for (String path:paths) {
-                Document document = Jsoup.connect(path).timeout(20000).get();
+                Document document = Jsoup.connect(path).timeout(50000).get();
                 String title = document.title();
                 System.out.println("正在添加的title is" + title);
                 Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-yvdm7v");
