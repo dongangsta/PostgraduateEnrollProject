@@ -2,6 +2,8 @@ package edu.dsm.test.function;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import edu.dsm.entity.po.School;
+import edu.dsm.entity.po.User;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,6 +18,7 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class CatchTest {
     @Test
@@ -106,5 +109,52 @@ public class CatchTest {
         }
     }
 
+    @Test
+    public void testBlank(){
+        String str = "中山大学";
+        str = str.trim();
+        System.out.println(str + "是空的" +"".equals(str));
+        School school = new School();
+        school.setSchoolName("   ");
+        User user = new User();
+        user.setUserName(Optional.ofNullable(school.getSchoolName()).orElse(""));
+        System.out.println("取出的字符是"+user.getUserName().trim()+"s");
 
+    }
+
+    @Test
+    public void testLabel(){
+        int i = 0;
+        outer :
+        for (;true;){
+            inner :
+            for (;i<10;i++){
+                System.out.println("i = "+i);
+                if (i == 2){
+                    System.out.println("continue");
+                    continue ;
+                }
+                if (i ==3){
+                    System.out.println("break");
+                    i++;
+                    break ;
+                }
+                if (i==7){
+                    System.out.println("continue outer");
+                    i++;
+                    continue outer;
+                }
+                if (i==7){
+                    System.out.println("break outer");
+                    break outer;
+                }
+                for (int k = 0;k<5;k++){
+                    if (k==3){
+                        System.out.println("continue inner");
+                        continue inner;
+                    }
+                }
+            }
+        }
+    }
 }
