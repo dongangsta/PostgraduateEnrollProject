@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 
 public class WebTest {
     @Test
@@ -27,5 +28,10 @@ public class WebTest {
         System.out.println(isa.getPort());
         //getAddress 封装成一个 InetAddress对象
         InetAddress ia = isa.getAddress();
+    }
+    @Test
+    public void localDateTest(){
+        LocalDateTime l_da1 = LocalDateTime.parse("2007-04-04");
+        System.out.println(l_da1.toString());
     }
 }
