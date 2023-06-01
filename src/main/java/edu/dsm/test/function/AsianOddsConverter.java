@@ -1,5 +1,6 @@
 package edu.dsm.test.function;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 /**
@@ -55,10 +56,24 @@ public class AsianOddsConverter {
                 }
             }
         }
-
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(2);
         // 输出每种组合方式及概率
-        for (int i = 0; i < Math.pow(2, n); i++) {
-            System.out.println(choices[i] + " " + probabilities[i]);
+        for (int i = 0; i < Math.pow(2, n) && i < 20; i++) {
+            System.out.println(convertResult(choices[i]) + " " + nf.format(probabilities[i]));
         }
     }
+
+    public static String convertResult(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '1') {
+                sb.append("负");
+            } else if (str.charAt(i) == '0') {
+                sb.append("胜");
+            }
+        }
+        return sb.toString();
+    }
+
 }
