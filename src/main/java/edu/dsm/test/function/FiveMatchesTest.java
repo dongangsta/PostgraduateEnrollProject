@@ -9,18 +9,20 @@ import java.util.Arrays;
  */
 public class FiveMatchesTest {
     public static void main(String[] args) {
-        double[][] fiveMatches = new double[9][3];
-        fiveMatches[0] = new double[] { 3.5, 3.7, 1.95 };
-        fiveMatches[1] = new double[] { 1.67, 3.4, 4.5 };
-        fiveMatches[2] = new double[] { 3.1, 3.25, 2.1 };
-        fiveMatches[3] = new double[] { 1.73, 3.4, 4.2 };
-        fiveMatches[4] = new double[] { 1.5, 3.75, 6 };
-        fiveMatches[5] = new double[] { 1.57, 3.75, 5 };
-//        fiveMatches[6] = new double[] { 2, 3.25, 3.9 };
-//        fiveMatches[7] = new double[] { 1.6, 4.2, 5 };
-//        fiveMatches[8] = new double[] { 1.8, 3.75, 4 };
+        double[][] fiveMatches = new double[10][3];
+        fiveMatches[0] = new double[] { 2.52, 3.3, 2.63 };
+        fiveMatches[1] = new double[] { 1.83, 3.47, 4.08 };
+        fiveMatches[2] = new double[] { 1.52, 4.25, 5.41 };
+        fiveMatches[3] = new double[] { 1.91, 3.33, 3.79 };
+        fiveMatches[4] = new double[] { 3.46, 3.3, 2.02};
+        fiveMatches[5] = new double[] { 1.8, 3.47, 4.17 };
+        fiveMatches[6] = new double[] { 4.04, 3.31, 1.89 };
+        fiveMatches[7] = new double[] { 4, 3.38, 1.88 };
+        fiveMatches[8] = new double[] { 1.91, 3.46, 3.78 };
+//        fiveMatches[9] = new double[] { , 3.58, 1.73 };
         for (double[] d:fiveMatches) {
             double[] pro = oddsToProbabilities(d);
+//            System.out.println(Arrays.toString(pro));
             double[] aPro = getAsianHandicapOdds(pro[0],pro[1], pro[2], d[0] <= d[2]);
             // 过关概率换算
             System.out.println(aPro[0] + " " + aPro[1]);

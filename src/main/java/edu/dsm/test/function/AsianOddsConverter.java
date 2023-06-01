@@ -59,8 +59,8 @@ public class AsianOddsConverter {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(2);
         // 输出每种组合方式及概率
-        for (int i = 0; i < Math.pow(2, n) && i < 20; i++) {
-            System.out.println(convertResult(choices[i]) + " " + nf.format(probabilities[i]));
+        for (int i = 0; i < Math.pow(2, n) && i < 50; i++) {
+            System.out.println(i+1 +". " + convertResult(choices[i]) + " " + nf.format(probabilities[i]));
         }
     }
 
