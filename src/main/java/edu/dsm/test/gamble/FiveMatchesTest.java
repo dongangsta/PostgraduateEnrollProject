@@ -1,4 +1,4 @@
-package edu.dsm.test.function;
+package edu.dsm.test.gamble;
 
 import java.util.Arrays;
 
