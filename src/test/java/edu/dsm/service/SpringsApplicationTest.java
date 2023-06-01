@@ -28,4 +28,6 @@ public class SpringsApplicationTest {
         List<School> schoolList = schoolService.getAll();
         System.out.println(schoolList.isEmpty());
     }
+
+
 }
