@@ -1,12 +1,19 @@
 package edu.dsm.test.gamble;
 
+import edu.dsm.entity.po.Soccer;
+import edu.dsm.service.SoccerService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +25,14 @@ import java.util.List;
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
+@SpringBootTest()
+@RunWith(SpringRunner.class)
 public class FiveMatchesTest {
+
+    private final String SOCCER = "足球";
+
+    @Resource
+    private SoccerService soccerService;
     public static void main(String[] args) {
         double[][] fiveMatches = new double[10][3];
         fiveMatches[0] = new double[] { 1.8, 3.75, 4 };
@@ -85,9 +99,11 @@ public class FiveMatchesTest {
                 Elements textInElements = table.getElementsByTag("tr");
                 for (Element element : textInElements) {
                     String gameType = element.getElementsByClass("event").get(0).text();
+                    String host = element.select(".odds_item:first-child .item_left").text().trim();
+                    String guest = element.select(".odds_item:last-child").text().replaceAll("(^|(?<=\\s))[\\d.]+(?=\\s|\\[|$)", "").trim();
                     String league = element.getElementsByClass("league").get(0).text();
-                    String title = element.getElementsByClass("match_time").get(0).attr("title");
-                    LocalDateTime time = LocalDateTime.parse(title.substring(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    String matchTime = element.getElementsByClass("match_time").get(0).attr("title");
+                    LocalDateTime time = LocalDateTime.parse(matchTime.substring(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     Elements oupeiElements = element.getElementsByClass("oupei").get(0).select("span[class^='op-']");
                     List<String> oupeiList = new ArrayList<>();
                     for (Element oupeiElement : oupeiElements) {
@@ -95,17 +111,27 @@ public class FiveMatchesTest {
                     }
                     // 定义日期时间格式
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    System.out.println(gameType + " " + league + " " + time.format(formatter) + " " + oupeiList);
-                    if (gameType.equals("足球")) {
+                    System.out.println(gameType + " " + league + " " + host + " " + guest + " "+ time.format(formatter) + " " + oupeiList);
+                    if (gameType.equals(SOCCER)) {
+                        boolean nanFlag = false;
                         double[] doubleArray = new double[oupeiList.size()];
                         for (int i = 0; i < oupeiList.size(); i++) {
-                            doubleArray[i] = Double.parseDouble(oupeiList.get(i));
+                            if (!oupeiList.get(i).equals("-")){
+                                doubleArray[i] = Double.parseDouble(oupeiList.get(i));}else {
+                                nanFlag = true;
+                            }
                         }
                         double[] pro = oddsToProbabilities(doubleArray);
-                        System.out.println("换算欧洲概率" + Arrays.toString(pro));
+                        System.out.println("换算欧洲概率 " + Arrays.toString(pro));
                         double[] aPro = getAsianHandicapOdds(pro[0], pro[1], pro[2], doubleArray[0] <= doubleArray[2]);
                         // 过关概率换算
-                        System.out.println(aPro[0] + " " + aPro[1]);
+                        System.out.println("换算过关概率 " +aPro[0] + " " + aPro[1]);
+                        if (!nanFlag){
+                            Soccer soccer = new Soccer(gameType, time, league, host, guest,
+                                    BigDecimal.valueOf(doubleArray[0]), BigDecimal.valueOf(doubleArray[1]),
+                                    BigDecimal.valueOf(doubleArray[2]), BigDecimal.valueOf(aPro[0]), BigDecimal.valueOf(aPro[1]) );
+                            soccerService.addSoccer(soccer);
+                        }
                     }
                 }
             }

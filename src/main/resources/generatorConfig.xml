@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <classPathEntry location="C:\Users\admin\.m2\repository\mysql\mysql-connector-java\8.0.29\mysql-connector-java-8.0.29.jar"/>
+    <classPathEntry location="C:\Users\dong\.m2\repository\mysql\mysql-connector-java\8.0.30\mysql-connector-java-8.0.30.jar"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
 
@@ -55,7 +55,7 @@
         <javaClientGenerator targetPackage="edu.dsm.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <!--生成全部的表名，用%-->
-        <table tableName="text" schema="Text"/>
+        <table tableName="soccer" schema="Soccer"/>
     </context>
 
 </generatorConfiguration>

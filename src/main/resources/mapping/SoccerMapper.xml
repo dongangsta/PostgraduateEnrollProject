@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.dsm.dao.SoccerMapper">
+  <resultMap id="BaseResultMap" type="edu.dsm.entity.po.Soccer">
+    <result column="matchType" jdbcType="VARCHAR" property="matchtype" />
+    <result column="matchTime" jdbcType="TIMESTAMP" property="matchtime" />
+    <result column="matchLeague" jdbcType="VARCHAR" property="matchleague" />
+    <result column="host" jdbcType="VARCHAR" property="host" />
+    <result column="guest" jdbcType="VARCHAR" property="guest" />
+    <result column="eurWin" jdbcType="DECIMAL" property="eurwin" />
+    <result column="eurDraw" jdbcType="DECIMAL" property="eurdraw" />
+    <result column="eurLose" jdbcType="DECIMAL" property="eurlose" />
+    <result column="asWin" jdbcType="DECIMAL" property="aswin" />
+    <result column="asLose" jdbcType="DECIMAL" property="aslose" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <insert id="insert" parameterType="edu.dsm.entity.po.Soccer">
+    insert into soccer (matchType, matchTime, matchLeague, 
+      `host`, guest, eurWin, 
+      eurDraw, eurLose, asWin, 
+      asLose, updateTime)
+    values (#{matchtype,jdbcType=VARCHAR}, #{matchtime,jdbcType=TIMESTAMP}, #{matchleague,jdbcType=VARCHAR}, 
+      #{host,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR}, #{eurwin,jdbcType=DECIMAL}, 
+      #{eurdraw,jdbcType=DECIMAL}, #{eurlose,jdbcType=DECIMAL}, #{aswin,jdbcType=DECIMAL}, 
+      #{aslose,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select matchType, matchTime, matchLeague, `host`, guest, eurWin, eurDraw, eurLose, 
+    asWin, asLose, updateTime
+    from soccer
+  </select>
+</mapper>

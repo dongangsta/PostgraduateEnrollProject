@@ -1,9 +1,13 @@
 package edu.dsm.util;
 
 import edu.dsm.entity.po.College;
-import edu.dsm.entity.vo.CollegeForRecommend;
 import edu.dsm.entity.po.MyLike;
 import edu.dsm.entity.po.User;
+import edu.dsm.entity.vo.CollegeForRecommend;
+import edu.dsm.service.CollegeService;
+import edu.dsm.service.MyLikeService;
+import edu.dsm.service.SchoolService;
+import edu.dsm.service.UserService;
 import edu.dsm.service.impl.CollegeServiceImpl;
 import edu.dsm.service.impl.MyLikeServiceImpl;
 import edu.dsm.service.impl.SchoolServiceImpl;
@@ -25,10 +29,10 @@ public class Recommend {
     /**
      * 在给定username的情况下，计算其他用户和它的距离并排序
      */
-    private static CollegeServiceImpl collegeService;
-    private static UserServiceImpl userService;
-    private static MyLikeServiceImpl myLikeService;
-    private static SchoolServiceImpl schoolService;
+    private static CollegeService collegeService;
+    private static UserService userService;
+    private static MyLikeService myLikeService;
+    private static SchoolService schoolService;
 
     /**
      * Set college service.
