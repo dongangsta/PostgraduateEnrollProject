@@ -1,6 +1,17 @@
 package edu.dsm.test.gamble;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * ClassName: FiveMatchesTest Description: Author: dong Date: 2023/6/1 14:21 History:
@@ -10,15 +21,15 @@ import java.util.Arrays;
 public class FiveMatchesTest {
     public static void main(String[] args) {
         double[][] fiveMatches = new double[10][3];
-        fiveMatches[0] = new double[] { 2.52, 3.3, 2.63 };
-        fiveMatches[1] = new double[] { 1.83, 3.47, 4.08 };
-        fiveMatches[2] = new double[] { 1.52, 4.25, 5.41 };
-        fiveMatches[3] = new double[] { 1.91, 3.33, 3.79 };
-        fiveMatches[4] = new double[] { 3.46, 3.3, 2.02};
-        fiveMatches[5] = new double[] { 1.8, 3.47, 4.17 };
-        fiveMatches[6] = new double[] { 4.04, 3.31, 1.89 };
-        fiveMatches[7] = new double[] { 4, 3.38, 1.88 };
-        fiveMatches[8] = new double[] { 1.91, 3.46, 3.78 };
+        fiveMatches[0] = new double[] { 1.8, 3.75, 4 };
+        fiveMatches[1] = new double[] { 2.15, 3.3, 3 };
+        fiveMatches[2] = new double[] { 3.8, 3.7, 1.85 };
+//        fiveMatches[3] = new double[] { 1.76, 3.64, 4.12 };
+//        fiveMatches[4] = new double[] { 1.51, 4.2, 5.32 };
+//        fiveMatches[5] = new double[] { 1.5, 3.96, 5.97 };
+//        fiveMatches[6] = new double[] { 4.04, 3.31, 1.89 };
+//        fiveMatches[7] = new double[] { 4, 3.38, 1.88 };
+//        fiveMatches[8] = new double[] { 1.91, 3.46, 3.78 };
 //        fiveMatches[9] = new double[] { , 3.58, 1.73 };
         for (double[] d:fiveMatches) {
             double[] pro = oddsToProbabilities(d);
@@ -62,5 +73,45 @@ public class FiveMatchesTest {
         // 计算主队让或受半球的胜负概率
         // 返回主队让或受半球的胜负概率
         return new double[] {aWinOdds,aLoseOdds};
+    }
+
+    @Test
+    public void ouPeiHuoQu(){
+        try {
+            String path = "https://trade.500.com/bjdcsf/";
+            Document document = Jsoup.connect(path).timeout(50000).get();
+            Elements tables = document.select("table.bet_table_oneline");
+            for (Element table : tables) {
+                Elements textInElements = table.getElementsByTag("tr");
+                for (Element element : textInElements) {
+                    String gameType = element.getElementsByClass("event").get(0).text();
+                    String league = element.getElementsByClass("league").get(0).text();
+                    String title = element.getElementsByClass("match_time").get(0).attr("title");
+                    LocalDateTime time = LocalDateTime.parse(title.substring(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    Elements oupeiElements = element.getElementsByClass("oupei").get(0).select("span[class^='op-']");
+                    List<String> oupeiList = new ArrayList<>();
+                    for (Element oupeiElement : oupeiElements) {
+                        oupeiList.add(oupeiElement.text());
+                    }
+                    // 定义日期时间格式
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    System.out.println(gameType + " " + league + " " + time.format(formatter) + " " + oupeiList);
+                    if (gameType.equals("足球")) {
+                        double[] doubleArray = new double[oupeiList.size()];
+                        for (int i = 0; i < oupeiList.size(); i++) {
+                            doubleArray[i] = Double.parseDouble(oupeiList.get(i));
+                        }
+                        double[] pro = oddsToProbabilities(doubleArray);
+                        System.out.println("换算欧洲概率" + Arrays.toString(pro));
+                        double[] aPro = getAsianHandicapOdds(pro[0], pro[1], pro[2], doubleArray[0] <= doubleArray[2]);
+                        // 过关概率换算
+                        System.out.println(aPro[0] + " " + aPro[1]);
+                    }
+                }
+            }
+        }
+        catch (IOException e){
+            System.out.println("IO读写异常");
+        }
     }
 }
