@@ -1,5 +1,11 @@
 package edu.dsm.test.gamble;
 
+import edu.dsm.service.SoccerService;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
@@ -8,7 +14,13 @@ import java.util.Scanner;
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
+@SpringBootTest()
+@RunWith(SpringRunner.class)
 public class AsianOddsConverter {
+
+    @Resource
+    private SoccerService soccerService;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();  // 比赛场数

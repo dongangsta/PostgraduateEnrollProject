@@ -7,14 +7,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,8 +23,8 @@ import java.util.List;
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-@SpringBootTest()
-@RunWith(SpringRunner.class)
+//@SpringBootTest()
+//@RunWith(SpringRunner.class)
 public class FiveMatchesTest {
 
     private final String SOCCER = "足球";
@@ -47,7 +45,6 @@ public class FiveMatchesTest {
 //        fiveMatches[9] = new double[] { , 3.58, 1.73 };
         for (double[] d:fiveMatches) {
             double[] pro = oddsToProbabilities(d);
-//            System.out.println(Arrays.toString(pro));
             double[] aPro = getAsianHandicapOdds(pro[0],pro[1], pro[2], d[0] <= d[2]);
             // 过关概率换算
             System.out.println(aPro[0] + " " + aPro[1]);
@@ -126,11 +123,17 @@ public class FiveMatchesTest {
                         double[] aPro = getAsianHandicapOdds(pro[0], pro[1], pro[2], doubleArray[0] <= doubleArray[2]);
                         // 过关概率换算
                         System.out.println("换算过关概率 " +aPro[0] + " " + aPro[1]);
-                        if (!nanFlag){
-                            Soccer soccer = new Soccer(gameType, time, league, host, guest,
-                                    BigDecimal.valueOf(doubleArray[0]), BigDecimal.valueOf(doubleArray[1]),
-                                    BigDecimal.valueOf(doubleArray[2]), BigDecimal.valueOf(aPro[0]), BigDecimal.valueOf(aPro[1]) );
-                            soccerService.addSoccer(soccer);
+                        if (!nanFlag) {
+                            LocalDateTime now = LocalDateTime.now();
+                            LocalDateTime todayTenAM = LocalDateTime.of(now.toLocalDate(), LocalTime.of(10, 0));
+                            LocalDateTime tomorrowTenAM = todayTenAM.plusDays(1);
+
+                            if (time.isAfter(todayTenAM) && time.isBefore(tomorrowTenAM)) {
+                                Soccer soccer = new Soccer(gameType, time, league, host, guest,
+                                        BigDecimal.valueOf(doubleArray[0]), BigDecimal.valueOf(doubleArray[1]),
+                                        BigDecimal.valueOf(doubleArray[2]), BigDecimal.valueOf(aPro[0]), BigDecimal.valueOf(aPro[1]));
+                                soccerService.addSoccer(soccer);
+                            }
                         }
                     }
                 }
@@ -139,5 +142,17 @@ public class FiveMatchesTest {
         catch (IOException e){
             System.out.println("IO读写异常");
         }
+    }
+
+    public static String convertResult(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '1') {
+                sb.append("负");
+            } else if (str.charAt(i) == '0') {
+                sb.append("胜");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -22,7 +22,7 @@
     values (#{matchtype,jdbcType=VARCHAR}, #{matchtime,jdbcType=TIMESTAMP}, #{matchleague,jdbcType=VARCHAR}, 
       #{host,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR}, #{eurwin,jdbcType=DECIMAL}, 
       #{eurdraw,jdbcType=DECIMAL}, #{eurlose,jdbcType=DECIMAL}, #{aswin,jdbcType=DECIMAL}, 
-      #{aslose,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP})
+      #{aslose,jdbcType=DECIMAL}, NOW())
   </insert>
   <select id="selectAll" resultMap="BaseResultMap">
     select matchType, matchTime, matchLeague, `host`, guest, eurWin, eurDraw, eurLose, 
