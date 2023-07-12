@@ -66,7 +66,7 @@ public class AdminController {
      * @return the string
      */
     @GetMapping(value = "UserPowerMaintain")
-    public String UserPowerMaintain(Model model){
+    public String userPowerMaintain(Model model){
         model.addAttribute("userList",userService.getAll());
         return "admin_user_power_maintain";
     }

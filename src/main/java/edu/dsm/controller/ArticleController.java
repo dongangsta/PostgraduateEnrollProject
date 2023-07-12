@@ -14,9 +14,15 @@ import io.swagger.annotations.Api;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +42,7 @@ import java.util.regex.Pattern;
 @Api(tags = "文章管理") //  tags：你可以当作是这个组的名字。
 @Controller
 public class ArticleController {
+    static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
     @Resource
     private ArticleService articleService;
     @Resource
@@ -147,11 +154,11 @@ public class ArticleController {
      * @return the string
      */
     @ResponseBody
-    @RequestMapping(value = "addArticle",method = RequestMethod.GET)
+    @GetMapping("addArticle")
     public String addArticle(String text, String title, String collegeName, HttpServletRequest request){
         String userName = CookieUtil.getCookieUserName(request);
         User user = userService.getByUserName(userName);
-        System.out.println("text="+text);
+        logger.info("text="+text);
         //  对文章进行审核
         if (text!=null) {
             String conclusion = greenTextUtils.greenText(text);
@@ -162,7 +169,7 @@ public class ArticleController {
             }
             else {
                 if ("合规".equals(conclusion)) {
-                    int cnt = articleService.addArticle(user.getUserId(), collegeName, title, text);
+                    articleService.addArticle(user.getUserId(), collegeName, title, text);
                     JOptionPane.showMessageDialog(null,"审核通过，文章已添加!","文章已添加",JOptionPane.PLAIN_MESSAGE);
                 } else if ("不合规".equals(conclusion)) {
                     JOptionPane.showMessageDialog(null,"审核不通过，文章不合规!","文章不合规",JOptionPane.PLAIN_MESSAGE);
@@ -181,7 +188,7 @@ public class ArticleController {
      */
     @PostMapping(value = "deleteBatchArticles")
     public String deleteBatchArticles(Model model,Integer [] ids ){
-        int cnt  = articleService.deleteBatchArticles(ids);
+        articleService.deleteBatchArticles(ids);
         List<Article> articleList= articleService.getAll();
         model.addAttribute("showList", turnArticleListToShowList(articleList));
         return "admin_maintain_article";
@@ -273,28 +280,29 @@ public class ArticleController {
             for (String path:paths) {
                 Document document = Jsoup.connect(path).timeout(20000).get();
                 String title = document.title();
-                System.out.println("正在添加的title is" + title);
+                logger.info("正在添加的title is" + title);
+
                 Elements textInElements = document.getElementById("root").getElementsByClass("RichText ztext Post-RichText css-4em6pe");
                 String text = textInElements.toString();
                 text = text.replaceAll("</div?[^>]+>", ""); //剔出</div>的标签
                 text = text.replaceAll("<div?[^>]+>", ""); //剔出<div>的标签
                 int cnt = articleService.addArticle(1,collegeName,title,text);
                 if (cnt == 1){
-                    System.out.println(title + "添加成功");
+                    logger.info(title + "添加成功");
                     num++;
                 }
             }
             if(num == paths.size()) {
-                System.out.println("全部添加成功，成功个数" +paths.size());
+                logger.info("全部添加成功，成功个数" +paths.size());
                 return true;
             }
             else{
-                System.out.println("部分添加失败，失败个数" + (paths.size()-num));
+                logger.error("部分添加失败，失败个数" + (paths.size()-num));
                 return false;
             }
         }
         catch (IOException e){
-            System.out.println("IO读写异常");
+            logger.error("IO读写异常");
             return false;
         }
     }

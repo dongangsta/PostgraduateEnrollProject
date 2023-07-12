@@ -1,12 +1,12 @@
 package edu.dsm.test.function;
 
-import cn.hutool.json.JSONUtil;
 import edu.dsm.util.WebUtil;
 import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,12 +33,8 @@ public class WebTest {
     }
     @Test
     public void localDateTest(){
-        String originalStr = "付款结果: {\"success\":true}";
-        String escapedStr = originalStr.replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n");
-        System.out.println(escapedStr);
-
+        LocalDate closeStart = LocalDate.of(2023,6,27);
+        System.out.println(closeStart.isBefore(LocalDate.now()));
     }
 
 
@@ -549,7 +545,7 @@ public class WebTest {
                 "D2022070714542110008-1",
                 "D2022070714542110008-2",
                 "D2022070714552110009-1");
-        System.out.println(JSONUtil.toJsonPrettyStr(forTest));
+
     }
 }
 

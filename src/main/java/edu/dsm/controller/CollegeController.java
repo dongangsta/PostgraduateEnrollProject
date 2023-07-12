@@ -83,7 +83,7 @@ public class CollegeController {
      * @return the string
      */
     @ResponseBody
-    @RequestMapping(value = "addCollege",method = RequestMethod.GET)   //  添加院校
+    @GetMapping("addCollege")   //  添加院校
     public String addCollege(String collegeName,String collegeArea,String collegeIntro,String collegeNet){
         College college = new College(collegeName,collegeArea,collegeIntro,collegeNet);
         if (!ObjectUtils.isEmpty(college.getCollegeName())){
